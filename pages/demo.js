@@ -26,6 +26,36 @@ export default function Demo() {
   // Automation Demo State
   const [showAutoFlow, setShowAutoFlow] = useState(false);
 
+  // Integrations Demo State
+  const [selectedIntegrations, setSelectedIntegrations] = useState([]);
+
+  const integrationTools = [
+    { name: 'Make.com', category: 'Automation' },
+    { name: 'Zapier', category: 'Automation' },
+    { name: 'HubSpot', category: 'CRM' },
+    { name: 'Salesforce', category: 'CRM' },
+    { name: 'Gmail', category: 'Email' },
+    { name: 'Outlook', category: 'Email' },
+    { name: 'Slack', category: 'Communication' },
+    { name: 'Google Calendar', category: 'Calendar' },
+    { name: 'Calendly', category: 'Calendar' },
+    { name: 'Stripe', category: 'Payment' },
+    { name: 'Square', category: 'Payment' },
+    { name: 'Airtable', category: 'Database' },
+    { name: 'Google Sheets', category: 'Database' },
+    { name: 'Shopify', category: 'E-commerce' },
+    { name: 'WooCommerce', category: 'E-commerce' },
+    { name: 'Custom APIs', category: 'API' },
+  ];
+
+  const toggleIntegration = (toolName) => {
+    setSelectedIntegrations(prev =>
+      prev.includes(toolName)
+        ? prev.filter(t => t !== toolName)
+        : [...prev, toolName]
+    );
+  };
+
   // Sample data
   const emailExamples = {
     inquiry: {
@@ -632,6 +662,58 @@ export default function Demo() {
           color: white;
         }
 
+        /* Integration Tools Grid */
+        .integrations-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+          gap: 15px;
+          margin: 30px 0;
+        }
+
+        .integration-tool {
+          padding: 20px;
+          border: 2px solid #dadce0;
+          border-radius: 8px;
+          text-align: center;
+          cursor: pointer;
+          transition: all 0.3s;
+          background: white;
+        }
+
+        .integration-tool:hover {
+          border-color: #673de6;
+          background: #f9f7ff;
+        }
+
+        .integration-tool.selected {
+          border-color: #673de6;
+          background: linear-gradient(135deg, rgba(103, 61, 230, 0.05) 0%, rgba(80, 37, 209, 0.05) 100%);
+        }
+
+        .integration-tool-name {
+          color: #1d1e20;
+          font-weight: 600;
+          margin-bottom: 8px;
+        }
+
+        .integration-tool-category {
+          color: #727586;
+          font-size: 12px;
+        }
+
+        .integration-tool.selected .integration-tool-name {
+          color: #673de6;
+        }
+
+        .integration-tool.selected::before {
+          content: '✓';
+          color: #673de6;
+          font-weight: bold;
+          font-size: 18px;
+          display: block;
+          margin-bottom: 5px;
+        }
+
         @media (max-width: 768px) {
           .hero h1 {
             font-size: 28px;
@@ -816,6 +898,12 @@ export default function Demo() {
               onClick={() => setActiveTab('automation')}
             >
               Workflow Automation
+            </button>
+            <button
+              className={`tab-button ${activeTab === 'integrations' ? 'active' : ''}`}
+              onClick={() => setActiveTab('integrations')}
+            >
+              Custom Integrations
             </button>
           </div>
 
@@ -1085,6 +1173,69 @@ export default function Demo() {
                   We integrate with Make.com, Zapier, your CRM, Slack, email, Google Calendar—whatever tools you already use. The automation is seamless and customized to your exact workflow.
                 </p>
               </div>
+            </div>
+          )}
+
+          {/* Tab 6: Custom Integrations */}
+          {activeTab === 'integrations' && (
+            <div className="tab-content">
+              <div className="placeholder-box" style={{ marginBottom: '30px' }}>
+                <strong>Works With ANY Tool Your Team Uses</strong>
+                <p style={{ marginTop: '15px' }}>
+                  We integrate with 100+ business tools. CRM, email, calendar, payment processor, database—if it exists, we can connect it. Click tools below to see a sample setup.
+                </p>
+              </div>
+
+              <div className="integrations-grid">
+                {integrationTools.map((tool) => (
+                  <div
+                    key={tool.name}
+                    className={`integration-tool ${selectedIntegrations.includes(tool.name) ? 'selected' : ''}`}
+                    onClick={() => toggleIntegration(tool.name)}
+                  >
+                    <div className="integration-tool-name">{tool.name}</div>
+                    <div className="integration-tool-category">{tool.category}</div>
+                  </div>
+                ))}
+              </div>
+
+              {selectedIntegrations.length > 0 && (
+                <div className="result-box" style={{ marginTop: '30px' }}>
+                  <strong>Your Integration Stack</strong>
+                  <p style={{ marginTop: '15px', marginBottom: '15px' }}>
+                    {selectedIntegrations.length} tool{selectedIntegrations.length !== 1 ? 's' : ''} selected:
+                  </p>
+                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '20px' }}>
+                    {selectedIntegrations.map((tool) => (
+                      <span
+                        key={tool}
+                        style={{
+                          background: '#ebe4ff',
+                          color: '#673de6',
+                          padding: '8px 12px',
+                          borderRadius: '4px',
+                          fontSize: '13px',
+                          fontWeight: '600'
+                        }}
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                  <p style={{ color: '#727586', fontSize: '13px' }}>
+                    We'd connect all of these into one seamless automation. Lead comes in → AI processes it → updates your CRM → sends through email → schedules in calendar → creates task—all without you lifting a finger.
+                  </p>
+                </div>
+              )}
+
+              {selectedIntegrations.length === 0 && (
+                <div className="placeholder-box" style={{ marginTop: '30px' }}>
+                  <strong>Click tools above to build your custom stack</strong>
+                  <p style={{ marginTop: '15px' }}>
+                    Your current tools don't need to be replaced. We build custom connectors to make them work together smarter.
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </div>
