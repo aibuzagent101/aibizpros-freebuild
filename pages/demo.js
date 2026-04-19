@@ -1190,6 +1190,7 @@ export default function Demo() {
                   <button
                     className="video-play-button"
                     onClick={() => {
+                      setCurrentVideoTab('lead-gen');
                       setVideoModalOpen(true);
                       setVideoPlayStep(1);
                       let step = 1;
