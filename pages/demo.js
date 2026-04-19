@@ -40,6 +40,30 @@ export default function Demo() {
   // Integrations Demo State
   const [selectedIntegrations, setSelectedIntegrations] = useState([]);
 
+  // Smart Forms Demo State
+  const [formStep, setFormStep] = useState(0);
+  const [formSize, setFormSize] = useState(null);
+  const [formChallenge, setFormChallenge] = useState(null);
+
+  const startFormDemo = () => {
+    setFormStep(1);
+    setFormSize(null);
+    setFormChallenge(null);
+    let step = 1;
+    const interval = setInterval(() => {
+      if (step === 1) {
+        setFormSize('6-25'); // Simulate selection
+      } else if (step === 2) {
+        // Conditional fields already show via formSize
+      } else if (step === 3) {
+        setFormChallenge('email'); // Simulate selection
+      }
+      step += 1;
+      setFormStep(step);
+      if (step >= 5) clearInterval(interval);
+    }, 2500); // 2.5 seconds between steps
+  };
+
   const integrationTools = [
     { name: 'Make.com', category: 'Automation' },
     { name: 'Zapier', category: 'Automation' },
@@ -1095,40 +1119,72 @@ export default function Demo() {
           {/* Tab 4: Smart Forms */}
           {activeTab === 'forms' && (
             <div className="tab-content">
-              <div className="placeholder-box" style={{ marginBottom: '30px' }}>
-                <strong>Smart Form Intelligence</strong>
-                <p style={{ marginTop: '15px' }}>
-                  Our intake forms adapt based on answers. Ask for company size first? The form asks about specific challenges for large vs. small companies. Pre-fill known data? It does that automatically. Skip unnecessary fields? Conditional logic handles it.
-                </p>
-              </div>
+              <button
+                className="demo-button"
+                onClick={startFormDemo}
+                style={{ marginBottom: '30px' }}
+              >
+                {formStep === 0 ? '▶ Play 10-Second Demo' : 'Demo Running...'}
+              </button>
 
-              <div className="demo-form">
-                <h3>Sample: Adaptive Service Intake Form</h3>
-                <div className="form-group">
-                  <label>How many employees do you have?</label>
-                  <select defaultValue="">
-                    <option value="">Select...</option>
-                    <option value="1-5">1-5 employees</option>
-                    <option value="6-25">6-25 employees</option>
-                    <option value="26-100">26-100 employees</option>
-                    <option value="100+">100+ employees</option>
-                  </select>
+              {formStep > 0 && (
+                <div>
+                  {formStep >= 1 && (
+                    <div style={{ marginBottom: '20px', padding: '20px', background: '#f2f3f6', borderRadius: '8px', animation: 'slideIn 0.5s ease-out' }}>
+                      <h4 style={{ color: '#1d1e20', marginBottom: '15px', fontSize: '15px' }}>Question 1: How many employees do you have?</h4>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
+                        <button style={{ padding: '12px', background: formSize === '1-5' ? '#673de6' : 'white', color: formSize === '1-5' ? 'white' : '#1d1e20', border: `2px solid ${formSize === '1-5' ? '#673de6' : '#dadce0'}`, borderRadius: '4px', cursor: 'pointer', fontWeight: '600', fontSize: '13px', transition: 'all 0.2s' }}>1-5</button>
+                        <button style={{ padding: '12px', background: formSize === '6-25' ? '#673de6' : 'white', color: formSize === '6-25' ? 'white' : '#1d1e20', border: `2px solid ${formSize === '6-25' ? '#673de6' : '#dadce0'}`, borderRadius: '4px', cursor: 'pointer', fontWeight: '600', fontSize: '13px', transition: 'all 0.2s' }}>6-25</button>
+                        <button style={{ padding: '12px', background: formSize === '26-100' ? '#673de6' : 'white', color: formSize === '26-100' ? 'white' : '#1d1e20', border: `2px solid ${formSize === '26-100' ? '#673de6' : '#dadce0'}`, borderRadius: '4px', cursor: 'pointer', fontWeight: '600', fontSize: '13px', transition: 'all 0.2s' }}>26-100</button>
+                        <button style={{ padding: '12px', background: formSize === '100+' ? '#673de6' : 'white', color: formSize === '100+' ? 'white' : '#1d1e20', border: `2px solid ${formSize === '100+' ? '#673de6' : '#dadce0'}`, borderRadius: '4px', cursor: 'pointer', fontWeight: '600', fontSize: '13px', transition: 'all 0.2s' }}>100+</button>
+                      </div>
+                      {formSize && <div style={{ marginTop: '10px', color: '#673de6', fontWeight: '600', fontSize: '13px' }}>✓ Selected: {formSize} employees</div>}
+                    </div>
+                  )}
+
+                  {formStep >= 2 && formSize && (
+                    <div style={{ marginBottom: '20px', padding: '20px', background: '#ebe4ff', borderRadius: '8px', animation: 'slideIn 0.5s ease-out', border: '2px solid #673de6' }}>
+                      <div style={{ fontSize: '11px', color: '#673de6', fontWeight: '700', marginBottom: '8px' }}>🎯 FORM ADAPTED</div>
+                      <p style={{ color: '#1d1e20', fontSize: '13px', marginBottom: '15px' }}>
+                        Based on your company size, here are the most common challenges for {formSize === '1-5' ? 'micro' : 'small'} businesses:
+                      </p>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <button style={{ padding: '12px', background: formChallenge === 'email' ? '#673de6' : 'white', color: formChallenge === 'email' ? 'white' : '#1d1e20', border: `2px solid ${formChallenge === 'email' ? '#673de6' : '#dadce0'}`, borderRadius: '4px', cursor: 'pointer', fontWeight: '600', fontSize: '13px', transition: 'all 0.2s', textAlign: 'left' }}>📧 Email management (responding to prospects)</button>
+                        <button style={{ padding: '12px', background: formChallenge === 'lead' ? '#673de6' : 'white', color: formChallenge === 'lead' ? 'white' : '#1d1e20', border: `2px solid ${formChallenge === 'lead' ? '#673de6' : '#dadce0'}`, borderRadius: '4px', cursor: 'pointer', fontWeight: '600', fontSize: '13px', transition: 'all 0.2s', textAlign: 'left' }}>🎯 Lead qualification & follow-up</button>
+                        <button style={{ padding: '12px', background: formChallenge === 'data' ? '#673de6' : 'white', color: formChallenge === 'data' ? 'white' : '#1d1e20', border: `2px solid ${formChallenge === 'data' ? '#673de6' : '#dadce0'}`, borderRadius: '4px', cursor: 'pointer', fontWeight: '600', fontSize: '13px', transition: 'all 0.2s', textAlign: 'left' }}>📋 Data entry & CRM updates</button>
+                      </div>
+                      {formChallenge && <div style={{ marginTop: '10px', color: '#673de6', fontWeight: '600', fontSize: '13px' }}>✓ Selected: {formChallenge === 'email' ? 'Email management' : formChallenge === 'lead' ? 'Lead qualification' : 'Data entry'}</div>}
+                    </div>
+                  )}
+
+                  {formStep >= 4 && formSize && formChallenge && (
+                    <div style={{ padding: '20px', background: 'linear-gradient(135deg, #ebe4ff 0%, #f2f3f6 100%)', borderRadius: '8px', border: '2px solid #673de6', animation: 'slideIn 0.5s ease-out' }}>
+                      <div style={{ fontSize: '11px', color: '#673de6', fontWeight: '700', marginBottom: '12px' }}>🤖 AI RECOMMENDATIONS</div>
+                      <p style={{ color: '#1d1e20', fontWeight: '600', marginBottom: '12px' }}>Based on your answers, we'd recommend:</p>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <div style={{ padding: '10px', background: 'white', borderRadius: '4px', color: '#1d1e20', fontSize: '13px', borderLeft: '4px solid #673de6' }}>✓ AI Email Responder</div>
+                        <div style={{ padding: '10px', background: 'white', borderRadius: '4px', color: '#1d1e20', fontSize: '13px', borderLeft: '4px solid #673de6' }}>✓ Lead Qualifier + Auto-follow-up</div>
+                        <div style={{ padding: '10px', background: 'white', borderRadius: '4px', color: '#1d1e20', fontSize: '13px', borderLeft: '4px solid #673de6' }}>✓ CRM Integration (HubSpot/Salesforce)</div>
+                      </div>
+                      <p style={{ color: '#727586', fontSize: '12px', marginTop: '15px' }}>The form predicted your needs before you filled it out. Next, we'd ask about your specific tools and build a custom automation.</p>
+                    </div>
+                  )}
+
+                  {formStep >= 5 && (
+                    <div style={{ marginTop: '20px', padding: '20px', background: 'linear-gradient(135deg, #673de6 0%, #5025d1 100%)', borderRadius: '8px', color: 'white', textAlign: 'center', animation: 'slideIn 0.5s ease-out' }}>
+                      <div style={{ fontSize: '16px', fontWeight: '700', marginBottom: '8px' }}>✓ COMPLETE IN ~10 SECONDS</div>
+                      <p style={{ margin: '10px 0 0', fontSize: '13px', color: '#d5dfff' }}>Smart form learned your situation → adapted questions → generated recommendations. No manual form filling. No wasted time.</p>
+                    </div>
+                  )}
                 </div>
-                <div className="form-group">
-                  <label>What's your biggest workflow bottleneck?</label>
-                  <select defaultValue="">
-                    <option value="">Select...</option>
-                    <option value="lead-qual">Lead qualification</option>
-                    <option value="email">Email management</option>
-                    <option value="support">Customer support</option>
-                    <option value="data">Data entry / CRM updates</option>
-                  </select>
+              )}
+
+              {formStep === 0 && (
+                <div className="placeholder-box">
+                  <strong>Click play to see smart form adaptation in action</strong>
+                  <p style={{ marginTop: '15px' }}>Answer one question → form adapts → shows only relevant options → generates recommendations. All based on what you tell it.</p>
                 </div>
-                <button className="demo-button">Continue to Next Step</button>
-                <p style={{ color: '#727586', fontSize: '13px', marginTop: '15px' }}>
-                  Forms continue to adapt based on answers. Skip irrelevant questions. Auto-populate from existing CRM data. Perfectly aligned to your prospect's situation.
-                </p>
-              </div>
+              )}
             </div>
           )}
 
