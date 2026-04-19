@@ -775,11 +775,12 @@ export default function Demo() {
         .video-player {
           position: relative;
           width: 100%;
-          height: 200px;
+          height: 120px;
           background: linear-gradient(135deg, #1a1a2e 0%, #2a2a3e 100%);
           display: flex;
           align-items: center;
           justify-content: center;
+          border-radius: 8px 8px 0 0;
         }
 
         .video-player::before {
@@ -794,8 +795,8 @@ export default function Demo() {
         }
 
         .video-play-button {
-          width: 80px;
-          height: 80px;
+          width: 60px;
+          height: 60px;
           background: #673de6;
           border-radius: 50%;
           display: flex;
@@ -807,6 +808,7 @@ export default function Demo() {
           box-shadow: 0 8px 24px rgba(103, 61, 230, 0.4);
           border: none;
           padding: 0;
+          position: relative;
         }
 
         .video-play-button:hover {
