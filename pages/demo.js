@@ -2,62 +2,133 @@ import Head from 'next/head';
 import { useState } from 'react';
 
 export default function Demo() {
-  const [demoData, setDemoData] = useState({
+  const [activeTab, setActiveTab] = useState('lead-gen');
+
+  // Lead Gen State
+  const [leadData, setLeadData] = useState({
     leadName: '',
+    email: '',
     company: '',
     industry: '',
     budget: '',
     timeline: '',
   });
+  const [leadResult, setLeadResult] = useState(null);
 
-  const [demoResult, setDemoResult] = useState(null);
+  // Email Demo State
+  const [emailType, setEmailType] = useState('inquiry');
+  const [emailResult, setEmailResult] = useState(null);
 
-  const handleDemoChange = (e) => {
-    setDemoData({
-      ...demoData,
+  // Chatbot Demo State
+  const [chatMessages, setChatMessages] = useState([]);
+  const [chatInput, setChatInput] = useState('');
+
+  // Automation Demo State
+  const [showAutoFlow, setShowAutoFlow] = useState(false);
+
+  // Sample data
+  const emailExamples = {
+    inquiry: {
+      from: 'sarah@growthco.com',
+      subject: 'Looking for lead generation solutions',
+      body: 'Hi, we\'re a growing marketing agency and we\'re looking for AI-powered lead qualification. Can you tell me more about your pricing and what\'s included?'
+    },
+    concern: {
+      from: 'mike@techstartup.io',
+      subject: 'Worried about implementation timeline',
+      body: 'We\'re interested but worried about how long it takes to get set up. We need something fast. Is your system easy to integrate with our existing tools?'
+    }
+  };
+
+  const emailResponses = {
+    inquiry: 'Hi Sarah! Great question. Our lead qualification system automatically scores leads based on fit, budget, and timeline. Most clients see results within the first week. We offer three pricing tiers starting at just $297/month for ongoing optimization. Let\'s schedule a quick 15-minute call to see if it\'s a fit. When are you free?',
+    concern: 'Hi Mike! I love this question because implementation speed is one of our biggest advantages. Most setups take 2-4 hours, not weeks. We integrate with Make.com, Zapier, and direct APIs—so we work with whatever tools you\'re already using. No complex migrations. Want me to walk you through a quick setup flow?'
+  };
+
+  const chatbotResponses = {
+    'how much': 'Our pricing starts at $297/month for ongoing support and optimization. We also offer custom builds ranging from $1,500-$5,000 depending on complexity. Would you like to know more about a specific package?',
+    'how long': 'Most clients see results within the first 2-4 weeks. Lead qualification typically works in days, while more complex automations take a bit longer. It really depends on what you\'re building.',
+    'integration': 'We integrate with Make.com, Zapier, Google Workspace, Slack, most CRMs, and custom APIs. Pretty much any tool your team uses, we can work with.',
+    'email': 'We can set up AI-powered email responses that draft, schedule, and send personalized emails. Perfect for lead follow-up, customer support, or outreach.',
+    'chatbot': 'We build AI chatbots that handle FAQs, schedule appointments, and qualify leads automatically—24/7. They learn from your business and improve over time.',
+    'automation': 'We automate workflows like lead capture → email → CRM update → task creation. Saves your team hours each week.',
+    'default': 'Great question! We specialize in AI automations for small businesses. Our solutions include lead qualification, email automation, chatbots, and workflow streamlining. What are you most interested in?'
+  };
+
+  const handleLeadChange = (e) => {
+    setLeadData({
+      ...leadData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const runDemo = (e) => {
+  const runLeadDemo = (e) => {
     e.preventDefault();
-
     let score = 0;
     let reasons = [];
 
-    if (demoData.budget === 'high') {
+    if (leadData.budget === 'high') {
       score += 40;
       reasons.push('High budget');
-    } else if (demoData.budget === 'medium') {
+    } else if (leadData.budget === 'medium') {
       score += 20;
       reasons.push('Medium budget');
     }
 
-    if (demoData.timeline === 'urgent') {
+    if (leadData.timeline === 'urgent') {
       score += 35;
       reasons.push('Urgent timeline');
-    } else if (demoData.timeline === 'soon') {
+    } else if (leadData.timeline === 'soon') {
       score += 20;
       reasons.push('Near-term timeline');
     }
 
-    if (demoData.industry && demoData.industry !== '') {
+    if (leadData.industry && leadData.industry !== '') {
       score += 25;
-      reasons.push(`${demoData.industry} industry match`);
+      reasons.push(`${leadData.industry} industry match`);
     }
 
-    setDemoResult({
+    setLeadResult({
       score,
       reasons,
       grade: score >= 80 ? 'Hot Lead' : score >= 60 ? 'Warm Lead' : 'Follow Up',
     });
   };
 
+  const runEmailDemo = () => {
+    setEmailResult(emailResponses[emailType]);
+  };
+
+  const sendChatMessage = (e) => {
+    e.preventDefault();
+    if (!chatInput.trim()) return;
+
+    // Add user message
+    const userMsg = { type: 'user', text: chatInput };
+    const newMessages = [...chatMessages, userMsg];
+
+    // Find relevant response
+    let botResponse = chatbotResponses.default;
+    const inputLower = chatInput.toLowerCase();
+
+    for (const [key, response] of Object.entries(chatbotResponses)) {
+      if (key !== 'default' && inputLower.includes(key)) {
+        botResponse = response;
+        break;
+      }
+    }
+
+    // Add bot response
+    const botMsg = { type: 'bot', text: botResponse };
+    setChatMessages([...newMessages, botMsg]);
+    setChatInput('');
+  };
+
   return (
     <>
       <Head>
-        <title>See AI Lead Qualification In Action - AI Biz Pros</title>
-        <meta name="description" content="Watch how our AI automatically scores and qualifies leads in seconds." />
+        <title>AI Solutions Demo - AI Biz Pros</title>
+        <meta name="description" content="See how we build custom AI automations for your business." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
@@ -138,21 +209,56 @@ export default function Demo() {
 
         /* Demo Section */
         .demo-section {
-          padding: 80px 20px;
+          padding: 60px 20px;
         }
 
-        .demo-container {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 50px;
-          align-items: start;
-          margin: 50px 0;
+        /* Tabs */
+        .tabs-nav {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 40px;
+          overflow-x: auto;
+          border-bottom: 2px solid #f2f3f6;
+          padding-bottom: 0;
         }
 
+        .tab-button {
+          padding: 15px 20px;
+          background: none;
+          border: none;
+          color: #727586;
+          font-weight: 600;
+          cursor: pointer;
+          border-bottom: 3px solid transparent;
+          white-space: nowrap;
+          transition: all 0.3s;
+        }
+
+        .tab-button:hover {
+          color: #673de6;
+          border-bottom-color: #673de6;
+        }
+
+        .tab-button.active {
+          color: #673de6;
+          border-bottom-color: #673de6;
+        }
+
+        .tab-content {
+          animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        /* Form Styles */
         .demo-form {
           background: #f2f3f6;
           padding: 30px;
           border-radius: 8px;
+          margin-bottom: 30px;
         }
 
         .demo-form h3 {
@@ -176,7 +282,7 @@ export default function Demo() {
         .form-group input,
         .form-group select {
           width: 100%;
-          padding: 10px;
+          padding: 12px;
           border: 1px solid #dadce0;
           border-radius: 4px;
           font-size: 14px;
@@ -207,11 +313,12 @@ export default function Demo() {
           box-shadow: 0 4px 12px rgba(103, 61, 230, 0.3);
         }
 
-        .score-display {
+        /* Result Display */
+        .result-box {
           background: white;
           padding: 30px;
           border-radius: 8px;
-          text-align: center;
+          border: 2px solid #ebe4ff;
           animation: slideIn 0.3s ease-out;
         }
 
@@ -272,24 +379,174 @@ export default function Demo() {
           font-weight: bold;
         }
 
-        .placeholder-box {
-          background: #ebe4ff;
-          padding: 40px;
+        /* Email Display */
+        .email-example {
+          background: #f2f3f6;
+          padding: 20px;
           border-radius: 8px;
-          text-align: center;
+          margin-bottom: 20px;
         }
 
-        .placeholder-box p {
-          color: #2f1c6a;
-          font-size: 16px;
-          line-height: 1.6;
+        .email-from {
+          color: #673de6;
+          font-weight: 600;
+          margin-bottom: 5px;
         }
 
-        .placeholder-box strong {
-          display: block;
+        .email-subject {
+          color: #1d1e20;
+          font-weight: 600;
           margin-bottom: 10px;
         }
 
+        .email-body {
+          color: #36344d;
+          line-height: 1.6;
+        }
+
+        .ai-response {
+          background: white;
+          padding: 20px;
+          border-left: 4px solid #673de6;
+          border-radius: 4px;
+          margin-top: 20px;
+        }
+
+        .ai-response-label {
+          color: #673de6;
+          font-weight: 600;
+          margin-bottom: 10px;
+          font-size: 12px;
+        }
+
+        .ai-response-text {
+          color: #1d1e20;
+          line-height: 1.6;
+        }
+
+        /* Chatbot Styles */
+        .chat-container {
+          background: white;
+          border: 2px solid #ebe4ff;
+          border-radius: 8px;
+          height: 400px;
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+        }
+
+        .chat-messages {
+          flex: 1;
+          overflow-y: auto;
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .chat-message {
+          padding: 12px 16px;
+          border-radius: 8px;
+          max-width: 80%;
+          word-wrap: break-word;
+        }
+
+        .chat-message.user {
+          align-self: flex-end;
+          background: linear-gradient(135deg, #673de6 0%, #5025d1 100%);
+          color: white;
+          border-bottom-right-radius: 2px;
+        }
+
+        .chat-message.bot {
+          align-self: flex-start;
+          background: #f2f3f6;
+          color: #1d1e20;
+          border-bottom-left-radius: 2px;
+        }
+
+        .chat-form {
+          border-top: 1px solid #f2f3f6;
+          padding: 15px;
+          display: flex;
+          gap: 10px;
+        }
+
+        .chat-form input {
+          flex: 1;
+          padding: 10px;
+          border: 1px solid #dadce0;
+          border-radius: 4px;
+          font-family: inherit;
+        }
+
+        .chat-form button {
+          background: linear-gradient(135deg, #673de6 0%, #5025d1 100%);
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 4px;
+          cursor: pointer;
+          font-weight: 600;
+          transition: transform 0.2s;
+        }
+
+        .chat-form button:hover {
+          transform: translateY(-2px);
+        }
+
+        /* Automation Flow */
+        .automation-flow {
+          display: flex;
+          gap: 15px;
+          justify-content: space-between;
+          margin: 30px 0;
+          flex-wrap: wrap;
+        }
+
+        .flow-step {
+          flex: 1;
+          min-width: 200px;
+          background: #ebe4ff;
+          padding: 25px;
+          border-radius: 8px;
+          text-align: center;
+          border: 2px solid #673de6;
+        }
+
+        .flow-step-number {
+          background: linear-gradient(135deg, #673de6 0%, #5025d1 100%);
+          color: white;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          margin: 0 auto 15px;
+        }
+
+        .flow-step-title {
+          color: #1d1e20;
+          font-weight: 600;
+          margin-bottom: 10px;
+        }
+
+        .flow-step-desc {
+          color: #36344d;
+          font-size: 14px;
+        }
+
+        .flow-arrow {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #673de6;
+          font-size: 24px;
+        }
+
+        /* CTA Section */
         .cta-section {
           background: linear-gradient(135deg, #673de6 0%, #5025d1 100%);
           color: white;
@@ -333,73 +590,71 @@ export default function Demo() {
           box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
-        .back-link {
-          display: inline-block;
-          color: #673de6;
-          text-decoration: none;
-          margin-bottom: 20px;
-          font-weight: 500;
+        .placeholder-box {
+          background: #ebe4ff;
+          padding: 40px;
+          border-radius: 8px;
+          text-align: center;
         }
 
-        .back-link:hover {
-          text-decoration: underline;
+        .placeholder-box p {
+          color: #2f1c6a;
+          font-size: 16px;
+          line-height: 1.6;
+        }
+
+        .demo-buttons {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 20px;
+          flex-wrap: wrap;
+        }
+
+        .secondary-button {
+          background: white;
+          color: #673de6;
+          padding: 10px 16px;
+          border: 2px solid #673de6;
+          border-radius: 4px;
+          cursor: pointer;
+          font-weight: 600;
+          transition: all 0.2s;
+          font-size: 14px;
+        }
+
+        .secondary-button:hover {
+          background: #673de6;
+          color: white;
+        }
+
+        .secondary-button.active {
+          background: #673de6;
+          color: white;
         }
 
         @media (max-width: 768px) {
           .hero h1 {
             font-size: 28px;
-            margin-bottom: 15px;
           }
 
           .hero p {
             font-size: 15px;
-            line-height: 1.5;
           }
 
-          .demo-container {
-            grid-template-columns: 1fr;
-            gap: 30px;
+          .tabs-nav {
+            gap: 5px;
+          }
+
+          .tab-button {
+            padding: 12px 15px;
+            font-size: 13px;
           }
 
           .demo-form {
             padding: 20px;
           }
 
-          .form-group label {
-            font-size: 13px;
-            margin-bottom: 6px;
-          }
-
-          .form-group input,
-          .form-group select {
-            padding: 12px;
-            font-size: 16px;
-          }
-
-          .demo-button {
-            padding: 12px;
-            font-size: 14px;
-          }
-
-          .cta-section h2 {
-            font-size: 24px;
-            margin-bottom: 15px;
-          }
-
-          .cta-section p {
-            font-size: 14px;
-          }
-
-          .cta-button {
-            padding: 12px 32px;
-            font-size: 14px;
-          }
-
-          section {
-            padding: 40px 20px;
-          }
-
-          .score-display {
+          .result-box {
             padding: 20px;
           }
 
@@ -407,16 +662,33 @@ export default function Demo() {
             font-size: 48px;
           }
 
-          .score-grade {
-            font-size: 20px;
+          .chat-container {
+            height: 300px;
           }
 
-          .placeholder-box {
-            padding: 25px;
+          .automation-flow {
+            flex-direction: column;
+            gap: 10px;
           }
 
-          .placeholder-box p {
-            font-size: 14px;
+          .flow-step {
+            min-width: 100%;
+          }
+
+          .flow-arrow {
+            display: none;
+          }
+
+          .cta-section h2 {
+            font-size: 24px;
+          }
+
+          .demo-buttons {
+            flex-direction: column;
+          }
+
+          .secondary-button {
+            width: 100%;
           }
         }
 
@@ -429,67 +701,50 @@ export default function Demo() {
             font-size: 13px;
           }
 
-          .container {
-            padding: 0 15px;
+          .tabs-nav {
+            gap: 0;
+            padding-bottom: 5px;
           }
 
-          section {
-            padding: 25px 15px;
+          .tab-button {
+            padding: 10px 12px;
+            font-size: 11px;
+            border-bottom: none;
+            border-right: 2px solid #f2f3f6;
           }
 
-          .demo-form {
+          .tab-button.active {
+            border-right-color: #673de6;
+            border-bottom: none;
+          }
+
+          .result-box {
             padding: 15px;
           }
 
-          .form-group {
-            margin-bottom: 15px;
-          }
-
-          .form-group input,
-          .form-group select {
-            padding: 10px;
-            font-size: 16px;
-          }
-
-          .demo-button {
-            padding: 12px;
-            font-size: 13px;
-          }
-
-          .cta-section {
-            padding: 40px 15px;
-          }
-
-          .cta-section h2 {
-            font-size: 20px;
-          }
-
           .score-number {
-            font-size: 40px;
+            font-size: 36px;
           }
 
-          .score-reasons h4 {
-            font-size: 12px;
+          .chat-container {
+            height: 250px;
           }
 
-          .score-reasons li {
+          .chat-message {
+            max-width: 90%;
             font-size: 13px;
           }
 
-          .placeholder-box {
-            padding: 20px;
+          .flow-step {
+            padding: 15px;
           }
 
-          .placeholder-box strong {
-            font-size: 13px;
+          .demo-buttons {
+            gap: 5px;
           }
 
-          .placeholder-box p {
-            font-size: 12px;
-          }
-
-          header nav a {
-            margin-left: 10px;
+          .secondary-button {
+            padding: 8px 12px;
             font-size: 12px;
           }
         }
@@ -523,102 +778,114 @@ export default function Demo() {
       {/* Hero */}
       <section className="hero">
         <div className="container">
-          <h1>See It In Action</h1>
-          <p>Watch how our AI lead qualification system works in real-time. Fill out a sample lead and see how it's instantly scored and classified.</p>
+          <h1>See What's Possible</h1>
+          <p>Explore how we build AI systems that transform your business. From lead qualification to automation—see live demos of each capability.</p>
         </div>
       </section>
 
-      {/* Demo */}
+      {/* Demo Tabs */}
       <section className="demo-section">
         <div className="container">
-          <div className="demo-container">
-            <div className="demo-form">
-              <h3>Sample Lead</h3>
-              <form onSubmit={runDemo}>
-                <div className="form-group">
-                  <label>Lead Name</label>
-                  <input
-                    type="text"
-                    name="leadName"
-                    placeholder="John Smith"
-                    value={demoData.leadName}
-                    onChange={handleDemoChange}
-                  />
-                </div>
+          <div className="tabs-nav">
+            <button
+              className={`tab-button ${activeTab === 'lead-gen' ? 'active' : ''}`}
+              onClick={() => setActiveTab('lead-gen')}
+            >
+              Lead Qualification
+            </button>
+            <button
+              className={`tab-button ${activeTab === 'email' ? 'active' : ''}`}
+              onClick={() => setActiveTab('email')}
+            >
+              Email Automation
+            </button>
+            <button
+              className={`tab-button ${activeTab === 'chatbot' ? 'active' : ''}`}
+              onClick={() => setActiveTab('chatbot')}
+            >
+              AI Chatbot
+            </button>
+            <button
+              className={`tab-button ${activeTab === 'forms' ? 'active' : ''}`}
+              onClick={() => setActiveTab('forms')}
+            >
+              Smart Forms
+            </button>
+            <button
+              className={`tab-button ${activeTab === 'automation' ? 'active' : ''}`}
+              onClick={() => setActiveTab('automation')}
+            >
+              Workflow Automation
+            </button>
+          </div>
 
-                <div className="form-group">
-                  <label>Company</label>
-                  <input
-                    type="text"
-                    name="company"
-                    placeholder="ABC Marketing"
-                    value={demoData.company}
-                    onChange={handleDemoChange}
-                  />
-                </div>
+          {/* Tab 1: Lead Generation */}
+          {activeTab === 'lead-gen' && (
+            <div className="tab-content">
+              <div className="demo-form">
+                <h3>Evaluate a Lead in Seconds</h3>
+                <p style={{ color: '#727586', marginBottom: '20px', fontSize: '14px' }}>Fill out a sample lead and see how our AI automatically prioritizes it for your team.</p>
+                <form onSubmit={runLeadDemo}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+                    <div className="form-group">
+                      <label>Lead Name</label>
+                      <input type="text" name="leadName" placeholder="John Smith" value={leadData.leadName} onChange={handleLeadChange} />
+                    </div>
+                    <div className="form-group">
+                      <label>Business Email</label>
+                      <input type="email" name="email" placeholder="john@company.com" value={leadData.email} onChange={handleLeadChange} />
+                    </div>
+                    <div className="form-group">
+                      <label>Company</label>
+                      <input type="text" name="company" placeholder="ABC Marketing" value={leadData.company} onChange={handleLeadChange} />
+                    </div>
+                    <div className="form-group">
+                      <label>Industry</label>
+                      <select name="industry" value={leadData.industry} onChange={handleLeadChange}>
+                        <option value="">Select industry...</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="Professional Services">Professional Services</option>
+                        <option value="E-commerce">E-commerce</option>
+                        <option value="Real Estate">Real Estate</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label>Budget</label>
+                      <select name="budget" value={leadData.budget} onChange={handleLeadChange}>
+                        <option value="">Select budget...</option>
+                        <option value="high">$50K+/year</option>
+                        <option value="medium">$10K–$50K/year</option>
+                        <option value="low">Under $10K/year</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label>Timeline</label>
+                      <select name="timeline" value={leadData.timeline} onChange={handleLeadChange}>
+                        <option value="">Select timeline...</option>
+                        <option value="urgent">This month</option>
+                        <option value="soon">Next 1-3 months</option>
+                        <option value="later">3+ months</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button type="submit" className="demo-button" style={{ marginTop: '20px' }}>
+                    Score This Lead
+                  </button>
+                </form>
+              </div>
 
-                <div className="form-group">
-                  <label>Industry</label>
-                  <select
-                    name="industry"
-                    value={demoData.industry}
-                    onChange={handleDemoChange}
-                  >
-                    <option value="">Select an industry...</option>
-                    <option value="Technology">Technology</option>
-                    <option value="Healthcare">Healthcare</option>
-                    <option value="Consulting">Consulting</option>
-                    <option value="Professional Services">Professional Services</option>
-                    <option value="E-commerce">E-commerce</option>
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label>Budget</label>
-                  <select
-                    name="budget"
-                    value={demoData.budget}
-                    onChange={handleDemoChange}
-                  >
-                    <option value="">Select budget...</option>
-                    <option value="high">$50K+/year</option>
-                    <option value="medium">$10K–$50K/year</option>
-                    <option value="low">Under $10K/year</option>
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label>Timeline</label>
-                  <select
-                    name="timeline"
-                    value={demoData.timeline}
-                    onChange={handleDemoChange}
-                  >
-                    <option value="">Select timeline...</option>
-                    <option value="urgent">This month</option>
-                    <option value="soon">Next 1-3 months</option>
-                    <option value="later">3+ months</option>
-                  </select>
-                </div>
-
-                <button type="submit" className="demo-button">
-                  Score This Lead
-                </button>
-              </form>
-            </div>
-
-            <div>
-              {demoResult ? (
-                <div className="score-display">
-                  <div className="score-number">{demoResult.score}</div>
-                  <div className="score-grade">{demoResult.grade}</div>
+              {leadResult ? (
+                <div className="result-box">
+                  <div className="score-number">{leadResult.score}</div>
+                  <div className="score-grade">{leadResult.grade}</div>
                   <p style={{ color: '#727586', marginBottom: '20px' }}>
-                    This lead would be automatically classified and routed based on fit.
+                    This lead would be automatically classified and routed to the right team member.
                   </p>
                   <div className="score-reasons">
-                    <h4>Scoring Factors:</h4>
+                    <h4>Why this score:</h4>
                     <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-                      {demoResult.reasons.map((reason, idx) => (
+                      {leadResult.reasons.map((reason, idx) => (
                         <li key={idx}>{reason}</li>
                       ))}
                     </ul>
@@ -626,26 +893,212 @@ export default function Demo() {
                 </div>
               ) : (
                 <div className="placeholder-box">
-                  <strong>Fill out the form and click "Score This Lead"</strong>
+                  <strong>Fill out the form to see lead scoring in action</strong>
                   <p>
-                    Watch how our AI qualification system instantly evaluates and prioritizes leads. This is just one example—we customize the scoring criteria to match your business.
+                    Our AI evaluates leads across dozens of criteria and gives you an instant priority score. Hot leads get reached out to immediately, while others are marked for follow-up. Fully customizable to your business.
                   </p>
                 </div>
               )}
             </div>
-          </div>
+          )}
+
+          {/* Tab 2: Email Automation */}
+          {activeTab === 'email' && (
+            <div className="tab-content">
+              <div className="demo-form">
+                <h3>AI Email Response Generator</h3>
+                <p style={{ color: '#727586', marginBottom: '20px', fontSize: '14px' }}>See how our AI drafts professional, personalized responses to prospect emails.</p>
+                <div className="demo-buttons">
+                  <button
+                    className={`secondary-button ${emailType === 'inquiry' ? 'active' : ''}`}
+                    onClick={() => { setEmailType('inquiry'); setEmailResult(null); }}
+                  >
+                    Prospect Inquiry
+                  </button>
+                  <button
+                    className={`secondary-button ${emailType === 'concern' ? 'active' : ''}`}
+                    onClick={() => { setEmailType('concern'); setEmailResult(null); }}
+                  >
+                    Prospect Concern
+                  </button>
+                </div>
+
+                <div className="email-example">
+                  <div className="email-from">From: {emailExamples[emailType].from}</div>
+                  <div className="email-subject">Subject: {emailExamples[emailType].subject}</div>
+                  <div className="email-body">{emailExamples[emailType].body}</div>
+                </div>
+
+                <button onClick={runEmailDemo} className="demo-button">
+                  Generate AI Response
+                </button>
+              </div>
+
+              {emailResult && (
+                <div className="result-box">
+                  <div className="ai-response">
+                    <div className="ai-response-label">AI-GENERATED RESPONSE</div>
+                    <div className="ai-response-text">{emailResult}</div>
+                  </div>
+                  <p style={{ color: '#727586', marginTop: '20px', fontSize: '13px' }}>
+                    Your team can edit, send, or schedule this response. The more you use it, the smarter it gets.
+                  </p>
+                </div>
+              )}
+
+              {!emailResult && (
+                <div className="placeholder-box">
+                  <strong>Click "Generate AI Response" to see the magic</strong>
+                  <p>
+                    Our email automation learns your voice and business context. It can handle prospects asking questions, raising concerns, or requesting demos—all personalized and professional.
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Tab 3: Chatbot */}
+          {activeTab === 'chatbot' && (
+            <div className="tab-content">
+              <div className="demo-form">
+                <h3>24/7 AI Customer Support Chatbot</h3>
+                <p style={{ color: '#727586', marginBottom: '20px', fontSize: '14px' }}>Ask the chatbot any question about our services. It responds instantly, 24/7.</p>
+              </div>
+
+              <div className="chat-container">
+                <div className="chat-messages">
+                  {chatMessages.length === 0 ? (
+                    <div style={{ textAlign: 'center', color: '#727586', marginTop: '80px' }}>
+                      <p style={{ marginBottom: '10px' }}>👋 Start a conversation</p>
+                      <p style={{ fontSize: '13px' }}>Ask about pricing, features, integrations, or how we work</p>
+                    </div>
+                  ) : (
+                    chatMessages.map((msg, idx) => (
+                      <div key={idx} className={`chat-message ${msg.type}`}>
+                        {msg.text}
+                      </div>
+                    ))
+                  )}
+                </div>
+                <form className="chat-form" onSubmit={sendChatMessage}>
+                  <input
+                    type="text"
+                    placeholder="Ask a question..."
+                    value={chatInput}
+                    onChange={(e) => setChatInput(e.target.value)}
+                  />
+                  <button type="submit">Send</button>
+                </form>
+              </div>
+            </div>
+          )}
+
+          {/* Tab 4: Smart Forms */}
+          {activeTab === 'forms' && (
+            <div className="tab-content">
+              <div className="placeholder-box" style={{ marginBottom: '30px' }}>
+                <strong>Smart Form Intelligence</strong>
+                <p style={{ marginTop: '15px' }}>
+                  Our intake forms adapt based on answers. Ask for company size first? The form asks about specific challenges for large vs. small companies. Pre-fill known data? It does that automatically. Skip unnecessary fields? Conditional logic handles it.
+                </p>
+              </div>
+
+              <div className="demo-form">
+                <h3>Sample: Adaptive Service Intake Form</h3>
+                <div className="form-group">
+                  <label>How many employees do you have?</label>
+                  <select defaultValue="">
+                    <option value="">Select...</option>
+                    <option value="1-5">1-5 employees</option>
+                    <option value="6-25">6-25 employees</option>
+                    <option value="26-100">26-100 employees</option>
+                    <option value="100+">100+ employees</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>What's your biggest workflow bottleneck?</label>
+                  <select defaultValue="">
+                    <option value="">Select...</option>
+                    <option value="lead-qual">Lead qualification</option>
+                    <option value="email">Email management</option>
+                    <option value="support">Customer support</option>
+                    <option value="data">Data entry / CRM updates</option>
+                  </select>
+                </div>
+                <button className="demo-button">Continue to Next Step</button>
+                <p style={{ color: '#727586', fontSize: '13px', marginTop: '15px' }}>
+                  Forms continue to adapt based on answers. Skip irrelevant questions. Auto-populate from existing CRM data. Perfectly aligned to your prospect's situation.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Tab 5: Automation */}
+          {activeTab === 'automation' && (
+            <div className="tab-content">
+              <div className="placeholder-box" style={{ marginBottom: '40px' }}>
+                <strong>Complete Workflow Automation</strong>
+                <p style={{ marginTop: '15px' }}>
+                  A customer inquiry comes in. Instantly, your AI generates a response, assigns it to the right team member, schedules a follow-up, and creates a task in your project tracker.
+                </p>
+              </div>
+
+              <button
+                className="demo-button"
+                onClick={() => setShowAutoFlow(true)}
+                style={{ marginBottom: '30px' }}
+              >
+                See Automation in Action
+              </button>
+
+              {showAutoFlow && (
+                <div className="automation-flow">
+                  <div className="flow-step">
+                    <div className="flow-step-number">1</div>
+                    <div className="flow-step-title">Customer Email</div>
+                    <div className="flow-step-desc">Inquiry arrives in your inbox</div>
+                  </div>
+                  <div className="flow-arrow">→</div>
+                  <div className="flow-step">
+                    <div className="flow-step-number">2</div>
+                    <div className="flow-step-title">AI Response</div>
+                    <div className="flow-step-desc">Automatic reply drafted & sent</div>
+                  </div>
+                  <div className="flow-arrow">→</div>
+                  <div className="flow-step">
+                    <div className="flow-step-number">3</div>
+                    <div className="flow-step-title">Team Assignment</div>
+                    <div className="flow-step-desc">Routed to right team member</div>
+                  </div>
+                  <div className="flow-arrow">→</div>
+                  <div className="flow-step">
+                    <div className="flow-step-number">4</div>
+                    <div className="flow-step-title">Task Created</div>
+                    <div className="flow-step-desc">Follow-up scheduled in your tool</div>
+                  </div>
+                </div>
+              )}
+
+              <div className="result-box" style={{ marginTop: '30px' }}>
+                <strong>Result: What used to take your team 30 minutes now happens in 30 seconds.</strong>
+                <p style={{ color: '#727586', marginTop: '15px' }}>
+                  We integrate with Make.com, Zapier, your CRM, Slack, email, Google Calendar—whatever tools you already use. The automation is seamless and customized to your exact workflow.
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
       {/* CTA */}
       <section className="cta-section">
         <div className="container">
-          <h2>Ready to Get Started?</h2>
+          <h2>Ready to Build Your AI System?</h2>
           <p>
-            This is just a sample of what's possible. Our AI systems are fully customized to your business, integrating with your existing tools and workflows.
+            These aren't theoretical. We build these exact systems for businesses just like yours. Small team? Large company? Any industry. We customize everything to fit how you work.
           </p>
           <a href="/#pricing" className="cta-button">
-            Explore Our Pricing
+            See Our Pricing & Options
           </a>
         </div>
       </section>
