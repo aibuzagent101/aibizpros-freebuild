@@ -1645,7 +1645,7 @@ export default function Demo() {
                           <div style={{ fontSize: '11px', color: '#673de6', fontWeight: '700', marginBottom: '10px' }}>🤖 STEP 4: AUTOMATION RULES CONFIGURED</div>
                           <div style={{ fontSize: '13px', color: '#1d1e20', marginBottom: '12px' }}>AI sets up intelligent logic:</div>
                           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                            <div style={{ padding: '10px', background: 'white', borderRadius: '4px', fontSize: '12px', color: '#1d1e20' }}>→ If lead score > 80, assign to Jessica (AE)</div>
+                            <div style={{ padding: '10px', background: 'white', borderRadius: '4px', fontSize: '12px', color: '#1d1e20' }}>→ If lead score &gt; 80, assign to Jessica (AE)</div>
                             <div style={{ padding: '10px', background: 'white', borderRadius: '4px', fontSize: '12px', color: '#1d1e20' }}>→ If customer email arrives, auto-respond + add to task list</div>
                             <div style={{ padding: '10px', background: 'white', borderRadius: '4px', fontSize: '12px', color: '#1d1e20' }}>→ If reply received, update CRM + schedule follow-up</div>
                           </div>
