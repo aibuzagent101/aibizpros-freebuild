@@ -775,7 +775,7 @@ export default function Demo() {
         .video-player {
           position: relative;
           width: 100%;
-          height: 400px;
+          height: 200px;
           background: linear-gradient(135deg, #1a1a2e 0%, #2a2a3e 100%);
           display: flex;
           align-items: center;
