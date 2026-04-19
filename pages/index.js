@@ -11,6 +11,7 @@ export default function Home() {
   });
 
   const [demoResult, setDemoResult] = useState(null);
+  const [emailResult, setEmailResult] = useState(null);
   const [showQuoteModal, setShowQuoteModal] = useState(false);
   const [quoteFormData, setQuoteFormData] = useState({
     companyName: '',
