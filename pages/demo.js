@@ -766,9 +766,7 @@ export default function Demo() {
 
         /* Video Placeholder Styles */
         .video-placeholder {
-          background: #2a2a3e;
           border-radius: 8px;
-          padding: 0;
           overflow: hidden;
           margin-bottom: 20px;
           border: 2px solid #ebe4ff;
@@ -777,14 +775,14 @@ export default function Demo() {
         .video-player {
           position: relative;
           width: 100%;
-          padding-bottom: 56.25%; /* 16:9 aspect ratio */
-          background: #1a1a2e;
+          height: 400px;
+          background: linear-gradient(135deg, #1a1a2e 0%, #2a2a3e 100%);
           display: flex;
           align-items: center;
           justify-content: center;
         }
 
-        .video-player::after {
+        .video-player::before {
           content: '';
           position: absolute;
           top: 0;
@@ -792,10 +790,10 @@ export default function Demo() {
           width: 100%;
           height: 100%;
           background: radial-gradient(circle at center, rgba(103, 61, 230, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%);
+          pointer-events: none;
         }
 
         .video-play-button {
-          position: absolute;
           width: 80px;
           height: 80px;
           background: #673de6;
@@ -805,8 +803,10 @@ export default function Demo() {
           justify-content: center;
           cursor: pointer;
           transition: all 0.3s;
-          z-index: 2;
+          z-index: 10;
           box-shadow: 0 8px 24px rgba(103, 61, 230, 0.4);
+          border: none;
+          padding: 0;
         }
 
         .video-play-button:hover {
@@ -815,8 +815,7 @@ export default function Demo() {
           box-shadow: 0 12px 32px rgba(103, 61, 230, 0.6);
         }
 
-        .video-play-button::after {
-          content: '▶';
+        .video-play-button-icon {
           color: white;
           font-size: 32px;
           margin-left: 5px;
@@ -1098,7 +1097,13 @@ export default function Demo() {
               {/* Example Video Placeholder */}
               <div className="video-placeholder" style={{ marginBottom: '40px' }}>
                 <div className="video-player">
-                  <div className="video-play-button"></div>
+                  <button
+                    className="video-play-button"
+                    onClick={() => alert('Video player: Lead Qualification Automation In Action (2:15 min)\n\nThis is a placeholder. Real video would show:\n- Leads arriving in real-time\n- AI scoring and prioritization\n- Automatic routing to team members\n- Live integration with CRM')}
+                    title="Play video"
+                  >
+                    <span className="video-play-button-icon">▶</span>
+                  </button>
                 </div>
                 <div className="video-info">
                   <div className="video-title">Lead Qualification Automation In Action</div>
