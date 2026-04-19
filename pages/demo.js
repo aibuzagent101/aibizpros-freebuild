@@ -896,6 +896,7 @@ export default function Demo() {
           align-items: center;
           justify-content: center;
           position: relative;
+          overflow-y: auto;
         }
 
         .video-modal-close {
