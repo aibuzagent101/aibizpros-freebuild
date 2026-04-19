@@ -347,7 +347,13 @@ export default function Demo() {
 
         @media (max-width: 768px) {
           .hero h1 {
-            font-size: 32px;
+            font-size: 28px;
+            margin-bottom: 15px;
+          }
+
+          .hero p {
+            font-size: 15px;
+            line-height: 1.5;
           }
 
           .demo-container {
@@ -355,8 +361,136 @@ export default function Demo() {
             gap: 30px;
           }
 
+          .demo-form {
+            padding: 20px;
+          }
+
+          .form-group label {
+            font-size: 13px;
+            margin-bottom: 6px;
+          }
+
+          .form-group input,
+          .form-group select {
+            padding: 12px;
+            font-size: 16px;
+          }
+
+          .demo-button {
+            padding: 12px;
+            font-size: 14px;
+          }
+
           .cta-section h2 {
-            font-size: 28px;
+            font-size: 24px;
+            margin-bottom: 15px;
+          }
+
+          .cta-section p {
+            font-size: 14px;
+          }
+
+          .cta-button {
+            padding: 12px 32px;
+            font-size: 14px;
+          }
+
+          section {
+            padding: 40px 20px;
+          }
+
+          .score-display {
+            padding: 20px;
+          }
+
+          .score-number {
+            font-size: 48px;
+          }
+
+          .score-grade {
+            font-size: 20px;
+          }
+
+          .placeholder-box {
+            padding: 25px;
+          }
+
+          .placeholder-box p {
+            font-size: 14px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .hero h1 {
+            font-size: 22px;
+          }
+
+          .hero p {
+            font-size: 13px;
+          }
+
+          .container {
+            padding: 0 15px;
+          }
+
+          section {
+            padding: 25px 15px;
+          }
+
+          .demo-form {
+            padding: 15px;
+          }
+
+          .form-group {
+            margin-bottom: 15px;
+          }
+
+          .form-group input,
+          .form-group select {
+            padding: 10px;
+            font-size: 16px;
+          }
+
+          .demo-button {
+            padding: 12px;
+            font-size: 13px;
+          }
+
+          .cta-section {
+            padding: 40px 15px;
+          }
+
+          .cta-section h2 {
+            font-size: 20px;
+          }
+
+          .score-number {
+            font-size: 40px;
+          }
+
+          .score-reasons h4 {
+            font-size: 12px;
+          }
+
+          .score-reasons li {
+            font-size: 13px;
+          }
+
+          .placeholder-box {
+            padding: 20px;
+          }
+
+          .placeholder-box strong {
+            font-size: 13px;
+          }
+
+          .placeholder-box p {
+            font-size: 12px;
+          }
+
+          header nav a {
+            margin-left: 10px;
+            font-size: 12px;
           }
         }
       `}</style>

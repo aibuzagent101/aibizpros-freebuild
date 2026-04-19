@@ -822,19 +822,28 @@ export default function Home() {
         /* Responsive */
         @media (max-width: 768px) {
           .hero h1 {
-            font-size: 36px;
+            font-size: 32px;
+            margin-bottom: 15px;
           }
 
           .hero p {
-            font-size: 16px;
+            font-size: 15px;
+            line-height: 1.5;
           }
 
           section h2 {
-            font-size: 32px;
+            font-size: 28px;
+            margin-bottom: 15px;
+          }
+
+          section .subtitle {
+            font-size: 15px;
+            margin-bottom: 30px;
           }
 
           .two-column {
             grid-template-columns: 1fr;
+            gap: 30px;
           }
 
           .pricing-card.featured {
@@ -847,10 +856,199 @@ export default function Home() {
 
           .hero-ctas {
             flex-direction: column;
+            gap: 12px;
+          }
+
+          .btn {
+            width: 100%;
+            padding: 12px 24px;
+            font-size: 15px;
           }
 
           .cta-buttons {
             flex-direction: column;
+            gap: 12px;
+          }
+
+          .cta-button {
+            width: 100%;
+          }
+
+          .services-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+          }
+
+          .process-steps {
+            grid-template-columns: 1fr;
+            gap: 20px;
+          }
+
+          .pricing-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+          }
+
+          .demo-container {
+            grid-template-columns: 1fr;
+            gap: 30px;
+          }
+
+          .modal-content {
+            padding: 25px;
+            max-width: 95vw;
+            max-height: 95vh;
+          }
+
+          .modal-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+          }
+
+          .modal-header h2 {
+            font-size: 22px;
+          }
+
+          .quote-form {
+            grid-template-columns: 1fr;
+            gap: 15px;
+          }
+
+          .quote-form-full {
+            grid-column: 1;
+          }
+
+          .quote-form-group input,
+          .quote-form-group select,
+          .quote-form-group textarea {
+            font-size: 16px;
+            padding: 12px;
+          }
+
+          section {
+            padding: 40px 20px;
+          }
+
+          .faq-item {
+            padding: 15px;
+            margin: 12px 0;
+          }
+
+          .demo-form {
+            padding: 20px;
+          }
+
+          .form-group input,
+          .form-group select {
+            padding: 12px;
+            font-size: 16px;
+          }
+
+          .score-display {
+            padding: 20px;
+          }
+
+          .score-number {
+            font-size: 48px;
+          }
+
+          .header-content {
+            flex-direction: column;
+            gap: 15px;
+          }
+
+          header nav a {
+            margin-left: 15px;
+            font-size: 13px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .hero h1 {
+            font-size: 24px;
+            margin-bottom: 12px;
+          }
+
+          .hero p {
+            font-size: 14px;
+          }
+
+          section h2 {
+            font-size: 22px;
+          }
+
+          .container {
+            padding: 0 15px;
+          }
+
+          section {
+            padding: 30px 15px;
+          }
+
+          .modal-content {
+            padding: 20px;
+          }
+
+          .btn {
+            padding: 12px 20px;
+            font-size: 14px;
+          }
+
+          .quote-form-group label {
+            font-size: 13px;
+          }
+
+          .quote-submit {
+            padding: 12px;
+            font-size: 14px;
+          }
+
+          .services-grid {
+            gap: 15px;
+          }
+
+          .service-card {
+            padding: 25px;
+          }
+
+          .service-card h3 {
+            font-size: 18px;
+          }
+
+          .pricing-card h3 {
+            font-size: 20px;
+          }
+
+          .pricing-card .price {
+            font-size: 36px;
+          }
+
+          .demo-button {
+            padding: 12px;
+            font-size: 14px;
+          }
+
+          .faq-item {
+            padding: 12px;
+          }
+
+          .faq-item strong {
+            font-size: 14px;
+          }
+
+          .step-number {
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            font-size: 16px;
+          }
+
+          .step h3 {
+            font-size: 16px;
+          }
+
+          .two-column h3 {
+            font-size: 22px;
           }
         }
       `}</style>
