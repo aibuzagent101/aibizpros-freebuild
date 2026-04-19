@@ -74,6 +74,10 @@ export default function Demo() {
   const [formSize, setFormSize] = useState(null);
   const [formChallenge, setFormChallenge] = useState(null);
 
+  // Video Modal State
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
+  const [videoPlayStep, setVideoPlayStep] = useState(0);
+
   const startFormDemo = () => {
     setFormStep(1);
     setFormSize(null);
@@ -849,6 +853,76 @@ export default function Demo() {
           font-size: 12px;
         }
 
+        /* Video Modal */
+        .video-modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.7);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+        }
+
+        .video-modal-content {
+          background: white;
+          border-radius: 8px;
+          width: 90%;
+          max-width: 800px;
+          overflow: hidden;
+        }
+
+        .video-modal-player {
+          background: #1a1a2e;
+          width: 100%;
+          height: 450px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+        }
+
+        .video-modal-close {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          background: rgba(255, 255, 255, 0.9);
+          border: none;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          cursor: pointer;
+          font-size: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1001;
+        }
+
+        .video-modal-close:hover {
+          background: white;
+        }
+
+        .video-modal-info {
+          padding: 30px;
+        }
+
+        .video-modal-title {
+          font-size: 20px;
+          font-weight: 700;
+          color: #1d1e20;
+          margin-bottom: 15px;
+        }
+
+        .video-modal-desc {
+          color: #727586;
+          line-height: 1.6;
+          font-size: 14px;
+        }
+
         /* Integration Tools Grid */
         .integrations-grid {
           display: grid;
@@ -1102,6 +1176,16 @@ export default function Demo() {
                 <div className="video-player">
                   <button
                     className="video-play-button"
+                    onClick={() => {
+                      setVideoModalOpen(true);
+                      setVideoPlayStep(1);
+                      let step = 1;
+                      const interval = setInterval(() => {
+                        step += 1;
+                        setVideoPlayStep(step);
+                        if (step >= 6) clearInterval(interval);
+                      }, 2000);
+                    }}
                     title="Play video"
                   >
                     <span className="video-play-button-icon">▶</span>
@@ -1721,6 +1805,78 @@ export default function Demo() {
           </a>
         </div>
       </section>
+
+      {/* Video Modal */}
+      {videoModalOpen && (
+        <div className="video-modal-overlay" onClick={() => setVideoModalOpen(false)}>
+          <div className="video-modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="video-modal-player">
+              <button className="video-modal-close" onClick={() => setVideoModalOpen(false)}>×</button>
+
+              {/* Mock Video Content - Screen Recording Style */}
+              <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%)', display: 'flex', flexDirection: 'column', padding: '20px', fontFamily: 'monospace', fontSize: '12px', color: '#333', overflow: 'hidden' }}>
+                {/* Browser Chrome */}
+                <div style={{ background: '#f0f0f0', padding: '10px', borderBottom: '1px solid #ccc', marginBottom: '10px', borderRadius: '4px 4px 0 0' }}>
+                  <div style={{ display: 'flex', gap: '5px', marginBottom: '8px' }}>
+                    <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f57' }}></div>
+                    <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }}></div>
+                    <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#28c940' }}></div>
+                  </div>
+                  <div style={{ color: '#666', fontSize: '11px' }}>Lead Qualification System — AI Processing</div>
+                </div>
+
+                {/* Screen Recording Content */}
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '20px', background: 'white' }}>
+                  {videoPlayStep >= 1 && (
+                    <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}>
+                      <div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>📧 NEW LEAD INCOMING</div>
+                      <div style={{ color: '#666', marginLeft: '10px' }}>From: sarah@growthco.com</div>
+                      <div style={{ color: '#666', marginLeft: '10px' }}>Subject: Lead generation solutions inquiry</div>
+                    </div>
+                  )}
+
+                  {videoPlayStep >= 2 && (
+                    <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}>
+                      <div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>🤖 AI ANALYZING...</div>
+                      <div style={{ color: '#666', marginLeft: '10px' }}>✓ Budget: $50K+/year</div>
+                      <div style={{ color: '#666', marginLeft: '10px' }}>✓ Timeline: This month (URGENT)</div>
+                      <div style={{ color: '#666', marginLeft: '10px' }}>✓ Industry: Marketing (good fit)</div>
+                    </div>
+                  )}
+
+                  {videoPlayStep >= 3 && (
+                    <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}>
+                      <div style={{ color: '#28c940', fontWeight: 'bold', marginBottom: '5px' }}>✓ SCORE: 92/100 — HOT LEAD</div>
+                      <div style={{ color: '#666', marginLeft: '10px' }}>Classification: Immediate follow-up required</div>
+                    </div>
+                  )}
+
+                  {videoPlayStep >= 4 && (
+                    <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}>
+                      <div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>➜ ROUTING TO TEAM</div>
+                      <div style={{ color: '#666', marginLeft: '10px' }}>Assigned to: Jessica Liu (Account Executive)</div>
+                      <div style={{ color: '#666', marginLeft: '10px' }}>Priority: HIGH</div>
+                    </div>
+                  )}
+
+                  {videoPlayStep >= 5 && (
+                    <div style={{ animation: 'fadeIn 0.5s' }}>
+                      <div style={{ color: '#28c940', fontWeight: 'bold', marginBottom: '5px' }}>✓ COMPLETE</div>
+                      <div style={{ color: '#666', marginLeft: '10px' }}>Lead qualified, assigned, and alerted in 2.3 seconds</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="video-modal-info">
+              <div className="video-modal-title">Lead Qualification Automation</div>
+              <div className="video-modal-desc">
+                This shows how incoming leads are automatically scored based on budget, timeline, and fit. Hot leads are immediately routed to your team. No manual work required.
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
