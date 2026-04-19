@@ -57,6 +57,17 @@ export default function Demo() {
 
   // Integrations Demo State
   const [selectedIntegrations, setSelectedIntegrations] = useState([]);
+  const [integrationDemoStep, setIntegrationDemoStep] = useState(0);
+
+  const startIntegrationDemo = () => {
+    setIntegrationDemoStep(1);
+    let step = 1;
+    const interval = setInterval(() => {
+      step += 1;
+      setIntegrationDemoStep(step);
+      if (step >= 6) clearInterval(interval);
+    }, 2200); // 2.2 seconds between steps
+  };
 
   // Smart Forms Demo State
   const [formStep, setFormStep] = useState(0);
@@ -1458,31 +1469,126 @@ export default function Demo() {
               </div>
 
               {selectedIntegrations.length > 0 && (
-                <div className="result-box" style={{ marginTop: '30px' }}>
-                  <strong>Your Integration Stack</strong>
-                  <p style={{ marginTop: '15px', marginBottom: '15px' }}>
-                    {selectedIntegrations.length} tool{selectedIntegrations.length !== 1 ? 's' : ''} selected:
-                  </p>
-                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '20px' }}>
-                    {selectedIntegrations.map((tool) => (
-                      <span
-                        key={tool}
-                        style={{
-                          background: '#ebe4ff',
-                          color: '#673de6',
-                          padding: '8px 12px',
-                          borderRadius: '4px',
-                          fontSize: '13px',
-                          fontWeight: '600'
-                        }}
-                      >
-                        {tool}
-                      </span>
-                    ))}
+                <div style={{ marginTop: '30px' }}>
+                  <div className="result-box" style={{ marginBottom: '30px' }}>
+                    <strong>Your Integration Stack</strong>
+                    <p style={{ marginTop: '15px', marginBottom: '15px' }}>
+                      {selectedIntegrations.length} tool{selectedIntegrations.length !== 1 ? 's' : ''} selected:
+                    </p>
+                    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '20px' }}>
+                      {selectedIntegrations.map((tool) => (
+                        <span
+                          key={tool}
+                          style={{
+                            background: '#ebe4ff',
+                            color: '#673de6',
+                            padding: '8px 12px',
+                            borderRadius: '4px',
+                            fontSize: '13px',
+                            fontWeight: '600'
+                          }}
+                        >
+                          {tool}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <p style={{ color: '#727586', fontSize: '13px' }}>
-                    We'd connect all of these into one seamless automation. Lead comes in → AI processes it → updates your CRM → sends through email → schedules in calendar → creates task—all without you lifting a finger.
-                  </p>
+
+                  {/* Integration Setup Demo */}
+                  <button
+                    className="demo-button"
+                    onClick={startIntegrationDemo}
+                    style={{ marginBottom: '30px' }}
+                  >
+                    {integrationDemoStep === 0 ? '▶ See Setup Steps & Results' : 'Demo Running...'}
+                  </button>
+
+                  {integrationDemoStep > 0 && (
+                    <div>
+                      {integrationDemoStep >= 1 && (
+                        <div style={{ marginBottom: '20px', padding: '18px', background: '#f2f3f6', borderRadius: '8px', border: '2px solid #673de6', animation: 'slideIn 0.5s ease-out' }}>
+                          <div style={{ fontSize: '11px', color: '#673de6', fontWeight: '700', marginBottom: '10px' }}>📊 STEP 1: ANALYZING YOUR SETUP</div>
+                          <div style={{ fontSize: '13px', color: '#1d1e20', fontWeight: '600', marginBottom: '8px' }}>Reading requirements from your {selectedIntegrations.length} selected tools:</div>
+                          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                            {selectedIntegrations.slice(0, 4).map((tool) => (
+                              <span key={tool} style={{ background: 'white', padding: '6px 10px', borderRadius: '4px', fontSize: '12px', color: '#1d1e20' }}>✓ {tool}</span>
+                            ))}
+                            {selectedIntegrations.length > 4 && <span style={{ background: 'white', padding: '6px 10px', borderRadius: '4px', fontSize: '12px', color: '#1d1e20' }}>+ {selectedIntegrations.length - 4} more</span>}
+                          </div>
+                        </div>
+                      )}
+
+                      {integrationDemoStep >= 2 && (
+                        <div style={{ marginBottom: '20px', padding: '18px', background: '#ebe4ff', borderRadius: '8px', border: '2px solid #673de6', animation: 'slideIn 0.5s ease-out' }}>
+                          <div style={{ fontSize: '11px', color: '#673de6', fontWeight: '700', marginBottom: '10px' }}>🔗 STEP 2: AUTHENTICATING & CONNECTING</div>
+                          <div style={{ fontSize: '13px', color: '#1d1e20', marginBottom: '12px' }}>Securely connecting to each platform with API keys:</div>
+                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
+                            <div style={{ padding: '10px', background: 'white', borderRadius: '4px', fontSize: '12px', color: '#1d1e20' }}>✓ {selectedIntegrations[0] || 'Tool 1'}</div>
+                            {selectedIntegrations[1] && <div style={{ padding: '10px', background: 'white', borderRadius: '4px', fontSize: '12px', color: '#1d1e20' }}>✓ {selectedIntegrations[1]}</div>}
+                            {selectedIntegrations[2] && <div style={{ padding: '10px', background: 'white', borderRadius: '4px', fontSize: '12px', color: '#1d1e20' }}>✓ {selectedIntegrations[2]}</div>}
+                            {selectedIntegrations[3] && <div style={{ padding: '10px', background: 'white', borderRadius: '4px', fontSize: '12px', color: '#1d1e20' }}>✓ {selectedIntegrations[3]}</div>}
+                          </div>
+                        </div>
+                      )}
+
+                      {integrationDemoStep >= 3 && (
+                        <div style={{ marginBottom: '20px', padding: '18px', background: '#f2f3f6', borderRadius: '8px', border: '2px solid #673de6', animation: 'slideIn 0.5s ease-out' }}>
+                          <div style={{ fontSize: '11px', color: '#673de6', fontWeight: '700', marginBottom: '10px' }}>⚙️ STEP 3: CONFIGURING DATA FLOW</div>
+                          <div style={{ fontSize: '13px', color: '#1d1e20', marginBottom: '12px' }}>Setting up which data syncs between platforms:</div>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            <div style={{ padding: '10px', background: 'white', borderRadius: '4px', fontSize: '12px', color: '#1d1e20', borderLeft: '3px solid #673de6' }}>✓ Lead data → CRM updates automatically</div>
+                            <div style={{ padding: '10px', background: 'white', borderRadius: '4px', fontSize: '12px', color: '#1d1e20', borderLeft: '3px solid #673de6' }}>✓ Calendar events → Slack notifications sent</div>
+                            <div style={{ padding: '10px', background: 'white', borderRadius: '4px', fontSize: '12px', color: '#1d1e20', borderLeft: '3px solid #673de6' }}>✓ Email responses → Logged in database</div>
+                          </div>
+                        </div>
+                      )}
+
+                      {integrationDemoStep >= 4 && (
+                        <div style={{ marginBottom: '20px', padding: '18px', background: '#ebe4ff', borderRadius: '8px', border: '2px solid #673de6', animation: 'slideIn 0.5s ease-out' }}>
+                          <div style={{ fontSize: '11px', color: '#673de6', fontWeight: '700', marginBottom: '10px' }}>🤖 STEP 4: AUTOMATION RULES CONFIGURED</div>
+                          <div style={{ fontSize: '13px', color: '#1d1e20', marginBottom: '12px' }}>AI sets up intelligent logic:</div>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            <div style={{ padding: '10px', background: 'white', borderRadius: '4px', fontSize: '12px', color: '#1d1e20' }}>→ If lead score > 80, assign to Jessica (AE)</div>
+                            <div style={{ padding: '10px', background: 'white', borderRadius: '4px', fontSize: '12px', color: '#1d1e20' }}>→ If customer email arrives, auto-respond + add to task list</div>
+                            <div style={{ padding: '10px', background: 'white', borderRadius: '4px', fontSize: '12px', color: '#1d1e20' }}>→ If reply received, update CRM + schedule follow-up</div>
+                          </div>
+                        </div>
+                      )}
+
+                      {integrationDemoStep >= 5 && (
+                        <div style={{ marginBottom: '20px', padding: '18px', background: '#f2f3f6', borderRadius: '8px', border: '2px solid #673de6', animation: 'slideIn 0.5s ease-out' }}>
+                          <div style={{ fontSize: '11px', color: '#673de6', fontWeight: '700', marginBottom: '10px' }}>✓ STEP 5: TESTED & LIVE</div>
+                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginTop: '12px' }}>
+                            <div style={{ padding: '12px', background: 'white', borderRadius: '4px', textAlign: 'center', fontSize: '12px', color: '#1d1e20' }}>
+                              <div style={{ fontWeight: '700', color: '#673de6', marginBottom: '4px' }}>✓ Testing</div>
+                              <div style={{ fontSize: '11px', color: '#727586' }}>Dry run complete</div>
+                            </div>
+                            <div style={{ padding: '12px', background: 'white', borderRadius: '4px', textAlign: 'center', fontSize: '12px', color: '#1d1e20' }}>
+                              <div style={{ fontWeight: '700', color: '#673de6', marginBottom: '4px' }}>✓ Live</div>
+                              <div style={{ fontSize: '11px', color: '#727586' }}>Running now</div>
+                            </div>
+                            <div style={{ padding: '12px', background: 'white', borderRadius: '4px', textAlign: 'center', fontSize: '12px', color: '#1d1e20' }}>
+                              <div style={{ fontWeight: '700', color: '#673de6', marginBottom: '4px' }}>✓ Monitoring</div>
+                              <div style={{ fontSize: '11px', color: '#727586' }}>24/7 active</div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {integrationDemoStep >= 6 && (
+                        <div style={{ padding: '20px', background: 'linear-gradient(135deg, #673de6 0%, #5025d1 100%)', borderRadius: '8px', color: 'white', textAlign: 'center', animation: 'slideIn 0.5s ease-out' }}>
+                          <div style={{ fontSize: '16px', fontWeight: '700', marginBottom: '8px' }}>✓ COMPLETE & RUNNING</div>
+                          <p style={{ margin: '10px 0 0', fontSize: '13px', color: '#d5dfff' }}>{selectedIntegrations.length} platforms connected. Data flowing. Automations active. Zero manual handoffs.</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {integrationDemoStep === 0 && (
+                    <div className="placeholder-box">
+                      <p style={{ fontSize: '13px' }}>Click "See Setup Steps & Results" to watch AI configure your integration stack</p>
+                    </div>
+                  )}
                 </div>
               )}
 
