@@ -25,6 +25,17 @@ export default function Demo() {
 
   // Automation Demo State
   const [showAutoFlow, setShowAutoFlow] = useState(false);
+  const [autoStep, setAutoStep] = useState(0);
+
+  const startAutomationDemo = () => {
+    setAutoStep(1);
+    let step = 1;
+    const interval = setInterval(() => {
+      step += 1;
+      setAutoStep(step);
+      if (step >= 5) clearInterval(interval);
+    }, 3000); // 3 seconds between steps
+  };
 
   // Integrations Demo State
   const [selectedIntegrations, setSelectedIntegrations] = useState([]);
@@ -1124,55 +1135,81 @@ export default function Demo() {
           {/* Tab 5: Automation */}
           {activeTab === 'automation' && (
             <div className="tab-content">
-              <div className="placeholder-box" style={{ marginBottom: '40px' }}>
-                <strong>Complete Workflow Automation</strong>
-                <p style={{ marginTop: '15px' }}>
-                  A customer inquiry comes in. Instantly, your AI generates a response, assigns it to the right team member, schedules a follow-up, and creates a task in your project tracker.
-                </p>
-              </div>
-
               <button
                 className="demo-button"
-                onClick={() => setShowAutoFlow(true)}
+                onClick={startAutomationDemo}
                 style={{ marginBottom: '30px' }}
               >
-                See Automation in Action
+                {autoStep === 0 ? '▶ Play 10-Second Demo' : 'Demo Running...'}
               </button>
 
-              {showAutoFlow && (
-                <div className="automation-flow">
-                  <div className="flow-step">
-                    <div className="flow-step-number">1</div>
-                    <div className="flow-step-title">Customer Email</div>
-                    <div className="flow-step-desc">Inquiry arrives in your inbox</div>
-                  </div>
-                  <div className="flow-arrow">→</div>
-                  <div className="flow-step">
-                    <div className="flow-step-number">2</div>
-                    <div className="flow-step-title">AI Response</div>
-                    <div className="flow-step-desc">Automatic reply drafted & sent</div>
-                  </div>
-                  <div className="flow-arrow">→</div>
-                  <div className="flow-step">
-                    <div className="flow-step-number">3</div>
-                    <div className="flow-step-title">Team Assignment</div>
-                    <div className="flow-step-desc">Routed to right team member</div>
-                  </div>
-                  <div className="flow-arrow">→</div>
-                  <div className="flow-step">
-                    <div className="flow-step-number">4</div>
-                    <div className="flow-step-title">Task Created</div>
-                    <div className="flow-step-desc">Follow-up scheduled in your tool</div>
-                  </div>
+              {autoStep > 0 && (
+                <div>
+                  {autoStep >= 1 && (
+                    <div style={{ marginBottom: '20px', padding: '18px', background: '#f2f3f6', borderRadius: '8px', border: '2px solid #673de6', animation: 'slideIn 0.5s ease-out' }}>
+                      <div style={{ fontSize: '11px', color: '#673de6', fontWeight: '700', marginBottom: '10px' }}>📧 INCOMING EMAIL</div>
+                      <div style={{ background: 'white', padding: '12px', borderRadius: '4px', fontSize: '12px', color: '#1d1e20', lineHeight: '1.5' }}>
+                        <strong>From:</strong> michael.johnson@techvision.io<br/>
+                        <strong>Subject:</strong> Does this work with our CRM?<br/><br/>
+                        We're interested in automating lead follow-ups. Do you integrate with HubSpot? We have 8 people on our sales team.
+                      </div>
+                    </div>
+                  )}
+
+                  {autoStep >= 2 && (
+                    <div style={{ marginBottom: '20px', padding: '18px', background: '#ebe4ff', borderRadius: '8px', border: '2px solid #673de6', animation: 'slideIn 0.5s ease-out' }}>
+                      <div style={{ fontSize: '11px', color: '#673de6', fontWeight: '700', marginBottom: '10px' }}>🤖 AI RESPONSE (auto-generated)</div>
+                      <div style={{ background: 'white', padding: '12px', borderRadius: '4px', fontSize: '12px', color: '#1d1e20', lineHeight: '1.5' }}>
+                        Hi Michael, absolutely! We integrate directly with HubSpot. For a team your size, we'd set up automated lead scoring and follow-up triggers in your CRM. Let's chat about your specific workflow. Available Thursday at 2 PM or Friday morning?
+                      </div>
+                    </div>
+                  )}
+
+                  {autoStep >= 3 && (
+                    <div style={{ marginBottom: '20px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+                      <div style={{ padding: '15px', background: '#f0f0ff', borderRadius: '8px', border: '2px solid #673de6', animation: 'slideIn 0.5s ease-out', fontSize: '12px' }}>
+                        <div style={{ color: '#673de6', fontWeight: '700', marginBottom: '8px' }}>✓ RESPONSE SENT</div>
+                        <div style={{ color: '#1d1e20', fontWeight: '600' }}>michael.johnson@techvision.io</div>
+                        <div style={{ color: '#727586', fontSize: '11px', marginTop: '5px' }}>Sent 2:47 PM</div>
+                      </div>
+                      <div style={{ padding: '15px', background: '#f0f0ff', borderRadius: '8px', border: '2px solid #673de6', animation: 'slideIn 0.5s ease-out', fontSize: '12px' }}>
+                        <div style={{ color: '#673de6', fontWeight: '700', marginBottom: '8px' }}>✓ ASSIGNED TO</div>
+                        <div style={{ color: '#1d1e20', fontWeight: '600' }}>Jessica Liu (AE)</div>
+                        <div style={{ color: '#727586', fontSize: '11px', marginTop: '5px' }}>High Priority</div>
+                      </div>
+                    </div>
+                  )}
+
+                  {autoStep >= 4 && (
+                    <div style={{ marginBottom: '20px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+                      <div style={{ padding: '15px', background: '#f0f0ff', borderRadius: '8px', border: '2px solid #673de6', animation: 'slideIn 0.5s ease-out', fontSize: '12px' }}>
+                        <div style={{ color: '#673de6', fontWeight: '700', marginBottom: '8px' }}>📅 CALENDAR</div>
+                        <div style={{ color: '#1d1e20', fontWeight: '600', fontSize: '11px' }}>M. Johnson Thu 2PM</div>
+                        <div style={{ color: '#727586', fontSize: '11px', marginTop: '5px' }}>Added to Jessica's calendar</div>
+                      </div>
+                      <div style={{ padding: '15px', background: '#f0f0ff', borderRadius: '8px', border: '2px solid #673de6', animation: 'slideIn 0.5s ease-out', fontSize: '12px' }}>
+                        <div style={{ color: '#673de6', fontWeight: '700', marginBottom: '8px' }}>💬 SLACK</div>
+                        <div style={{ color: '#1d1e20', fontWeight: '600', fontSize: '11px' }}>#sales: New lead - TechVision</div>
+                        <div style={{ color: '#727586', fontSize: '11px', marginTop: '5px' }}>Team notified</div>
+                      </div>
+                    </div>
+                  )}
+
+                  {autoStep >= 5 && (
+                    <div style={{ padding: '20px', background: 'linear-gradient(135deg, #673de6 0%, #5025d1 100%)', borderRadius: '8px', color: 'white', textAlign: 'center', animation: 'slideIn 0.5s ease-out' }}>
+                      <div style={{ fontSize: '16px', fontWeight: '700', marginBottom: '8px' }}>✓ COMPLETE IN ~10 SECONDS</div>
+                      <p style={{ margin: '10px 0 0', fontSize: '12px', color: '#d5dfff' }}>Email received → Response sent → Task assigned → Calendar updated → Team alerted. No manual work.</p>
+                    </div>
+                  )}
                 </div>
               )}
 
-              <div className="result-box" style={{ marginTop: '30px' }}>
-                <strong>Result: What used to take your team 30 minutes now happens in 30 seconds.</strong>
-                <p style={{ color: '#727586', marginTop: '15px' }}>
-                  We integrate with Make.com, Zapier, your CRM, Slack, email, Google Calendar—whatever tools you already use. The automation is seamless and customized to your exact workflow.
-                </p>
-              </div>
+              {autoStep === 0 && (
+                <div className="placeholder-box">
+                  <strong>Click play to see a real workflow in action</strong>
+                  <p style={{ marginTop: '15px' }}>Customer email arrives. AI responds. Task assigned. Calendar updated. Slack notified. All in ~10 seconds.</p>
+                </div>
+              )}
             </div>
           )}
 
