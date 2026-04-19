@@ -649,6 +649,7 @@ export default function Home() {
           justify-content: center;
           z-index: 1000;
           padding: 20px;
+          overflow-y: auto;
         }
 
         .modal-content {
@@ -659,6 +660,9 @@ export default function Home() {
           width: 100%;
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
           animation: modalSlideIn 0.3s ease-out;
+          max-height: 90vh;
+          overflow-y: auto;
+          margin: auto;
         }
 
         @keyframes modalSlideIn {
