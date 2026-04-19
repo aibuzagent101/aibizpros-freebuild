@@ -77,6 +77,19 @@ export default function Demo() {
   // Video Modal State
   const [videoModalOpen, setVideoModalOpen] = useState(false);
   const [videoPlayStep, setVideoPlayStep] = useState(0);
+  const [currentVideoTab, setCurrentVideoTab] = useState(null);
+
+  const openVideoModal = (tabName) => {
+    setCurrentVideoTab(tabName);
+    setVideoModalOpen(true);
+    setVideoPlayStep(1);
+    let step = 1;
+    const interval = setInterval(() => {
+      step += 1;
+      setVideoPlayStep(step);
+      if (step >= 6) clearInterval(interval);
+    }, 2000);
+  };
 
   const startFormDemo = () => {
     setFormStep(1);
@@ -1806,72 +1819,108 @@ export default function Demo() {
         </div>
       </section>
 
-      {/* Video Modal */}
+      {/* Unified Video Modal */}
       {videoModalOpen && (
         <div className="video-modal-overlay" onClick={() => setVideoModalOpen(false)}>
           <div className="video-modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="video-modal-player">
               <button className="video-modal-close" onClick={() => setVideoModalOpen(false)}>×</button>
-
-              {/* Mock Video Content - Screen Recording Style */}
               <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%)', display: 'flex', flexDirection: 'column', padding: '20px', fontFamily: 'monospace', fontSize: '12px', color: '#333', overflow: 'hidden' }}>
-                {/* Browser Chrome */}
                 <div style={{ background: '#f0f0f0', padding: '10px', borderBottom: '1px solid #ccc', marginBottom: '10px', borderRadius: '4px 4px 0 0' }}>
                   <div style={{ display: 'flex', gap: '5px', marginBottom: '8px' }}>
                     <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f57' }}></div>
                     <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }}></div>
                     <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#28c940' }}></div>
                   </div>
-                  <div style={{ color: '#666', fontSize: '11px' }}>Lead Qualification System — AI Processing</div>
+                  <div style={{ color: '#666', fontSize: '11px' }}>{currentVideoTab === 'lead-gen' && 'Lead Qualification System'}{currentVideoTab === 'email' && 'Email Automation System'}{currentVideoTab === 'chatbot' && 'AI Chatbot'}{currentVideoTab === 'forms' && 'Smart Forms'}{currentVideoTab === 'automation' && 'Workflow Automation'}{currentVideoTab === 'integrations' && 'Integration Setup'} — AI Processing</div>
                 </div>
-
-                {/* Screen Recording Content */}
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '20px', background: 'white' }}>
-                  {videoPlayStep >= 1 && (
-                    <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}>
-                      <div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>📧 NEW LEAD INCOMING</div>
-                      <div style={{ color: '#666', marginLeft: '10px' }}>From: sarah@growthco.com</div>
-                      <div style={{ color: '#666', marginLeft: '10px' }}>Subject: Lead generation solutions inquiry</div>
-                    </div>
+
+                  {/* Lead Gen Video */}
+                  {currentVideoTab === 'lead-gen' && (
+                    <>
+                      {videoPlayStep >= 1 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>📧 NEW LEAD</div><div style={{ color: '#666', marginLeft: '10px' }}>From: sarah@growthco.com | Budget: $50K+ | Timeline: URGENT</div></div>}
+                      {videoPlayStep >= 2 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>🤖 AI SCORING...</div><div style={{ color: '#666', marginLeft: '10px' }}>✓ High budget match ✓ Urgent timeline ✓ Industry fit</div></div>}
+                      {videoPlayStep >= 3 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#28c940', fontWeight: 'bold', marginBottom: '5px' }}>✓ 92/100 - HOT LEAD</div></div>}
+                      {videoPlayStep >= 4 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>→ ASSIGNED</div><div style={{ color: '#666', marginLeft: '10px' }}>Jessica Liu (Account Executive)</div></div>}
+                      {videoPlayStep >= 5 && <div style={{ animation: 'fadeIn 0.5s' }}><div style={{ color: '#28c940', fontWeight: 'bold' }}>✓ COMPLETE in 2.3s</div></div>}
+                    </>
                   )}
 
-                  {videoPlayStep >= 2 && (
-                    <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}>
-                      <div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>🤖 AI ANALYZING...</div>
-                      <div style={{ color: '#666', marginLeft: '10px' }}>✓ Budget: $50K+/year</div>
-                      <div style={{ color: '#666', marginLeft: '10px' }}>✓ Timeline: This month (URGENT)</div>
-                      <div style={{ color: '#666', marginLeft: '10px' }}>✓ Industry: Marketing (good fit)</div>
-                    </div>
+                  {/* Email Video */}
+                  {currentVideoTab === 'email' && (
+                    <>
+                      {videoPlayStep >= 1 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>📧 INCOMING EMAIL</div><div style={{ color: '#666', marginLeft: '10px' }}>From: mike@techstartup.io</div><div style={{ color: '#666', marginLeft: '10px' }}>"How long does implementation take?"</div></div>}
+                      {videoPlayStep >= 2 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>🔍 LOOKING UP CRM...</div><div style={{ color: '#666', marginLeft: '10px' }}>Found: Mike @ TechStartup | Account value: $15K/yr | Setup: In progress</div></div>}
+                      {videoPlayStep >= 3 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>🤖 DRAFTING RESPONSE...</div><div style={{ color: '#666', marginLeft: '10px' }}>"Implementation is 2-4 hours. We integrate with your existing tools seamlessly."</div></div>}
+                      {videoPlayStep >= 4 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#28c940', fontWeight: 'bold', marginBottom: '5px' }}>✓ SENT</div></div>}
+                      {videoPlayStep >= 5 && <div style={{ animation: 'fadeIn 0.5s' }}><div style={{ color: '#28c940', fontWeight: 'bold' }}>✓ COMPLETE - Personalized & sent in 1.8s</div></div>}
+                    </>
                   )}
 
-                  {videoPlayStep >= 3 && (
-                    <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}>
-                      <div style={{ color: '#28c940', fontWeight: 'bold', marginBottom: '5px' }}>✓ SCORE: 92/100 — HOT LEAD</div>
-                      <div style={{ color: '#666', marginLeft: '10px' }}>Classification: Immediate follow-up required</div>
-                    </div>
+                  {/* Chatbot Video */}
+                  {currentVideoTab === 'chatbot' && (
+                    <>
+                      {videoPlayStep >= 1 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>💬 CHAT MESSAGE</div><div style={{ color: '#666', marginLeft: '10px' }}>Customer: "What are your pricing options?"</div></div>}
+                      {videoPlayStep >= 2 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>🤖 UNDERSTANDING...</div><div style={{ color: '#666', marginLeft: '10px' }}>Intent: Pricing inquiry | Context: First-time visitor</div></div>}
+                      {videoPlayStep >= 3 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>✓ RESPONSE</div><div style={{ color: '#666', marginLeft: '10px' }}>"We offer 3 tiers: $297/mo, custom builds $1500-5000."</div></div>}
+                      {videoPlayStep >= 4 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#28c940', fontWeight: 'bold', marginBottom: '5px' }}>→ FOLLOW UP</div><div style={{ color: '#666', marginLeft: '10px' }}>Offered demo + schedule call</div></div>}
+                      {videoPlayStep >= 5 && <div style={{ animation: 'fadeIn 0.5s' }}><div style={{ color: '#28c940', fontWeight: 'bold' }}>✓ 24/7 ACTIVE - answered in 0.6s</div></div>}
+                    </>
                   )}
 
-                  {videoPlayStep >= 4 && (
-                    <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}>
-                      <div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>➜ ROUTING TO TEAM</div>
-                      <div style={{ color: '#666', marginLeft: '10px' }}>Assigned to: Jessica Liu (Account Executive)</div>
-                      <div style={{ color: '#666', marginLeft: '10px' }}>Priority: HIGH</div>
-                    </div>
+                  {/* Forms Video */}
+                  {currentVideoTab === 'forms' && (
+                    <>
+                      {videoPlayStep >= 1 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>📋 FORM LOADED</div><div style={{ color: '#666', marginLeft: '10px' }}>Q1: "How many employees?"</div></div>}
+                      {videoPlayStep >= 2 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#28c940', fontWeight: 'bold', marginBottom: '5px' }}>✓ USER SELECTS</div><div style={{ color: '#666', marginLeft: '10px' }}>"6-25 employees"</div></div>}
+                      {videoPlayStep >= 3 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>🎯 FORM ADAPTS</div><div style={{ color: '#666', marginLeft: '10px' }}>Q2: "What's your biggest bottleneck?" [shows small-biz specific options]</div></div>}
+                      {videoPlayStep >= 4 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>🤖 AI RECOMMENDS</div><div style={{ color: '#666', marginLeft: '10px' }}>"For your size: Email automation + Lead management"</div></div>}
+                      {videoPlayStep >= 5 && <div style={{ animation: 'fadeIn 0.5s' }}><div style={{ color: '#28c940', fontWeight: 'bold' }}>✓ SMART FORM - Adapted in 3.2s</div></div>}
+                    </>
                   )}
 
-                  {videoPlayStep >= 5 && (
-                    <div style={{ animation: 'fadeIn 0.5s' }}>
-                      <div style={{ color: '#28c940', fontWeight: 'bold', marginBottom: '5px' }}>✓ COMPLETE</div>
-                      <div style={{ color: '#666', marginLeft: '10px' }}>Lead qualified, assigned, and alerted in 2.3 seconds</div>
-                    </div>
+                  {/* Automation Video */}
+                  {currentVideoTab === 'automation' && (
+                    <>
+                      {videoPlayStep >= 1 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>📧 EMAIL ARRIVES</div><div style={{ color: '#666', marginLeft: '10px' }}>michael.johnson@techvision.io: "CRM integration question"</div></div>}
+                      {videoPlayStep >= 2 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>🤖 AI RESPONDS</div><div style={{ color: '#666', marginLeft: '10px' }}>"Yes! We integrate with HubSpot. Setup takes 2-4 hours."</div></div>}
+                      {videoPlayStep >= 3 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#28c940', fontWeight: 'bold', marginBottom: '5px' }}>✓ TASK CREATED</div><div style={{ color: '#666', marginLeft: '10px' }}>→ Assigned to Jessica | Priority: HIGH</div></div>}
+                      {videoPlayStep >= 4 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#28c940', fontWeight: 'bold', marginBottom: '5px' }}>✓ CALENDAR + SLACK</div><div style={{ color: '#666', marginLeft: '10px' }}>Calendar invite sent | #sales notified</div></div>}
+                      {videoPlayStep >= 5 && <div style={{ animation: 'fadeIn 0.5s' }}><div style={{ color: '#28c940', fontWeight: 'bold' }}>✓ WORKFLOW COMPLETE in 8.7s</div></div>}
+                    </>
                   )}
+
+                  {/* Integrations Video */}
+                  {currentVideoTab === 'integrations' && (
+                    <>
+                      {videoPlayStep >= 1 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>⚙️ SETUP STARTED</div><div style={{ color: '#666', marginLeft: '10px' }}>Connecting: Make.com, HubSpot, Gmail, Slack</div></div>}
+                      {videoPlayStep >= 2 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>🔗 AUTHENTICATING</div><div style={{ color: '#666', marginLeft: '10px' }}>✓ Make.com ✓ HubSpot ✓ Gmail ✓ Slack</div></div>}
+                      {videoPlayStep >= 3 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#673de6', fontWeight: 'bold', marginBottom: '5px' }}>⚙️ CONFIGURING</div><div style={{ color: '#666', marginLeft: '10px' }}>Data flows set up | Automation rules created</div></div>}
+                      {videoPlayStep >= 4 && <div style={{ animation: 'fadeIn 0.5s', marginBottom: '15px' }}><div style={{ color: '#28c940', fontWeight: 'bold', marginBottom: '5px' }}>✓ TESTING</div><div style={{ color: '#666', marginLeft: '10px' }}>Dry run passed | All systems go</div></div>}
+                      {videoPlayStep >= 5 && <div style={{ animation: 'fadeIn 0.5s' }}><div style={{ color: '#28c940', fontWeight: 'bold' }}>✓ LIVE - Setup & tested in 9.4s</div></div>}
+                    </>
+                  )}
+
                 </div>
               </div>
             </div>
             <div className="video-modal-info">
-              <div className="video-modal-title">Lead Qualification Automation</div>
+              <div className="video-modal-title">
+                {currentVideoTab === 'lead-gen' && 'Lead Qualification in Action'}
+                {currentVideoTab === 'email' && 'Email Automation with CRM Lookup'}
+                {currentVideoTab === 'chatbot' && 'AI Chatbot Responding'}
+                {currentVideoTab === 'forms' && 'Smart Form Adapting'}
+                {currentVideoTab === 'automation' && 'Workflow Automation'}
+                {currentVideoTab === 'integrations' && 'Integration Setup'}
+              </div>
               <div className="video-modal-desc">
-                This shows how incoming leads are automatically scored based on budget, timeline, and fit. Hot leads are immediately routed to your team. No manual work required.
+                {currentVideoTab === 'lead-gen' && 'Incoming lead → AI scores it → assigned to team. All in seconds.'}
+                {currentVideoTab === 'email' && 'Email arrives → CRM lookup → personalized response drafted → sent. AI context-aware.'}
+                {currentVideoTab === 'chatbot' && 'Customer question → AI understands intent → helpful response → offered next steps. 24/7 active.'}
+                {currentVideoTab === 'forms' && 'Visitor answers one question → form adapts → shows relevant options → gets recommendations.'}
+                {currentVideoTab === 'automation' && 'Lead email → response sent → task created → calendar updated → team notified. Zero manual work.'}
+                {currentVideoTab === 'integrations' && 'Your tools authenticated → connected → automation rules set → tested → live. Everything synced.'}
               </div>
             </div>
           </div>
