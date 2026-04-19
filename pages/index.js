@@ -53,30 +53,10 @@ export default function Home() {
     // In a real app, this would send to your backend or email service
     console.log('Quote request:', quoteFormData);
     setQuoteSubmitted(true);
+    // Redirect to demo page after 1.5 seconds
     setTimeout(() => {
-      setShowQuoteModal(false);
-      setQuoteSubmitted(false);
-      setQuoteFormData({
-        companyName: '',
-        contactName: '',
-        title: '',
-        email: '',
-        phone: '',
-        industry: '',
-        employeeCount: '',
-        annualRevenue: '',
-        primaryPainPoint: '',
-        currentVolume: '',
-        currentProcess: '',
-        toolsUsed: '',
-        timeSpentMonthly: '',
-        costImpact: '',
-        successMetric: '',
-        decisionTimeline: '',
-        budget: '',
-        additionalContext: '',
-      });
-    }, 2000);
+      window.location.href = '/demo';
+    }, 1500);
   };
 
   const closeQuoteModal = () => {
