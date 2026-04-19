@@ -18,6 +18,24 @@ export default function Demo() {
   // Email Demo State
   const [emailType, setEmailType] = useState('inquiry');
   const [emailResult, setEmailResult] = useState(null);
+  const [showAutoResponseDemo, setShowAutoResponseDemo] = useState(false);
+  const [autoResponseStep, setAutoResponseStep] = useState(0);
+  const [customerSupportType, setCustomerSupportType] = useState('refund');
+  const [customerSupportResult, setCustomerSupportResult] = useState(null);
+
+  const startAutoResponseDemo = () => {
+    setAutoResponseStep(1);
+    let step = 1;
+    const interval = setInterval(() => {
+      step += 1;
+      setAutoResponseStep(step);
+      if (step >= 4) clearInterval(interval);
+    }, 2500); // 2.5 seconds between steps
+  };
+
+  const runCustomerSupportDemo = () => {
+    setCustomerSupportResult(customerSupportResponses[customerSupportType]);
+  };
 
   // Chatbot Demo State
   const [chatMessages, setChatMessages] = useState([]);
@@ -108,6 +126,44 @@ export default function Demo() {
   const emailResponses = {
     inquiry: 'Hi Sarah! Great question. Our lead qualification system automatically scores leads based on fit, budget, and timeline. Most clients see results within the first week. We offer three pricing tiers starting at just $297/month for ongoing optimization. Let\'s schedule a quick 15-minute call to see if it\'s a fit. When are you free?',
     concern: 'Hi Mike! I love this question because implementation speed is one of our biggest advantages. Most setups take 2-4 hours, not weeks. We integrate with Make.com, Zapier, and direct APIs—so we work with whatever tools you\'re already using. No complex migrations. Want me to walk you through a quick setup flow?'
+  };
+
+  const autoResponseEmail = {
+    from: 'alex@techstartup.io',
+    subject: 'Question about your service',
+    body: 'Hi, I have a question about how your platform works. Can someone get back to me? Thanks!'
+  };
+
+  const autoResponseReply = 'Hi Alex! Thanks for reaching out. We received your email at 5:47 PM on Friday. Our team will review your message first thing Monday morning and get back to you within 24 hours. In the meantime, check out our FAQ at theaibizpros.com/help or reply with any urgent questions. We\'re here to help!';
+
+  const customerSupportExamples = {
+    refund: {
+      from: 'jordan@company.com',
+      subject: 'Refund Request',
+      body: 'I\'d like to request a refund for my subscription. I don\'t think this is the right fit for my business. Can you process this?'
+    },
+    technical: {
+      from: 'casey@smallbiz.com',
+      subject: 'Integration not working',
+      body: 'We tried connecting our CRM but it keeps failing. Error: "Authentication failed". We\'ve tried 3 times. Can you help troubleshoot?'
+    },
+    setup: {
+      from: 'morgan@agency.io',
+      subject: 'How do I get started?',
+      body: 'We just signed up but I\'m not sure where to begin. Do you have setup documentation or a walkthrough video?'
+    },
+    billing: {
+      from: 'sam@startup.co',
+      subject: 'Billing Question',
+      body: 'I was charged twice this month. Can you explain the charges and fix this? This is frustrating.'
+    }
+  };
+
+  const customerSupportResponses = {
+    refund: 'Hi Jordan! We\'d love to help make this work for you. Before we process a refund, can I ask a quick question—what part isn\'t working for your business? Often we can adjust setup or automation to fit your workflow better. If a refund is still the right call, our 30-day guarantee covers it. Let\'s chat briefly?',
+    technical: 'Hi Casey! Error 403 usually means the API key expired or has wrong permissions. Here\'s the fix: 1) Go to your CRM settings, 2) Regenerate API key, 3) Re-paste it here. Takes 2 minutes. If that doesn\'t work, reply and I\'ll screen-share with you to debug. Let me know!',
+    setup: 'Hi Morgan! Great question. Start here: theaibizpros.com/docs/getting-started (5 min read) → watch this 3-minute setup video: [link]. Then connect your first tool. If you get stuck anywhere, reply with a screenshot and I\'ll walk you through it step-by-step.',
+    billing: 'Hi Sam! I sincerely apologize for the duplicate charge. Let me look into this right now. Can you send me the two charge dates? I\'ll refund the duplicate immediately and make sure this doesn\'t happen again. Thanks for flagging this.'
   };
 
   const chatbotResponses = {
@@ -1028,9 +1084,10 @@ export default function Demo() {
           {/* Tab 2: Email Automation */}
           {activeTab === 'email' && (
             <div className="tab-content">
-              <div className="demo-form">
-                <h3>AI Email Response Generator</h3>
-                <p style={{ color: '#727586', marginBottom: '20px', fontSize: '14px' }}>See how our AI drafts professional, personalized responses to prospect emails.</p>
+              {/* Section 1: Prospect Responses */}
+              <div className="demo-form" style={{ marginBottom: '40px' }}>
+                <h3>Prospect Response Generator</h3>
+                <p style={{ color: '#727586', marginBottom: '20px', fontSize: '14px' }}>AI drafts personalized responses to sales inquiries and concerns.</p>
                 <div className="demo-buttons">
                   <button
                     className={`secondary-button ${emailType === 'inquiry' ? 'active' : ''}`}
@@ -1055,28 +1112,136 @@ export default function Demo() {
                 <button onClick={runEmailDemo} className="demo-button">
                   Generate AI Response
                 </button>
+
+                {emailResult && (
+                  <div className="result-box" style={{ marginTop: '20px' }}>
+                    <div className="ai-response">
+                      <div className="ai-response-label">AI-GENERATED RESPONSE</div>
+                      <div className="ai-response-text">{emailResult}</div>
+                    </div>
+                    <p style={{ color: '#727586', marginTop: '20px', fontSize: '13px' }}>
+                      Your team can edit, send, or schedule. Learn your tone and style over time.
+                    </p>
+                  </div>
+                )}
+
+                {!emailResult && (
+                  <div className="placeholder-box" style={{ marginTop: '20px' }}>
+                    <p style={{ fontSize: '13px' }}>Click "Generate AI Response" to see AI draft a personalized reply</p>
+                  </div>
+                )}
               </div>
 
-              {emailResult && (
-                <div className="result-box">
-                  <div className="ai-response">
-                    <div className="ai-response-label">AI-GENERATED RESPONSE</div>
-                    <div className="ai-response-text">{emailResult}</div>
-                  </div>
-                  <p style={{ color: '#727586', marginTop: '20px', fontSize: '13px' }}>
-                    Your team can edit, send, or schedule this response. The more you use it, the smarter it gets.
-                  </p>
-                </div>
-              )}
+              {/* Section 2: 24/7 Auto-Response Demo */}
+              <div style={{ marginBottom: '40px', paddingBottom: '30px', borderBottom: '2px solid #f2f3f6' }}>
+                <h3 style={{ marginBottom: '15px', fontSize: '18px', color: '#1d1e20' }}>24/7 Auto-Response (When Closed)</h3>
+                <p style={{ color: '#727586', marginBottom: '20px', fontSize: '14px' }}>Email arrives after hours? AI responds immediately while your team sleeps.</p>
 
-              {!emailResult && (
-                <div className="placeholder-box">
-                  <strong>Click "Generate AI Response" to see the magic</strong>
-                  <p>
-                    Our email automation learns your voice and business context. It can handle prospects asking questions, raising concerns, or requesting demos—all personalized and professional.
-                  </p>
+                <button
+                  className="demo-button"
+                  onClick={startAutoResponseDemo}
+                  style={{ marginBottom: '20px' }}
+                >
+                  {autoResponseStep === 0 ? '▶ Play 8-Second Demo' : 'Demo Running...'}
+                </button>
+
+                {autoResponseStep > 0 && (
+                  <div>
+                    {autoResponseStep >= 1 && (
+                      <div style={{ marginBottom: '20px', padding: '15px', background: '#f2f3f6', borderRadius: '8px', animation: 'slideIn 0.5s ease-out' }}>
+                        <div style={{ fontSize: '11px', color: '#673de6', fontWeight: '700', marginBottom: '8px' }}>📧 INCOMING (5:47 PM Friday)</div>
+                        <div style={{ background: 'white', padding: '12px', borderRadius: '4px', fontSize: '12px', color: '#1d1e20', lineHeight: '1.5' }}>
+                          <strong>From:</strong> {autoResponseEmail.from}<br/>
+                          <strong>Subject:</strong> {autoResponseEmail.subject}<br/><br/>
+                          {autoResponseEmail.body}
+                        </div>
+                      </div>
+                    )}
+
+                    {autoResponseStep >= 2 && (
+                      <div style={{ marginBottom: '20px', padding: '15px', background: '#ebe4ff', borderRadius: '8px', animation: 'slideIn 0.5s ease-out', border: '2px solid #673de6' }}>
+                        <div style={{ fontSize: '11px', color: '#673de6', fontWeight: '700', marginBottom: '8px' }}>🤖 AUTO-RESPONSE (sent instantly)</div>
+                        <div style={{ background: 'white', padding: '12px', borderRadius: '4px', fontSize: '12px', color: '#1d1e20', lineHeight: '1.5' }}>
+                          {autoResponseReply}
+                        </div>
+                      </div>
+                    )}
+
+                    {autoResponseStep >= 3 && (
+                      <div style={{ padding: '15px', background: 'linear-gradient(135deg, #673de6 0%, #5025d1 100%)', borderRadius: '8px', color: 'white', animation: 'slideIn 0.5s ease-out' }}>
+                        <div style={{ fontWeight: '700', marginBottom: '8px' }}>✓ TEAM NOTIFIED ON MONDAY</div>
+                        <p style={{ margin: 0, fontSize: '13px', color: '#d5dfff' }}>Customer got an immediate response. Team saw the email waiting Monday morning. Nobody missed a lead.</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {autoResponseStep === 0 && (
+                  <div className="placeholder-box">
+                    <p style={{ fontSize: '13px' }}>Click play to see AI respond to an email that arrives after business hours</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Section 3: Customer Support */}
+              <div className="demo-form">
+                <h3>Customer Help & Support Handler</h3>
+                <p style={{ color: '#727586', marginBottom: '20px', fontSize: '14px' }}>AI handles customer questions, refund requests, technical issues, setup help—intelligently.</p>
+                <div className="demo-buttons">
+                  <button
+                    className={`secondary-button ${customerSupportType === 'refund' ? 'active' : ''}`}
+                    onClick={() => { setCustomerSupportType('refund'); setCustomerSupportResult(null); }}
+                  >
+                    Refund Request
+                  </button>
+                  <button
+                    className={`secondary-button ${customerSupportType === 'technical' ? 'active' : ''}`}
+                    onClick={() => { setCustomerSupportType('technical'); setCustomerSupportResult(null); }}
+                  >
+                    Technical Issue
+                  </button>
+                  <button
+                    className={`secondary-button ${customerSupportType === 'setup' ? 'active' : ''}`}
+                    onClick={() => { setCustomerSupportType('setup'); setCustomerSupportResult(null); }}
+                  >
+                    Setup Help
+                  </button>
+                  <button
+                    className={`secondary-button ${customerSupportType === 'billing' ? 'active' : ''}`}
+                    onClick={() => { setCustomerSupportType('billing'); setCustomerSupportResult(null); }}
+                  >
+                    Billing Question
+                  </button>
                 </div>
-              )}
+
+                <div className="email-example">
+                  <div className="email-from">From: {customerSupportExamples[customerSupportType].from}</div>
+                  <div className="email-subject">Subject: {customerSupportExamples[customerSupportType].subject}</div>
+                  <div className="email-body">{customerSupportExamples[customerSupportType].body}</div>
+                </div>
+
+                <button onClick={runCustomerSupportDemo} className="demo-button">
+                  Generate Support Response
+                </button>
+
+                {customerSupportResult && (
+                  <div className="result-box" style={{ marginTop: '20px' }}>
+                    <div className="ai-response">
+                      <div className="ai-response-label">AI SUPPORT RESPONSE</div>
+                      <div className="ai-response-text">{customerSupportResult}</div>
+                    </div>
+                    <p style={{ color: '#727586', marginTop: '20px', fontSize: '13px' }}>
+                      AI understands context: refund questions get empathetic help, technical issues get step-by-step fixes, angry customers get immediate acknowledgment.
+                    </p>
+                  </div>
+                )}
+
+                {!customerSupportResult && (
+                  <div className="placeholder-box" style={{ marginTop: '20px' }}>
+                    <p style={{ fontSize: '13px' }}>Click "Generate Support Response" to see AI handle customer issues intelligently</p>
+                  </div>
+                )}
+              </div>
             </div>
           )}
 
