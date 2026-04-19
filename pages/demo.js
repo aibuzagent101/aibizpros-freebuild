@@ -1827,7 +1827,7 @@ export default function Demo() {
           <div className="video-modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="video-modal-player">
               <button className="video-modal-close" onClick={() => setVideoModalOpen(false)}>×</button>
-              <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%)', display: 'flex', flexDirection: 'column', padding: '20px', fontFamily: 'monospace', fontSize: '12px', color: '#333', overflow: 'hidden' }}>
+              <div style={{ width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%)', display: 'flex', flexDirection: 'column', padding: '20px', fontFamily: 'monospace', fontSize: '12px', color: '#333', overflowY: 'auto' }}>
                 <div style={{ background: '#f0f0f0', padding: '10px', borderBottom: '1px solid #ccc', marginBottom: '10px', borderRadius: '4px 4px 0 0' }}>
                   <div style={{ display: 'flex', gap: '5px', marginBottom: '8px' }}>
                     <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f57' }}></div>
