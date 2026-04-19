@@ -764,6 +764,89 @@ export default function Demo() {
           color: white;
         }
 
+        /* Video Placeholder Styles */
+        .video-placeholder {
+          background: #2a2a3e;
+          border-radius: 8px;
+          padding: 0;
+          overflow: hidden;
+          margin-bottom: 20px;
+          border: 2px solid #ebe4ff;
+        }
+
+        .video-player {
+          position: relative;
+          width: 100%;
+          padding-bottom: 56.25%; /* 16:9 aspect ratio */
+          background: #1a1a2e;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .video-player::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: radial-gradient(circle at center, rgba(103, 61, 230, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%);
+        }
+
+        .video-play-button {
+          position: absolute;
+          width: 80px;
+          height: 80px;
+          background: #673de6;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.3s;
+          z-index: 2;
+          box-shadow: 0 8px 24px rgba(103, 61, 230, 0.4);
+        }
+
+        .video-play-button:hover {
+          background: #5025d1;
+          transform: scale(1.1);
+          box-shadow: 0 12px 32px rgba(103, 61, 230, 0.6);
+        }
+
+        .video-play-button::after {
+          content: '▶';
+          color: white;
+          font-size: 32px;
+          margin-left: 5px;
+        }
+
+        .video-info {
+          padding: 20px;
+          background: white;
+        }
+
+        .video-title {
+          color: #1d1e20;
+          font-weight: 700;
+          font-size: 16px;
+          margin-bottom: 8px;
+        }
+
+        .video-description {
+          color: #727586;
+          font-size: 14px;
+          line-height: 1.5;
+          margin-bottom: 12px;
+        }
+
+        .video-duration {
+          color: #673de6;
+          font-weight: 600;
+          font-size: 12px;
+        }
+
         /* Integration Tools Grid */
         .integrations-grid {
           display: grid;
@@ -1012,6 +1095,20 @@ export default function Demo() {
           {/* Tab 1: Lead Generation */}
           {activeTab === 'lead-gen' && (
             <div className="tab-content">
+              {/* Example Video Placeholder */}
+              <div className="video-placeholder" style={{ marginBottom: '40px' }}>
+                <div className="video-player">
+                  <div className="video-play-button"></div>
+                </div>
+                <div className="video-info">
+                  <div className="video-title">Lead Qualification Automation In Action</div>
+                  <div className="video-description">
+                    Watch as incoming leads are automatically scored, qualified, and routed to the right team member. See how AI evaluates 50+ criteria in seconds and prioritizes hot leads.
+                  </div>
+                  <div className="video-duration">2:15 minutes</div>
+                </div>
+              </div>
+
               <div className="demo-form">
                 <h3>Evaluate a Lead in Seconds</h3>
                 <p style={{ color: '#727586', marginBottom: '20px', fontSize: '14px' }}>Fill out a sample lead and see how our AI automatically prioritizes it for your team.</p>
