@@ -860,8 +860,8 @@ export default function Demo() {
       {/* Hero */}
       <section className="hero">
         <div className="container">
-          <h1>See What's Possible</h1>
-          <p>Explore how we build AI systems that transform your business. From lead qualification to automation—see live demos of each capability.</p>
+          <h1>Interactive Demo</h1>
+          <p>Explore the AI capabilities we build for your business. Try lead qualification, email automation, chatbots, smart forms, integrations, and workflow automation.</p>
         </div>
       </section>
 

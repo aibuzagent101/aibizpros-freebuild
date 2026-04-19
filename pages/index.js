@@ -1198,118 +1198,93 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Demo */}
-      <section style={{ background: '#f2f3f6' }}>
+      {/* Demo Preview */}
+      <section style={{ background: '#f2f3f6', padding: '80px 20px' }}>
         <div className="container">
           <h2>See It In Action</h2>
           <p className="subtitle">
-            Here's how our AI lead qualification system works. Fill out a sample lead and watch the AI score it.
+            Quick preview of what's possible. Try lead qualification below, or explore the full interactive experience.
           </p>
 
-          <div className="demo-container">
-            <div className="demo-form">
-              <h3>Sample Lead</h3>
-              <form onSubmit={runDemo}>
-                <div className="form-group">
-                  <label>Lead Name</label>
-                  <input
-                    type="text"
-                    name="leadName"
-                    placeholder="John Smith"
-                    value={demoData.leadName}
-                    onChange={handleDemoChange}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label>Company</label>
-                  <input
-                    type="text"
-                    name="company"
-                    placeholder="ABC Marketing"
-                    value={demoData.company}
-                    onChange={handleDemoChange}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label>Industry</label>
-                  <select
-                    name="industry"
-                    value={demoData.industry}
-                    onChange={handleDemoChange}
-                  >
-                    <option value="">Select an industry...</option>
-                    <option value="Technology">Technology</option>
-                    <option value="Healthcare">Healthcare</option>
-                    <option value="Consulting">Consulting</option>
-                    <option value="Professional Services">Professional Services</option>
-                    <option value="E-commerce">E-commerce</option>
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label>Budget</label>
-                  <select
-                    name="budget"
-                    value={demoData.budget}
-                    onChange={handleDemoChange}
-                  >
-                    <option value="">Select budget...</option>
-                    <option value="high">$50K+/year</option>
-                    <option value="medium">$10K–$50K/year</option>
-                    <option value="low">Under $10K/year</option>
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label>Timeline</label>
-                  <select
-                    name="timeline"
-                    value={demoData.timeline}
-                    onChange={handleDemoChange}
-                  >
-                    <option value="">Select timeline...</option>
-                    <option value="urgent">This month</option>
-                    <option value="soon">Next 1-3 months</option>
-                    <option value="later">3+ months</option>
-                  </select>
-                </div>
-
-                <button type="submit" className="demo-button">
-                  Score This Lead
-                </button>
-              </form>
-            </div>
-
-            <div>
-              {demoResult ? (
-                <div className="demo-result score-display">
-                  <div className="score-number">{demoResult.score}</div>
-                  <div className="score-grade">{demoResult.grade}</div>
-                  <p style={{ color: '#727586', marginBottom: '20px' }}>
-                    This lead would be automatically classified and routed based on fit.
-                  </p>
-                  <div className="score-reasons">
-                    <h4>Scoring Factors:</h4>
-                    <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-                      {demoResult.reasons.map((reason, idx) => (
-                        <li key={idx}>{reason}</li>
-                      ))}
-                    </ul>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', margin: '60px 0', alignItems: 'center' }}>
+            {/* Quick Demo 1: Lead Qualification */}
+            <div style={{ background: 'white', padding: '30px', borderRadius: '8px' }}>
+              <h3 style={{ marginBottom: '20px', color: '#1d1e20' }}>Lead Qualification</h3>
+              <div className="demo-form" style={{ background: '#f2f3f6' }}>
+                <form onSubmit={runDemo}>
+                  <div className="form-group">
+                    <label>Company Name</label>
+                    <input
+                      type="text"
+                      name="company"
+                      placeholder="Your company"
+                      value={demoData.company}
+                      onChange={handleDemoChange}
+                    />
                   </div>
-                </div>
-              ) : (
-                <div style={{ background: '#ebe4ff', padding: '40px', borderRadius: '8px', textAlign: 'center' }}>
-                  <p style={{ color: '#2f1c6a', fontSize: '16px', lineHeight: '1.6' }}>
-                    <strong>Fill out the form and click "Score This Lead"</strong> to see how our AI qualification system instantly evaluates and prioritizes leads.
-                  </p>
-                  <p style={{ color: '#5025d1', marginTop: '15px', fontSize: '14px' }}>
-                    This is just one example. We customize the scoring criteria to match your business.
-                  </p>
+                  <div className="form-group">
+                    <label>Budget</label>
+                    <select name="budget" value={demoData.budget} onChange={handleDemoChange}>
+                      <option value="">Select...</option>
+                      <option value="high">$50K+/year</option>
+                      <option value="medium">$10K–$50K/year</option>
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label>Timeline</label>
+                    <select name="timeline" value={demoData.timeline} onChange={handleDemoChange}>
+                      <option value="">Select...</option>
+                      <option value="urgent">This month</option>
+                      <option value="soon">1-3 months</option>
+                    </select>
+                  </div>
+                  <button type="submit" className="demo-button">Score</button>
+                </form>
+              </div>
+
+              {demoResult && (
+                <div style={{ marginTop: '20px', background: '#ebe4ff', padding: '20px', borderRadius: '8px', textAlign: 'center' }}>
+                  <div style={{ fontSize: '48px', fontWeight: '700', color: '#673de6', marginBottom: '10px' }}>{demoResult.score}</div>
+                  <div style={{ fontSize: '18px', fontWeight: '700', color: '#5025d1' }}>{demoResult.grade}</div>
                 </div>
               )}
             </div>
+
+            {/* Quick Demo 2: Email Response */}
+            <div style={{ background: 'white', padding: '30px', borderRadius: '8px' }}>
+              <h3 style={{ marginBottom: '20px', color: '#1d1e20' }}>AI Email Response</h3>
+              <div style={{ background: '#f2f3f6', padding: '20px', borderRadius: '8px', marginBottom: '20px', minHeight: '200px' }}>
+                <div style={{ fontSize: '12px', color: '#673de6', fontWeight: '600', marginBottom: '8px' }}>INCOMING EMAIL</div>
+                <div style={{ fontSize: '13px', fontWeight: '600', color: '#1d1e20', marginBottom: '5px' }}>Subject: Looking for lead qualification</div>
+                <div style={{ fontSize: '13px', color: '#36344d', lineHeight: '1.5' }}>
+                  Hi, we're interested in your lead qualification system. Can you tell me more about pricing and how it works?
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  setEmailResult('Hi! Great question. Our lead qualification system automatically scores and prioritizes leads based on fit, budget, and timeline. Most clients see results within the first week. We offer plans starting at $297/month. Let\'s schedule a quick call—when are you free?');
+                }}
+                className="demo-button"
+              >
+                Generate Response
+              </button>
+
+              {emailResult && (
+                <div style={{ marginTop: '20px', background: '#ebe4ff', padding: '20px', borderRadius: '8px' }}>
+                  <div style={{ fontSize: '12px', color: '#673de6', fontWeight: '600', marginBottom: '10px' }}>AI-GENERATED RESPONSE</div>
+                  <div style={{ fontSize: '13px', color: '#1d1e20', lineHeight: '1.6' }}>{emailResult}</div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: '60px' }}>
+            <p style={{ color: '#727586', marginBottom: '20px', fontSize: '16px' }}>
+              <strong>That's just the beginning.</strong> We also handle chatbots, smart forms, integrations, and full workflow automation.
+            </p>
+            <a href="/demo" className="btn btn-primary">
+              See Full Interactive Demo (6 Capabilities)
+            </a>
           </div>
         </div>
       </section>
