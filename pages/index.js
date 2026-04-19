@@ -1084,6 +1084,7 @@ export default function Home() {
           <nav>
             <a href="#services">Services</a>
             <a href="#how-it-works">How It Works</a>
+            <a href="/demo">Demo</a>
             <a href="#pricing">Pricing</a>
             <a href="#contact">Contact</a>
           </nav>
