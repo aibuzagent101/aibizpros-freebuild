@@ -768,14 +768,15 @@ export default function Demo() {
         .video-placeholder {
           border-radius: 8px;
           overflow: hidden;
-          margin-bottom: 20px;
+          margin: 0 auto 30px;
           border: 2px solid #ebe4ff;
+          width: 200px;
         }
 
         .video-player {
           position: relative;
-          width: 100%;
-          height: 120px;
+          width: 200px;
+          height: 200px;
           background: linear-gradient(135deg, #1a1a2e 0%, #2a2a3e 100%);
           display: flex;
           align-items: center;
@@ -1101,7 +1102,6 @@ export default function Demo() {
                 <div className="video-player">
                   <button
                     className="video-play-button"
-                    onClick={() => alert('Video player: Lead Qualification Automation In Action (2:15 min)\n\nThis is a placeholder. Real video would show:\n- Leads arriving in real-time\n- AI scoring and prioritization\n- Automatic routing to team members\n- Live integration with CRM')}
                     title="Play video"
                   >
                     <span className="video-play-button-icon">▶</span>
