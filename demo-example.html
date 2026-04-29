@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Demo Preview — AI Chatbot</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f0f2f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+  .label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #673de6;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1d1e20;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: #727586;
+    margin-bottom: 28px;
+    text-align: center;
+    max-width: 420px;
+  }
+  .browser-frame {
+    width: 480px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    overflow: hidden;
+  }
+  .browser-bar {
+    background: #f2f3f6;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .browser-url {
+    flex: 1;
+    background: white;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 12px;
+    color: #727586;
+    border: 1px solid #e0e0e0;
+    margin-left: 8px;
+  }
+  .chat-window {
+    display: flex;
+    flex-direction: column;
+    height: 480px;
+  }
+  .chat-header {
+    background: linear-gradient(135deg, #673de6, #5025d1);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .avatar {
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .header-text strong { display: block; color: white; font-size: 14px; }
+  .header-text span { color: rgba(255,255,255,0.75); font-size: 12px; }
+  .online { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; display: inline-block; margin-right: 4px; }
+  .messages {
+    flex: 1; overflow-y: auto; padding: 16px;
+    display: flex; flex-direction: column; gap: 10px;
+    background: #fafafa;
+  }
+  .placeholder {
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; height: 100%; gap: 10px; color: #bbb;
+  }
+  .placeholder .icon { font-size: 36px; }
+  .placeholder p { font-size: 14px; }
+  .msg { display: flex; align-items: flex-end; gap: 8px; animation: fadeUp 0.35s ease-out; }
+  .msg.user { flex-direction: row-reverse; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .bubble {
+    max-width: 78%; padding: 10px 14px;
+    border-radius: 16px; font-size: 13.5px; line-height: 1.5;
+  }
+  .msg.bot .bubble {
+    background: white; color: #1d1e20;
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .msg.user .bubble {
+    background: #673de6; color: white;
+    border-bottom-right-radius: 4px;
+  }
+  .bot-icon {
+    width: 28px; height: 28px;
+    background: linear-gradient(135deg, #673de6, #5025d1);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: white;
+    flex-shrink: 0;
+  }
+  .typing { display: flex; align-items: flex-end; gap: 8px; animation: fadeUp 0.3s ease-out; }
+  .typing-dots {
+    background: white; padding: 10px 14px;
+    border-radius: 16px; border-bottom-left-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    display: flex; gap: 4px; align-items: center;
+  }
+  .typing-dots span {
+    width: 6px; height: 6px; background: #bbb; border-radius: 50%;
+    animation: bounce 1.2s infinite;
+  }
+  .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce {
+    0%,60%,100% { transform: translateY(0); }
+    30% { transform: translateY(-5px); }
+  }
+  .result {
+    margin: 0 16px 14px;
+    background: #f0fdf4; border: 1px solid #86efac;
+    border-radius: 8px; padding: 10px 14px;
+    font-size: 12.5px; color: #166534; font-weight: 500;
+    animation: fadeUp 0.4s ease-out;
+  }
+  .input-bar {
+    padding: 12px 16px; border-top: 1px solid #f0f0f0;
+    display: flex; gap: 8px; background: white;
+  }
+  .fake-input {
+    flex: 1; padding: 8px 12px;
+    border: 1px solid #e0e0e0; border-radius: 20px;
+    font-size: 13px; color: #bbb; background: #fafafa;
+  }
+  .send-btn {
+    width: 34px; height: 34px; background: #673de6;
+    border: none; border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cta { margin-top: 24px; display: flex; gap: 12px; justify-content: center; }
+  .play-btn {
+    background: linear-gradient(135deg, #673de6, #5025d1);
+    color: white; border: none;
+    padding: 13px 30px; border-radius: 6px;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .play-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(103,61,230,0.3); }
+  .note { margin-top: 14px; font-size: 12.5px; color: #aaa; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="label">Demo Preview — AI Chatbot</div>
+<h1 class="title">This is what your clients see</h1>
+<p class="subtitle">A 24/7 AI assistant that qualifies leads and books calls — running on your website.</p>
+
+<div class="browser-frame">
+  <div class="browser-bar">
+    <div class="dot" style="background:#ff5f57"></div>
+    <div class="dot" style="background:#febc2e"></div>
+    <div class="dot" style="background:#28c840"></div>
+    <div class="browser-url">yourwebsite.com</div>
+  </div>
+
+  <div class="chat-window">
+    <div class="chat-header">
+      <div class="avatar">🤖</div>
+      <div class="header-text">
+        <strong>AI Biz Pros Assistant</strong>
+        <span><span class="online"></span>Online · Replies instantly</span>
+      </div>
+    </div>
+
+    <div class="messages" id="messages">
+      <div class="placeholder" id="placeholder">
+        <div class="icon">💬</div>
+        <p>Press Play to watch the demo</p>
+      </div>
+    </div>
+
+    <div id="result-area"></div>
+
+    <div class="input-bar">
+      <div class="fake-input">Type a message...</div>
+      <button class="send-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <button class="play-btn" id="playBtn" onclick="startDemo()">▶ Play Demo</button>
+</div>
+<p class="note">Each service (lead gen, email automation, forms, etc.) gets its own demo like this.</p>
+
+<script>
+const script = [
+  { from: 'user', text: "Hi, I'm looking for help with lead follow-up. We're missing too many inquiries." },
+  { from: 'bot',  text: "Hi! I can help with that. On average, how many new leads do you get per week?" },
+  { from: 'user', text: "Around 30–40 per week, mostly from our website form." },
+  { from: 'bot',  text: "Got it. How fast does your team typically follow up right now?" },
+  { from: 'user', text: "Honestly, sometimes 1–2 days. We get really busy." },
+  { from: 'bot',  text: "That's a common problem. Our AI responds within 60 seconds — 24/7. Based on your volume, you could recover 8–12 leads per month that would otherwise go cold. Want me to send you a quick overview?" },
+  { from: 'user', text: "Yes, that would be great!" },
+  { from: 'bot',  text: "Perfect. What's the best email? I can also book you a 15-min call with Kimberly if you'd like to talk through your setup." },
+];
+
+let running = false;
+
+async function sleep(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+
+function addMessage(msg) {
+  const container = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = `msg ${msg.from}`;
+
+  if (msg.from === 'bot') {
+    div.innerHTML = `<div class="bot-icon">AI</div><div class="bubble">${msg.text}</div>`;
+  } else {
+    div.innerHTML = `<div class="bubble">${msg.text}</div>`;
+  }
+
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function showTyping() {
+  const container = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = 'typing';
+  div.id = 'typing-indicator';
+  div.innerHTML = `<div class="bot-icon">AI</div><div class="typing-dots"><span></span><span></span><span></span></div>`;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function removeTyping() {
+  const t = document.getElementById('typing-indicator');
+  if (t) t.remove();
+}
+
+async function startDemo() {
+  if (running) return;
+  running = true;
+
+  // Reset
+  const messages = document.getElementById('messages');
+  messages.innerHTML = '';
+  document.getElementById('result-area').innerHTML = '';
+  const btn = document.getElementById('playBtn');
+  btn.textContent = '⏸ Playing...';
+  btn.disabled = true;
+
+  for (let i = 0; i < script.length; i++) {
+    const msg = script[i];
+    const delay = i === 0 ? 500 : msg.from === 'bot' ? 900 : 700;
+    await sleep(delay);
+
+    if (msg.from === 'bot') {
+      showTyping();
+      await sleep(1400);
+      removeTyping();
+    }
+
+    addMessage(msg);
+  }
+
+  // Show result badge
+  await sleep(800);
+  const result = document.createElement('div');
+  result.className = 'result';
+  result.textContent = '✓ Lead captured · Follow-up email queued · Calendar link sent automatically';
+  document.getElementById('result-area').appendChild(result);
+
+  await sleep(400);
+  btn.textContent = '↺ Replay';
+  btn.disabled = false;
+  running = false;
+}
+</script>
+</body>
+</html>

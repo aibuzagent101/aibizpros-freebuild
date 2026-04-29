@@ -30,13 +30,45 @@ export default function HvacDemo() {
   const [typing, setTyping] = useState(false);
   const [leadVisible, setLeadVisible] = useState(false);
   const [started, setStarted] = useState(false);
+  const [showWorkflow, setShowWorkflow] = useState(false);
+  const [workflowSteps, setWorkflowSteps] = useState([]);
   const scrollRef = useRef(null);
+  const workflowChatRef = useRef(null);
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, typing]);
+
+  useEffect(() => {
+    if (!showWorkflow) return;
+    const steps = [
+      { delay: 500, type: 'system', text: 'Incoming call from 480-555-0287' },
+      { delay: 2500, type: 'ai', text: "Hi! I'm the Cool Air HVAC assistant. How can I help?" },
+      { delay: 4500, type: 'cx', text: 'AC stopped working, it\'s over 100 degrees' },
+      { delay: 6500, type: 'ai', text: 'I\'m sorry to hear that! We can fix that fast. What\'s your name?' },
+      { delay: 8500, type: 'cx', text: 'Jennifer Walsh' },
+      { delay: 10500, type: 'ai', text: 'Jennifer, what city are you in?' },
+      { delay: 12500, type: 'cx', text: 'Scottsdale, Arizona' },
+      { delay: 14500, type: 'ai', text: 'Got it. Marking as high priority. Tech available today 2–5 PM?' },
+      { delay: 16500, type: 'cx', text: 'Perfect, yes' },
+      { delay: 18500, type: 'ai', text: 'Confirmed! Tech will call in 20 min with their name & photo. Stay cool ✓' },
+      { delay: 19500, type: 'complete', text: 'Lead Captured & Appointment Booked' },
+    ];
+    setWorkflowSteps([]);
+    steps.forEach(s => {
+      const timer = setTimeout(() => {
+        setWorkflowSteps(prev => [...prev, s]);
+        if (workflowChatRef.current && (s.type === 'ai' || s.type === 'cx' || s.type === 'system')) {
+          workflowChatRef.current.scrollTop = workflowChatRef.current.scrollHeight;
+        }
+      }, s.delay);
+      return () => clearTimeout(timer);
+    });
+    const closeTimer = setTimeout(() => setShowWorkflow(false), 20000);
+    return () => clearTimeout(closeTimer);
+  }, [showWorkflow]);
 
   const startDemo = () => {
     if (started) {
@@ -372,6 +404,19 @@ export default function HvacDemo() {
           .header h1 { font-size: 22px; }
           .chat-messages { height: 340px; }
         }
+        .workflow-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .workflow-container { background: white; border-radius: 16px; width: 100%; max-width: 900px; height: 500px; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .workflow-left { border-right: 1px solid #e2e8f0; padding: 24px; display: flex; flex-direction: column; background: #f8fafc; }
+        .workflow-left-title { font-size: 14px; font-weight: 700; color: #64748b; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .workflow-chat { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        .workflow-msg { padding: 12px 14px; border-radius: 10px; font-size: 13px; line-height: 1.5; animation: msgSlide 0.3s ease-out; }
+        @keyframes msgSlide { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .workflow-msg.system { background: #f1f5f9; color: #64748b; text-align: center; font-weight: 600; }
+        .workflow-msg.ai { background: #e0f2fe; color: #0369a1; }
+        .workflow-msg.cx { background: #dcfce7; color: #15803d; }
+        .workflow-right { padding: 24px; display: flex; flex-direction: column; background: white; justify-content: center; align-items: center; text-align: center; }
+        .workflow-complete { color: #22c55e; font-size: 18px; font-weight: 700; animation: msgSlide 0.5s ease-out; }
+        @media (max-width: 768px) { .workflow-container { grid-template-columns: 1fr; height: auto; max-height: 80vh; } .workflow-left { border-right: none; border-bottom: 1px solid #e2e8f0; } }
       `}</style>
 
       <div className="top-banner">
@@ -385,6 +430,28 @@ export default function HvacDemo() {
           This bot answers questions 24/7, captures lead details, and books appointments — so you never miss a call again.
         </p>
       </div>
+
+      <div style={{ marginBottom: '20px', textAlign: 'center', paddingTop: '20px' }}>
+        <button onClick={() => setShowWorkflow(true)} style={{ background: '#2563eb', color: 'white', border: 'none', padding: '12px 24px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s' }} onMouseEnter={(e) => e.target.style.background = '#1d4ed8'} onMouseLeave={(e) => e.target.style.background = '#2563eb'}>▶ Start Live Workflow Demo</button>
+      </div>
+
+      {showWorkflow && (
+        <div className="workflow-overlay" onClick={() => setShowWorkflow(false)}>
+          <div className="workflow-container" onClick={(e) => e.stopPropagation()}>
+            <div className="workflow-left">
+              <div className="workflow-left-title">📱 Customer Call</div>
+              <div className="workflow-chat" ref={workflowChatRef}>
+                {workflowSteps.map((step, i) => (
+                  step.type === 'system' ? <div key={i} className="workflow-msg system">{step.text}</div> : step.type === 'ai' ? <div key={i} className="workflow-msg ai">🤖 {step.text}</div> : step.type === 'cx' ? <div key={i} className="workflow-msg cx">👤 {step.text}</div> : null
+                ))}
+              </div>
+            </div>
+            <div className="workflow-right">
+              {workflowSteps.find(s => s.type === 'complete') && <div className="workflow-complete">✓ {workflowSteps.find(s => s.type === 'complete')?.text}</div>}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="main">
         {/* LEFT — Chat */}

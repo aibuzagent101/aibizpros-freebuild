@@ -123,7 +123,11 @@ export default function ServiceFlow() {
   const [kpi, setKpi]               = useState({ recovered: 0, booked: 0, revenue: 0, respTime: 0 });
   const [newCallIdx, setNewCallIdx] = useState(0);
   const [newNotifIdx, setNewNotifIdx] = useState(0);
+  const [showWorkflow, setShowWorkflow] = useState(false);
+  const [workflowSteps, setWorkflowSteps] = useState([]);
+  const [workflowKpi, setWorkflowKpi] = useState({ recovered: 14, booked: 6, revenue: 4200, respTime: 47 });
   const chatRef = useRef(null);
+  const workflowChatRef = useRef(null);
 
   // KPI count-up
   useEffect(() => {
@@ -168,6 +172,35 @@ export default function ServiceFlow() {
   useEffect(() => {
     if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
   }, [selected]);
+
+  // Workflow animation
+  useEffect(() => {
+    if (!showWorkflow) return;
+    const steps = [
+      { delay: 500, side: 'left', type: 'system', text: 'Incoming call from 602-555-0198' },
+      { delay: 2500, side: 'left', type: 'ai', text: 'Hi! We missed your call. How can we help?' },
+      { delay: 4500, side: 'left', type: 'cx', text: 'AC not cooling' },
+      { delay: 6500, side: 'left', type: 'ai', text: 'What time works best for a tech visit?' },
+      { delay: 8500, side: 'left', type: 'cx', text: '3 PM today' },
+      { delay: 10500, side: 'left', type: 'ai', text: 'Perfect! Booking your 3 PM appointment ✓' },
+      { delay: 11000, side: 'right', type: 'metric', key: 'booked', value: 7 },
+      { delay: 11200, side: 'right', type: 'appointment', name: 'New Customer', time: '3 PM', service: 'AC Not Cooling' },
+      { delay: 12500, side: 'center', type: 'complete', text: 'Automation Complete' },
+    ];
+    setWorkflowSteps([]);
+    steps.forEach(s => {
+      const timer = setTimeout(() => {
+        setWorkflowSteps(prev => [...prev, s]);
+        if (s.type === 'metric') setWorkflowKpi(prev => ({ ...prev, [s.key]: s.value }));
+        if (workflowChatRef.current && (s.type === 'ai' || s.type === 'cx' || s.type === 'system')) {
+          workflowChatRef.current.scrollTop = workflowChatRef.current.scrollHeight;
+        }
+      }, s.delay);
+      return () => clearTimeout(timer);
+    });
+    const closeTimer = setTimeout(() => setShowWorkflow(false), 13000);
+    return () => clearTimeout(closeTimer);
+  }, [showWorkflow]);
 
   const convo = convos[selected] || [];
   const qual  = quals[selected];
@@ -411,6 +444,88 @@ export default function ServiceFlow() {
           .response-top { grid-template-columns: 1fr; }
           .sf-client { display: none; }
         }
+
+        /* ── WORKFLOW OVERLAY ── */
+        .workflow-overlay {
+          position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+          background: rgba(0,0,0,0.7); z-index: 1000;
+          display: flex; align-items: center; justify-content: center;
+          padding: 20px;
+        }
+        .workflow-container {
+          background: white; border-radius: 16px;
+          width: 100%; max-width: 900px;
+          height: 500px;
+          display: grid; grid-template-columns: 1fr 1fr;
+          overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .workflow-left {
+          border-right: 1px solid #e2e8f0;
+          padding: 24px; display: flex; flex-direction: column;
+          background: #f8fafc;
+        }
+        .workflow-left-title {
+          font-size: 14px; font-weight: 700; color: #64748b;
+          margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .workflow-chat {
+          flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;
+          margin-bottom: 0;
+        }
+        .workflow-msg {
+          padding: 12px 14px; border-radius: 10px;
+          font-size: 13px; line-height: 1.5;
+          animation: msgSlide 0.3s ease-out;
+        }
+        @keyframes msgSlide { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .workflow-msg.system { background: #f1f5f9; color: #64748b; text-align: center; font-weight: 600; }
+        .workflow-msg.ai { background: #e0f2fe; color: #0369a1; }
+        .workflow-msg.cx { background: #dcfce7; color: #15803d; }
+        .workflow-right {
+          padding: 24px; display: flex; flex-direction: column;
+          background: white;
+        }
+        .workflow-right-title {
+          font-size: 14px; font-weight: 700; color: #64748b;
+          margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .workflow-right-content {
+          flex: 1; display: flex; flex-direction: column; gap: 16px;
+        }
+        .workflow-metric {
+          display: flex; gap: 12px;
+          padding: 14px; background: #f8fafc; border-radius: 8px;
+          animation: metricUpdate 0.4s ease-out;
+        }
+        @keyframes metricUpdate { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .workflow-metric-icon {
+          font-size: 20px;
+        }
+        .workflow-metric-value {
+          font-size: 24px; font-weight: 700; color: #f97316;
+        }
+        .workflow-metric-label {
+          font-size: 12px; color: #64748b;
+        }
+        .workflow-appointment {
+          padding: 14px; background: #f0fdf4; border-left: 3px solid #22c55e;
+          border-radius: 6px; animation: msgSlide 0.3s ease-out;
+        }
+        .workflow-appointment-time {
+          font-size: 13px; font-weight: 700; color: #22c55e;
+        }
+        .workflow-appointment-service {
+          font-size: 12px; color: #64748b; margin-top: 4px;
+        }
+        .workflow-complete {
+          text-align: center; padding: 20px; color: #22c55e;
+          font-size: 16px; font-weight: 700;
+          animation: msgSlide 0.5s ease-out;
+        }
+        @media (max-width: 768px) {
+          .workflow-container { grid-template-columns: 1fr; height: auto; max-height: 80vh; }
+          .workflow-left { border-right: none; border-bottom: 1px solid #e2e8f0; }
+        }
       `}</style>
 
       {/* HEADER */}
@@ -427,6 +542,76 @@ export default function ServiceFlow() {
       </header>
 
       <div className="sf-body">
+
+        {/* START DEMO BUTTON */}
+        <div style={{ marginBottom: '20px' }}>
+          <button
+            onClick={() => setShowWorkflow(true)}
+            style={{
+              background: '#f97316',
+              color: 'white',
+              border: 'none',
+              padding: '12px 24px',
+              borderRadius: '8px',
+              fontSize: '14px',
+              fontWeight: '600',
+              cursor: 'pointer',
+              transition: 'background 0.2s',
+            }}
+            onMouseEnter={(e) => e.target.style.background = '#ea580c'}
+            onMouseLeave={(e) => e.target.style.background = '#f97316'}
+          >
+            ▶ Start Live Workflow Demo
+          </button>
+        </div>
+
+        {/* WORKFLOW OVERLAY */}
+        {showWorkflow && (
+          <div className="workflow-overlay" onClick={() => setShowWorkflow(false)}>
+            <div className="workflow-container" onClick={(e) => e.stopPropagation()}>
+              <div className="workflow-left">
+                <div className="workflow-left-title">📱 Customer Conversation</div>
+                <div className="workflow-chat" ref={workflowChatRef}>
+                  {workflowSteps.map((step, i) => (
+                    step.type === 'system' ? (
+                      <div key={i} className="workflow-msg system">{step.text}</div>
+                    ) : step.type === 'ai' ? (
+                      <div key={i} className="workflow-msg ai">🤖 {step.text}</div>
+                    ) : step.type === 'cx' ? (
+                      <div key={i} className="workflow-msg cx">👤 {step.text}</div>
+                    ) : null
+                  ))}
+                </div>
+              </div>
+              <div className="workflow-right">
+                <div className="workflow-right-title">📊 Live Updates</div>
+                <div className="workflow-right-content">
+                  {workflowSteps.find(s => s.type === 'metric') && (
+                    <div className="workflow-metric">
+                      <div className="workflow-metric-icon">📅</div>
+                      <div>
+                        <div className="workflow-metric-value">{workflowKpi.booked}</div>
+                        <div className="workflow-metric-label">Appointments Booked Today</div>
+                      </div>
+                    </div>
+                  )}
+                  {workflowSteps.find(s => s.type === 'appointment') && (
+                    <div>
+                      <div style={{ fontSize: '12px', fontWeight: '700', color: '#64748b', marginBottom: '8px' }}>Schedule Updated:</div>
+                      <div className="workflow-appointment">
+                        <div className="workflow-appointment-time">3:00 PM</div>
+                        <div className="workflow-appointment-service">AC Not Cooling</div>
+                      </div>
+                    </div>
+                  )}
+                  {workflowSteps.find(s => s.type === 'complete') && (
+                    <div className="workflow-complete">✓ Automation Complete</div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* KPI CARDS */}
         <div className="kpi-row">
