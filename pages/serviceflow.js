@@ -862,10 +862,50 @@ export default function ServiceFlow() {
 
         </div>
 
+        {/* What This System Does - HVAC */}
+        <div style={{ marginTop: '40px', marginBottom: '32px' }}>
+          <h3 style={{ fontSize: '20px', fontWeight: '700', color: '#0f172a', marginBottom: '24px', textAlign: 'center' }}>What This System Does For You</h3>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+            <div style={{ padding: '16px', background: 'rgba(249, 115, 22, 0.1)', borderRadius: '8px', borderLeft: '4px solid #f97316' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Never Miss Another Call</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>24/7 AI handles every incoming call and voicemail, even after hours when you're closed.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(34, 197, 94, 0.1)', borderRadius: '8px', borderLeft: '4px solid #22c55e' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Instant Lead Qualification</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>AI asks qualifying questions, identifies emergency vs routine, and captures address and urgency automatically.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(168, 85, 247, 0.1)', borderRadius: '8px', borderLeft: '4px solid #8b5cf6' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Books Appointments Instantly</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>Checks your tech availability and confirms appointments without any staff involvement.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(59, 130, 246, 0.1)', borderRadius: '8px', borderLeft: '4px solid #3b82f6' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Alerts Your Team Fast</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>Dispatch alerts sent instantly with customer details, address, and job type. Techs get priority leads first.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(236, 72, 153, 0.1)', borderRadius: '8px', borderLeft: '4px solid #ec4899' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Recovers Lost Revenue</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>Captures leads you would have missed. Every call becomes a tracked opportunity and potential booking.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(51, 65, 85, 0.1)', borderRadius: '8px', borderLeft: '4px solid #334155' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Runs Automatically</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>No manual follow-up, no data entry. This entire process happens in under 60 seconds per request.</div>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #f0f9ff 100%)', border: '1px solid #cbd5e1', borderRadius: '12px', padding: '20px', marginBottom: '32px', textAlign: 'center' }}>
+          <div style={{ fontSize: '14px', color: '#475569', marginBottom: '8px' }}>
+            <strong>Manual Process Typical:</strong> 15-30 minutes per call (answering, qualifying, scheduling, routing, notifications)
+          </div>
+          <div style={{ fontSize: '18px', fontWeight: '700', color: '#f97316' }}>
+            This System: Under 60 seconds. Fully automated.
+          </div>
+        </div>
+
         {/* Below Demo CTA */}
         <div style={{ background: 'linear-gradient(135deg, #fff7ed 0%, #fffaf0 100%)', border: '1px solid #fed7aa', borderRadius: '12px', padding: '32px 24px', marginTop: '32px', textAlign: 'center' }}>
           <div style={{ fontSize: '18px', fontWeight: '700', color: '#f97316', marginBottom: '8px' }}>Ready to Capture Every Missed Call?</div>
-          <div style={{ fontSize: '14px', color: '#d97706', marginBottom: '20px', lineHeight: '1.5' }}>This demo shows what's possible with AI. Get a customized system built for your HVAC business's specific needs and service area.</div>
+          <div style={{ fontSize: '14px', color: '#d97706', marginBottom: '20px', lineHeight: '1.5' }}>This is a live simulation of a custom AI workflow we build for HVAC companies. We customize it for your service area, tech availability, and business needs.</div>
           <a href="https://calendly.com/kimmycombs" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', background: '#f97316', color: 'white', border: 'none', padding: '14px 36px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', textDecoration: 'none', transition: 'background 0.2s' }} onMouseEnter={(e) => e.target.style.background = '#ea580c'} onMouseLeave={(e) => e.target.style.background = '#f97316'}>📅 Book a Free Strategy Call</a>
         </div>
       </div>

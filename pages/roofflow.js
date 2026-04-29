@@ -774,10 +774,50 @@ export default function RoofFlow() {
 
         </div>
 
+        {/* What This System Does - Roofing */}
+        <div style={{ marginTop: '40px', marginBottom: '32px' }}>
+          <h3 style={{ fontSize: '20px', fontWeight: '700', color: '#0f172a', marginBottom: '24px', textAlign: 'center' }}>What This System Does For You</h3>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+            <div style={{ padding: '16px', background: 'rgba(232, 160, 32, 0.1)', borderRadius: '8px', borderLeft: '4px solid #e8a020' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Captures Storm Leads Fast</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>24/7 AI captures leads right after storms when homeowners are looking for roofers. Never miss peak season again.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(34, 197, 94, 0.1)', borderRadius: '8px', borderLeft: '4px solid #22c55e' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Identifies Insurance Leads</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>AI asks about insurance coverage and damage type to flag high-value, insurance-covered claims automatically.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(34, 197, 94, 0.1)', borderRadius: '8px', borderLeft: '4px solid #16a34a' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Qualifies Damage & Scope</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>AI determines damage type, area affected, and urgency to help estimators prepare before site visits.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(59, 130, 246, 0.1)', borderRadius: '8px', borderLeft: '4px solid #3b82f6' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Books Inspections</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>Schedules roofing inspections with available crews without scheduling conflicts or back-and-forth delays.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(236, 72, 153, 0.1)', borderRadius: '8px', borderLeft: '4px solid #ec4899' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Converts Leads to Revenue</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>Captures lead details and insurance info upfront, reducing time from inquiry to signed estimate and contract.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(51, 65, 85, 0.1)', borderRadius: '8px', borderLeft: '4px solid #334155' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Works 24/7 Automatically</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>No missed leads during weekends or after hours. AI captures and qualifies every inquiry in under 60 seconds.</div>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ background: 'linear-gradient(135deg, #fffbeb 0%, #fef8f0 100%)', border: '1px solid #fcd34d', borderRadius: '12px', padding: '20px', marginBottom: '32px', textAlign: 'center' }}>
+          <div style={{ fontSize: '14px', color: '#c67c1e', marginBottom: '8px' }}>
+            <strong>Manual Process Typical:</strong> 20-35 minutes per lead (answer call, qualify, schedule inspection, follow-up)
+          </div>
+          <div style={{ fontSize: '18px', fontWeight: '700', color: '#e8a020' }}>
+            This System: Under 60 seconds. Fully automated.
+          </div>
+        </div>
+
         {/* Below Demo CTA */}
         <div style={{ background: 'linear-gradient(135deg, #fef3e2 0%, #fef8f0 100%)', border: '1px solid #f5d5a8', borderRadius: '12px', padding: '32px 24px', marginTop: '32px', textAlign: 'center' }}>
           <div style={{ fontSize: '18px', fontWeight: '700', color: '#e8a020', marginBottom: '8px' }}>Ready to Scale Your Roofing Business?</div>
-          <div style={{ fontSize: '14px', color: '#c67c1e', marginBottom: '20px', lineHeight: '1.5' }}>This demo shows what's possible with AI. Get a customized system built for your roofing company's lead capture and qualification process.</div>
+          <div style={{ fontSize: '14px', color: '#c67c1e', marginBottom: '20px', lineHeight: '1.5' }}>This is a live simulation of a custom AI workflow we build for roofing companies. We customize it for your service area, crew availability, and insurance partnerships.</div>
           <a href="https://calendly.com/kimmycombs" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', background: '#e8a020', color: 'white', border: 'none', padding: '14px 36px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', textDecoration: 'none', transition: 'background 0.2s' }} onMouseEnter={(e) => e.target.style.background = '#d89010'} onMouseLeave={(e) => e.target.style.background = '#e8a020'}>📅 Book a Free Strategy Call</a>
         </div>
       </div>

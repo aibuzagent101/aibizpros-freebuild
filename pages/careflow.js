@@ -567,10 +567,50 @@ export default function CareFlow() {
           </div>
         </div>
 
+        {/* What This System Does - Home Care */}
+        <div style={{ marginTop: '40px', marginBottom: '32px' }}>
+          <h3 style={{ fontSize: '20px', fontWeight: '700', color: '#0f172a', marginBottom: '24px', textAlign: 'center' }}>What This System Does For You</h3>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+            <div style={{ padding: '16px', background: 'rgba(13, 122, 95, 0.1)', borderRadius: '8px', borderLeft: '4px solid #0d7a5f' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Captures Every Inquiry</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>24/7 AI answers all incoming inquiries about care services, even when your office is closed.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(34, 197, 94, 0.1)', borderRadius: '8px', borderLeft: '4px solid #22c55e' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Qualifies Care Needs</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>AI asks about care recipient, services needed, timeline, and insurance/payment method automatically.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(34, 197, 94, 0.1)', borderRadius: '8px', borderLeft: '4px solid #16a34a' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Books Assessments</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>Schedules care assessments with available staff without manual coordination or back-and-forth.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(59, 130, 246, 0.1)', borderRadius: '8px', borderLeft: '4px solid #3b82f6' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Notifies Your Team</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>Care coordinators get alerts with client details, care needs, preferred contact method, and appointment details.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(236, 72, 153, 0.1)', borderRadius: '8px', borderLeft: '4px solid #ec4899' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Converts Leads to Clients</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>Captures inquiry details that help convert to paying clients. Reduces follow-up time and improves close rate.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(51, 65, 85, 0.1)', borderRadius: '8px', borderLeft: '4px solid #334155' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Operates 24/7 Automatically</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>No manual intake forms or follow-up calls. AI handles the entire intake workflow in under 60 seconds.</div>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ background: 'linear-gradient(135deg, #f0fef9 0%, #f0fdf8 100%)', border: '1px solid #a7f3d0', borderRadius: '12px', padding: '20px', marginBottom: '32px', textAlign: 'center' }}>
+          <div style={{ fontSize: '14px', color: '#047857', marginBottom: '8px' }}>
+            <strong>Manual Process Typical:</strong> 20-40 minutes per inquiry (phone call, qualification, scheduling, notification)
+          </div>
+          <div style={{ fontSize: '18px', fontWeight: '700', color: '#0d7a5f' }}>
+            This System: Under 60 seconds. Fully automated.
+          </div>
+        </div>
+
         {/* Below Demo CTA */}
         <div style={{ background: 'linear-gradient(135deg, #f0fdf8 0%, #ecfdf5 100%)', border: '1px solid #d1fae5', borderRadius: '12px', padding: '32px 24px', marginTop: '32px', textAlign: 'center' }}>
           <div style={{ fontSize: '18px', fontWeight: '700', color: '#0d7a5f', marginBottom: '8px' }}>Ready to Automate Your Intake Process?</div>
-          <div style={{ fontSize: '14px', color: '#047857', marginBottom: '20px', lineHeight: '1.5' }}>This demo shows what's possible with AI. Get a customized system built for your agency's unique workflows and requirements.</div>
+          <div style={{ fontSize: '14px', color: '#047857', marginBottom: '20px', lineHeight: '1.5' }}>This is a live simulation of a custom AI workflow we build for home care agencies. We customize it for your service types, staffing, and care models.</div>
           <a href="https://calendly.com/kimmycombs" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', background: '#0d7a5f', color: 'white', border: 'none', padding: '14px 36px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', textDecoration: 'none', transition: 'background 0.2s' }} onMouseEnter={(e) => e.target.style.background = '#0a5a4a'} onMouseLeave={(e) => e.target.style.background = '#0d7a5f'}>📅 Book a Free Strategy Call</a>
         </div>
       </div>

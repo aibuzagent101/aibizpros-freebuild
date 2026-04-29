@@ -561,10 +561,50 @@ export default function CaseFlow() {
           </div>
         </div>
 
+        {/* What This System Does - Law Firm */}
+        <div style={{ marginTop: '40px', marginBottom: '32px' }}>
+          <h3 style={{ fontSize: '20px', fontWeight: '700', color: '#0f172a', marginBottom: '24px', textAlign: 'center' }}>What This System Does For You</h3>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+            <div style={{ padding: '16px', background: 'rgba(30, 58, 95, 0.1)', borderRadius: '8px', borderLeft: '4px solid #1e3a5f' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Captures Every Case Inquiry</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>24/7 AI screens all incoming calls about potential cases, even after hours when your firm is closed.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(34, 197, 94, 0.1)', borderRadius: '8px', borderLeft: '4px solid #22c55e' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Qualifies High-Value Cases</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>AI asks about injury type, damages, insurance coverage, and liability to identify high-value cases automatically.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(34, 197, 94, 0.1)', borderRadius: '8px', borderLeft: '4px solid #16a34a' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Flags Priority Cases</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>AI automatically flags high-settlement-value cases so your attorneys can follow up immediately.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(59, 130, 246, 0.1)', borderRadius: '8px', borderLeft: '4px solid #3b82f6' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Books Consultations</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>Schedules initial consultations with available attorneys without time-consuming back-and-forth calls.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(236, 72, 153, 0.1)', borderRadius: '8px', borderLeft: '4px solid #ec4899' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Builds Your Case Pipeline</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>Captures detailed case info upfront, reducing time from inquiry to consultation to signed case.</div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(51, 65, 85, 0.1)', borderRadius: '8px', borderLeft: '4px solid #334155' }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#0f172a', marginBottom: '6px' }}>✔ Works 24/7 Automatically</div>
+              <div style={{ fontSize: '13px', color: '#475569' }}>No missed cases. AI handles intake and qualification in under 60 seconds. Your team focuses on settling.</div>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ background: 'linear-gradient(135deg, #f0f4f9 0%, #f5f8fc 100%)', border: '1px solid #cbd5e1', borderRadius: '12px', padding: '20px', marginBottom: '32px', textAlign: 'center' }}>
+          <div style={{ fontSize: '14px', color: '#2d5a8c', marginBottom: '8px' }}>
+            <strong>Manual Process Typical:</strong> 30-45 minutes per inquiry (intake call, case screening, consultation booking, follow-up)
+          </div>
+          <div style={{ fontSize: '18px', fontWeight: '700', color: '#1e3a5f' }}>
+            This System: Under 60 seconds. Fully automated.
+          </div>
+        </div>
+
         {/* Below Demo CTA */}
         <div style={{ background: 'linear-gradient(135deg, #f0f4f9 0%, #f5f8fc 100%)', border: '1px solid #c7d9ed', borderRadius: '12px', padding: '32px 24px', marginTop: '32px', textAlign: 'center' }}>
           <div style={{ fontSize: '18px', fontWeight: '700', color: '#1e3a5f', marginBottom: '8px' }}>Ready to Scale Your Personal Injury Practice?</div>
-          <div style={{ fontSize: '14px', color: '#2d5a8c', marginBottom: '20px', lineHeight: '1.5' }}>This demo shows what's possible with AI. Get a customized system built for your law firm's intake process and case qualification.</div>
+          <div style={{ fontSize: '14px', color: '#2d5a8c', marginBottom: '20px', lineHeight: '1.5' }}>This is a live simulation of a custom AI workflow we build for law firms. We customize it for your practice area, case types, and consultation process.</div>
           <a href="https://calendly.com/kimmycombs" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', background: '#1e3a5f', color: 'white', border: 'none', padding: '14px 36px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', textDecoration: 'none', transition: 'background 0.2s' }} onMouseEnter={(e) => e.target.style.background = '#152a45'} onMouseLeave={(e) => e.target.style.background = '#1e3a5f'}>📅 Book a Free Strategy Call</a>
         </div>
       </div>
