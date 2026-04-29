@@ -1,611 +1,256 @@
 import Head from 'next/head';
 import { useState, useEffect, useRef } from 'react';
 
-const conversation = [
-  { from: 'bot',  text: "Hi! I'm the Cool Air HVAC assistant. How can I help you today?" },
-  { from: 'user', text: "Hey, my AC stopped working and it's really hot in here." },
-  { from: 'bot',  text: "I'm sorry to hear that! We can get that fixed fast. What's your name?" },
-  { from: 'user', text: "Sarah Johnson" },
-  { from: 'bot',  text: "Hi Sarah! What city are you located in?" },
-  { from: 'user', text: "Phoenix, AZ" },
-  { from: 'bot',  text: "Got it. Can you describe the issue? For example - not cooling, making noise, or not turning on at all?" },
-  { from: 'user', text: "It's running but blowing hot air. It's 104 degrees outside." },
-  { from: 'bot',  text: "Understood - that sounds like a refrigerant or compressor issue. How urgent is this for you?" },
-  { from: 'user', text: "Pretty urgent, I have two kids at home." },
-  { from: 'bot',  text: "Marking this as high priority. Our next available slot is today between 2–5 PM. Does that work?" },
-  { from: 'user', text: "Yes, that works perfectly!" },
-  { from: 'bot',  text: "Great! I've sent your appointment request to our dispatch team. A technician will call you within 20 minutes to confirm. You'll also get a text with their name and photo. Is there anything else you need?" },
-  { from: 'user', text: "No that's everything, thank you!" },
-  { from: 'bot',  text: "You're welcome Sarah! Stay cool - help is on the way. 🏠❄️" },
-];
-
-const analytics = [
-  { label: 'Leads Captured Today', value: '14', sub: '+3 from after hours', color: '#2563eb' },
-  { label: 'Missed Calls Saved', value: '9',  sub: 'Would have gone to voicemail', color: '#16a34a' },
-  { label: 'Revenue Opportunity', value: '$5,600', sub: 'Based on avg ticket $400', color: '#9333ea' },
-];
-
-export default function HvacDemo() {
-  const [messages, setMessages] = useState([]);
-  const [typing, setTyping] = useState(false);
-  const [leadVisible, setLeadVisible] = useState(false);
-  const [started, setStarted] = useState(false);
-  const [showWorkflow, setShowWorkflow] = useState(false);
-  const [workflowSteps, setWorkflowSteps] = useState([]);
+export default function OpsFlowDemo() {
+  const [activeStep, setActiveStep] = useState(0);
+  const [animating, setAnimating] = useState(false);
   const scrollRef = useRef(null);
-  const workflowChatRef = useRef(null);
 
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    setAnimating(true);
+    const timer = setInterval(() => {
+      setActiveStep(prev => (prev + 1) % 8);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const steps = [
+    {
+      title: 'Request Received',
+      icon: '📞',
+      data: { name: 'Sarah Johnson', phone: '480-555-0287', issue: 'AC not cooling', urgency: 'High Priority', time: 'Just now' }
+    },
+    {
+      title: 'AI Reviewed',
+      icon: '🤖',
+      data: { action: 'Issue Analysis', result: 'Refrigerant/Compressor Issue', priority: 'High', estCost: '$400-800' }
+    },
+    {
+      title: 'Database Checked',
+      icon: '💾',
+      data: { inventory: 'Capacitor Stock: 7 | Filter Stock: 12', availability: 'Part availability: Confirmed', technician: 'Tech available: Yes' }
+    },
+    {
+      title: 'Team Notified',
+      icon: '👥',
+      data: { assigned: 'Marcus Thompson', dept: 'Field Service', status: 'Dispatch Alert Sent', eta: '20 minutes to contact' }
+    },
+    {
+      title: 'Email Sent',
+      icon: '📧',
+      data: { to: 'sarah@email.com', subject: 'Your Appointment Confirmed - Today 2-5 PM', status: 'Delivered', preview: 'Technician Marcus will arrive between 2-5 PM...' }
+    },
+    {
+      title: 'Calendar Updated',
+      icon: '📅',
+      data: { date: 'Today', time: '2:00 PM - 5:00 PM', address: '1847 Palm Ave, Phoenix AZ', status: 'Confirmed', assigned: 'Marcus Thompson' }
+    },
+    {
+      title: 'Task Logged',
+      icon: '✓',
+      data: { jobID: 'JOB-2847-AC', status: 'Scheduled', customer: 'Sarah Johnson', notes: 'High priority cooling issue', nextStep: 'Technician callout' }
+    },
+    {
+      title: 'Workflow Complete',
+      icon: '🎯',
+      data: { duration: '4 minutes 32 seconds', actions: '7 steps completed', result: 'Job captured, scheduled, and notified', revenue: '$550 avg value' }
     }
-  }, [messages, typing]);
+  ];
 
-  useEffect(() => {
-    if (!showWorkflow) return;
-    const steps = [
-      { delay: 500, type: 'system', text: 'Incoming call from 480-555-0287' },
-      { delay: 2500, type: 'ai', text: "Hi! I'm the Cool Air HVAC assistant. How can I help?" },
-      { delay: 4500, type: 'cx', text: 'AC stopped working, it\'s over 100 degrees' },
-      { delay: 6500, type: 'ai', text: 'I\'m sorry to hear that! We can fix that fast. What\'s your name?' },
-      { delay: 8500, type: 'cx', text: 'Jennifer Walsh' },
-      { delay: 10500, type: 'ai', text: 'Jennifer, what city are you in?' },
-      { delay: 12500, type: 'cx', text: 'Scottsdale, Arizona' },
-      { delay: 14500, type: 'ai', text: 'Got it. Marking as high priority. Tech available today 2–5 PM?' },
-      { delay: 16500, type: 'cx', text: 'Perfect, yes' },
-      { delay: 18500, type: 'ai', text: 'Confirmed! Tech will call in 20 min with their name & photo. Stay cool ✓' },
-      { delay: 19500, type: 'complete', text: 'Lead Captured & Appointment Booked' },
-    ];
-    setWorkflowSteps([]);
-    steps.forEach(s => {
-      const timer = setTimeout(() => {
-        setWorkflowSteps(prev => [...prev, s]);
-        if (workflowChatRef.current && (s.type === 'ai' || s.type === 'cx' || s.type === 'system')) {
-          workflowChatRef.current.scrollTop = workflowChatRef.current.scrollHeight;
-        }
-      }, s.delay);
-      return () => clearTimeout(timer);
-    });
-    const closeTimer = setTimeout(() => setShowWorkflow(false), 20000);
-    return () => clearTimeout(closeTimer);
-  }, [showWorkflow]);
-
-  const startDemo = () => {
-    if (started) {
-      setMessages([]);
-      setLeadVisible(false);
-      setStarted(false);
-      setTimeout(() => setStarted(true), 100);
-    } else {
-      setStarted(true);
-    }
-  };
-
-  useEffect(() => {
-    if (!started) return;
-    let cancelled = false;
-    const timers = [];
-
-    const run = async () => {
-      let delay = 600;
-      for (let i = 0; i < conversation.length; i++) {
-        const msg = conversation[i];
-        const wait = i === 0 ? delay : msg.from === 'bot' ? 1800 : 1000;
-        delay += wait;
-
-        if (msg.from === 'bot') {
-          timers.push(setTimeout(() => { if (!cancelled) setTyping(true); }, delay - 1000));
-        }
-
-        timers.push(setTimeout(() => {
-          if (cancelled) return;
-          setTyping(false);
-          setMessages(prev => [...prev, msg]);
-        }, delay));
-      }
-
-      timers.push(setTimeout(() => {
-        if (!cancelled) setLeadVisible(true);
-      }, delay + 600));
-    };
-
-    run();
-    return () => { cancelled = true; timers.forEach(clearTimeout); };
-  }, [started]);
+  const kpis = [
+    { label: 'Requests Automated Today', value: '47', color: '#2563eb' },
+    { label: 'Hours Saved', value: '12.5', color: '#16a34a' },
+    { label: 'Response Time', value: '2m 18s', color: '#f97316' },
+    { label: 'Tasks Completed', value: '156', color: '#8b5cf6' },
+    { label: 'Revenue Protected', value: '$62,400', color: '#ec4899' },
+  ];
 
   return (
     <>
       <Head>
-        <title>HVAC AI Chatbot Demo - AI Business Professionals</title>
+        <title>OpsFlow AI - Operations Automation Demo</title>
+        <meta name="description" content="See how AI automates service requests, inventory checks, team routing, and customer notifications in a complete workflow." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
       <style>{`
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body {
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-          background: #f1f5f9;
-          color: #1e293b;
-          line-height: 1.6;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif; background: #0f172a; color: #fff; }
 
-        /* TOP BANNER */
-        .top-banner {
-          background: #2563eb;
-          color: white;
-          text-align: center;
-          padding: 10px 20px;
-          font-size: 13px;
-          font-weight: 500;
-          letter-spacing: 0.03em;
-        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
+        .header { text-align: center; margin-bottom: 50px; }
+        .header h1 { font-size: 42px; font-weight: 800; margin-bottom: 12px; color: #fff; }
+        .header p { font-size: 16px; color: #cbd5e1; max-width: 700px; margin: 0 auto; }
+        .logo { font-size: 28px; font-weight: 700; color: #2563eb; margin-bottom: 16px; letter-spacing: -0.5px; }
 
-        /* HEADER */
-        .header {
-          background: white;
-          border-bottom: 1px solid #e2e8f0;
-          padding: 28px 20px 24px;
-          text-align: center;
-        }
-        .demo-badge {
-          display: inline-block;
-          background: #eff6ff;
-          color: #2563eb;
-          font-size: 11px;
-          font-weight: 700;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          padding: 5px 12px;
-          border-radius: 20px;
-          border: 1px solid #bfdbfe;
-          margin-bottom: 14px;
-        }
-        .header h1 {
-          font-size: 30px;
-          font-weight: 800;
-          color: #0f172a;
-          margin-bottom: 10px;
-          line-height: 1.2;
-        }
-        .header p {
-          font-size: 16px;
-          color: #64748b;
-          max-width: 580px;
-          margin: 0 auto;
-        }
+        .demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 60px; }
 
-        /* MAIN LAYOUT */
-        .main {
-          max-width: 1100px;
-          margin: 0 auto;
-          padding: 36px 20px;
-          display: grid;
-          grid-template-columns: 1fr 380px;
-          gap: 28px;
-          align-items: start;
-        }
+        .workflow-panel { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 16px; padding: 32px; }
+        .panel-title { font-size: 18px; font-weight: 700; margin-bottom: 24px; color: #e2e8f0; }
 
-        /* CHAT PANEL */
-        .chat-panel {
-          background: white;
-          border-radius: 16px;
-          box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-          overflow: hidden;
-        }
-        .chat-top-bar {
-          background: linear-gradient(135deg, #1d4ed8, #2563eb);
-          padding: 16px 20px;
-          display: flex;
-          align-items: center;
-          gap: 12px;
-        }
-        .bot-avatar {
-          width: 42px; height: 42px;
-          background: rgba(255,255,255,0.2);
-          border-radius: 50%;
-          display: flex; align-items: center; justify-content: center;
-          font-size: 20px;
-          flex-shrink: 0;
-        }
-        .bot-info strong { color: white; font-size: 15px; display: block; }
-        .bot-info span { color: rgba(255,255,255,0.75); font-size: 12px; }
-        .online-pill {
-          margin-left: auto;
-          background: rgba(255,255,255,0.15);
-          color: white;
-          font-size: 11px;
-          font-weight: 600;
-          padding: 4px 10px;
-          border-radius: 20px;
-          display: flex; align-items: center; gap: 5px;
-        }
-        .pulse {
-          width: 7px; height: 7px;
-          background: #4ade80; border-radius: 50%;
-          animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-          0%,100% { opacity: 1; } 50% { opacity: 0.4; }
-        }
+        .timeline { display: flex; flex-direction: column; gap: 16px; }
+        .timeline-item { padding: 16px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; cursor: pointer; transition: all 0.3s; }
+        .timeline-item:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.16); }
+        .timeline-item.active { background: #2563eb; border-color: #1d4ed8; }
+        .timeline-item .step-number { font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 4px; }
+        .timeline-item.active .step-number { color: #e0e7ff; }
+        .timeline-item .step-title { font-size: 14px; font-weight: 600; color: #e2e8f0; }
+        .timeline-item.active .step-title { color: #fff; }
 
-        .chat-messages {
-          height: 420px;
-          overflow-y: auto;
-          padding: 20px;
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-          background: #f8fafc;
-        }
-        .chat-empty {
-          flex: 1; display: flex; flex-direction: column;
-          align-items: center; justify-content: center;
-          gap: 10px; color: #94a3b8; padding: 40px;
-          text-align: center;
-        }
-        .chat-empty .big-icon { font-size: 40px; }
+        .detail-panel { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 16px; padding: 32px; }
+        .detail-item { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #334155; }
+        .detail-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .detail-label { font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 4px; }
+        .detail-value { font-size: 15px; color: #e2e8f0; font-weight: 500; }
+        .detail-highlight { color: #2563eb; font-weight: 600; }
 
-        .msg { display: flex; align-items: flex-end; gap: 8px; animation: fadeUp 0.3s ease-out; }
-        .msg.user { flex-direction: row-reverse; }
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(8px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .msg-icon {
-          width: 30px; height: 30px;
-          background: linear-gradient(135deg, #1d4ed8, #2563eb);
-          border-radius: 50%;
-          display: flex; align-items: center; justify-content: center;
-          font-size: 12px; font-weight: 700; color: white;
-          flex-shrink: 0;
-        }
-        .bubble {
-          max-width: 75%; padding: 11px 15px;
-          border-radius: 18px; font-size: 14px; line-height: 1.55;
-        }
-        .msg.bot .bubble {
-          background: white; color: #1e293b;
-          border-bottom-left-radius: 4px;
-          box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-        }
-        .msg.user .bubble {
-          background: #2563eb; color: white;
-          border-bottom-right-radius: 4px;
-        }
-        .typing-wrap { display: flex; align-items: flex-end; gap: 8px; animation: fadeUp 0.3s ease-out; }
-        .typing-bubble {
-          background: white; padding: 12px 16px;
-          border-radius: 18px; border-bottom-left-radius: 4px;
-          box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-          display: flex; gap: 4px; align-items: center;
-        }
-        .dot {
-          width: 7px; height: 7px;
-          background: #94a3b8; border-radius: 50%;
-          animation: blink 1.2s infinite;
-        }
-        .dot:nth-child(2) { animation-delay: 0.2s; }
-        .dot:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes blink {
-          0%,60%,100% { transform: translateY(0); opacity: 0.5; }
-          30% { transform: translateY(-5px); opacity: 1; }
-        }
+        .incoming-request { background: linear-gradient(135deg, #1e3a8a 0%, #1e293b 100%); border: 2px solid #2563eb; border-radius: 12px; padding: 24px; margin-bottom: 40px; }
+        .request-header { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 16px; }
+        .request-icon { font-size: 32px; }
+        .request-info h3 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+        .request-info p { font-size: 13px; color: #cbd5e1; margin: 2px 0; }
+        .request-status { display: inline-block; background: #2563eb; color: white; padding: 4px 12px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-top: 8px; }
 
-        .chat-input-row {
-          padding: 14px 16px;
-          border-top: 1px solid #e2e8f0;
-          display: flex; gap: 10px; background: white;
-        }
-        .fake-input {
-          flex: 1; padding: 10px 14px;
-          border: 1px solid #e2e8f0; border-radius: 24px;
-          font-size: 13.5px; color: #94a3b8; background: #f8fafc;
-        }
-        .send-btn {
-          width: 38px; height: 38px;
-          background: #2563eb; border: none; border-radius: 50%;
-          cursor: pointer; display: flex; align-items: center; justify-content: center;
-          flex-shrink: 0; transition: background 0.2s;
-        }
-        .send-btn:hover { background: #1d4ed8; }
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 60px; }
+        .kpi-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 12px; padding: 24px; text-align: center; }
+        .kpi-card .label { font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 12px; }
+        .kpi-card .value { font-size: 32px; font-weight: 800; margin-bottom: 0; }
+        .kpi-card.blue .value { color: #2563eb; }
+        .kpi-card.green .value { color: #16a34a; }
+        .kpi-card.orange .value { color: #f97316; }
+        .kpi-card.purple .value { color: #8b5cf6; }
+        .kpi-card.pink .value { color: #ec4899; }
 
-        /* RIGHT COLUMN */
-        .right-col { display: flex; flex-direction: column; gap: 20px; }
+        .workflow-step { text-align: center; margin-bottom: 16px; }
+        .step-icon { font-size: 28px; margin-bottom: 8px; }
+        .step-label { font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; }
 
-        /* LEAD CARD */
-        .lead-card {
-          background: white; border-radius: 16px;
-          box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-          overflow: hidden;
-          transition: opacity 0.5s, transform 0.5s;
-        }
-        .lead-card.hidden { opacity: 0.25; }
-        .lead-card.visible { opacity: 1; }
-        .lead-card-header {
-          background: #0f172a; padding: 14px 20px;
-          display: flex; align-items: center; gap: 10px;
-        }
-        .lead-card-header span { color: white; font-size: 14px; font-weight: 600; }
-        .live-badge {
-          margin-left: auto;
-          background: #16a34a; color: white;
-          font-size: 10px; font-weight: 700;
-          padding: 3px 8px; border-radius: 20px;
-          letter-spacing: 0.05em;
-        }
-        .lead-rows { padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; }
-        .lead-row { display: flex; justify-content: space-between; align-items: center; }
-        .lead-label { font-size: 12px; color: #64748b; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
-        .lead-value { font-size: 14px; color: #0f172a; font-weight: 600; text-align: right; }
-        .urgent-tag {
-          background: #fef2f2; color: #dc2626;
-          font-size: 12px; font-weight: 700;
-          padding: 3px 8px; border-radius: 4px;
-        }
-        .divider { height: 1px; background: #f1f5f9; }
+        .data-flow { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 16px; padding: 32px; margin-bottom: 40px; }
+        .data-flow .panel-title { margin-bottom: 20px; }
+        .flow-step { display: flex; gap: 16px; margin-bottom: 20px; align-items: flex-start; }
+        .flow-step:last-child { margin-bottom: 0; }
+        .flow-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+        .flow-content { flex: 1; }
+        .flow-label { font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 4px; }
+        .flow-text { font-size: 14px; color: #e2e8f0; line-height: 1.4; }
 
-        /* ANALYTICS */
-        .analytics-card {
-          background: white; border-radius: 16px;
-          box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-          overflow: hidden;
+        @media (max-width: 768px) {
+          .demo-grid { grid-template-columns: 1fr; gap: 24px; }
+          .header h1 { font-size: 28px; }
+          .kpi-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+          .kpi-card { padding: 16px; }
+          .kpi-card .value { font-size: 24px; }
+          .container { padding: 24px 16px; }
         }
-        .analytics-header { padding: 14px 20px; border-bottom: 1px solid #f1f5f9; }
-        .analytics-header span { font-size: 13px; font-weight: 700; color: #0f172a; text-transform: uppercase; letter-spacing: 0.06em; }
-        .analytics-grid { padding: 16px 20px; display: flex; flex-direction: column; gap: 14px; }
-        .stat-row { display: flex; align-items: center; gap: 14px; }
-        .stat-icon {
-          width: 42px; height: 42px; border-radius: 10px;
-          display: flex; align-items: center; justify-content: center;
-          font-size: 18px; flex-shrink: 0;
-        }
-        .stat-value { font-size: 22px; font-weight: 800; line-height: 1; }
-        .stat-label { font-size: 12px; color: #64748b; margin-top: 2px; }
-
-        /* CTA */
-        .cta-section {
-          background: linear-gradient(135deg, #1e40af, #2563eb);
-          border-radius: 16px; padding: 28px 24px; text-align: center;
-          box-shadow: 0 4px 24px rgba(37,99,235,0.25);
-        }
-        .cta-section h3 { color: white; font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-        .cta-section p { color: rgba(255,255,255,0.8); font-size: 13.5px; margin-bottom: 18px; line-height: 1.5; }
-        .cta-btn {
-          display: inline-block; background: white; color: #2563eb;
-          font-size: 14px; font-weight: 700; padding: 12px 26px;
-          border-radius: 8px; border: none; cursor: pointer;
-          transition: transform 0.2s, box-shadow 0.2s; text-decoration: none;
-        }
-        .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
-
-        /* PLAY BTN */
-        .play-wrap { text-align: center; padding: 16px 20px; border-top: 1px solid #f1f5f9; background: white; }
-        .play-btn {
-          background: linear-gradient(135deg, #1d4ed8, #2563eb);
-          color: white; border: none; padding: 11px 28px;
-          border-radius: 8px; font-size: 14px; font-weight: 600;
-          cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .play-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
-        .play-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
-
-        /* FOOTER */
-        footer {
-          background: #0f172a; color: #94a3b8;
-          text-align: center; padding: 24px 20px;
-          font-size: 13px; margin-top: 0;
-        }
-        footer strong { color: white; }
-
-        /* RESPONSIVE */
-        @media (max-width: 780px) {
-          .main { grid-template-columns: 1fr; }
-          .header h1 { font-size: 22px; }
-          .chat-messages { height: 340px; }
-        }
-        .workflow-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .workflow-container { background: white; border-radius: 16px; width: 100%; max-width: 900px; height: 500px; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
-        .workflow-left { border-right: 1px solid #e2e8f0; padding: 24px; display: flex; flex-direction: column; background: #f8fafc; }
-        .workflow-left-title { font-size: 14px; font-weight: 700; color: #64748b; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em; }
-        .workflow-chat { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
-        .workflow-msg { padding: 12px 14px; border-radius: 10px; font-size: 13px; line-height: 1.5; animation: msgSlide 0.3s ease-out; }
-        @keyframes msgSlide { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        .workflow-msg.system { background: #f1f5f9; color: #64748b; text-align: center; font-weight: 600; }
-        .workflow-msg.ai { background: #e0f2fe; color: #0369a1; }
-        .workflow-msg.cx { background: #dcfce7; color: #15803d; }
-        .workflow-right { padding: 24px; display: flex; flex-direction: column; background: white; justify-content: center; align-items: center; text-align: center; }
-        .workflow-complete { color: #22c55e; font-size: 18px; font-weight: 700; animation: msgSlide 0.5s ease-out; }
-        @media (max-width: 768px) { .workflow-container { grid-template-columns: 1fr; height: auto; max-height: 80vh; } .workflow-left { border-right: none; border-bottom: 1px solid #e2e8f0; } }
       `}</style>
 
-      <div className="top-banner">
-        Live Demo · AI Customer Service Chatbot · Built for HVAC Businesses
-      </div>
-
-      <div className="header">
-        <div className="demo-badge">Interactive Demo</div>
-        <h1>AI Chatbot Demo for HVAC Businesses</h1>
-        <p>
-          This bot answers questions 24/7, captures lead details, and books appointments - so you never miss a call again.
-        </p>
-      </div>
-
-      {/* Above Demo CTA */}
-      <div style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '12px', padding: '20px 24px', marginBottom: '24px', textAlign: 'center', marginTop: '20px' }}>
-        <div style={{ fontSize: '16px', fontWeight: '700', color: '#2563eb', marginBottom: '6px' }}>See AI in Action</div>
-        <div style={{ fontSize: '14px', color: '#1e40af', marginBottom: '16px' }}>Watch the bot answer customer questions, qualify leads, and book appointments-all in real time.</div>
-        <button
-          onClick={() => setShowWorkflow(true)}
-          style={{ background: '#2563eb', color: 'white', border: 'none', padding: '12px 32px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s' }}
-          onMouseEnter={(e) => e.target.style.background = '#1d4ed8'}
-          onMouseLeave={(e) => e.target.style.background = '#2563eb'}
-        >
-          ▶ Start Live Workflow Demo
-        </button>
-      </div>
-
-      {/* Revenue Impact Card */}
-      <div style={{ background: 'linear-gradient(135deg, #eff6ff 0%, #f3f8ff 100%)', border: '2px solid #2563eb', borderRadius: '12px', padding: '24px', marginBottom: '24px', textAlign: 'center', marginTop: '24px' }}>
-        <div style={{ fontSize: '14px', fontWeight: '700', color: '#2563eb', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px' }}>💰 Revenue Impact (Monthly)</div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
-          <div style={{ padding: '16px', background: 'white', borderRadius: '8px', border: '1px solid #bfdbfe' }}>
-            <div style={{ fontSize: '24px', fontWeight: '700', color: '#2563eb', marginBottom: '4px' }}>180+</div>
-            <div style={{ fontSize: '12px', color: '#1e40af' }}>Inbound Leads</div>
-          </div>
-          <div style={{ padding: '16px', background: 'white', borderRadius: '8px', border: '1px solid #bfdbfe' }}>
-            <div style={{ fontSize: '24px', fontWeight: '700', color: '#2563eb', marginBottom: '4px' }}>65</div>
-            <div style={{ fontSize: '12px', color: '#1e40af' }}>Bookings Captured</div>
-          </div>
-          <div style={{ padding: '16px', background: 'white', borderRadius: '8px', border: '1px solid #bfdbfe' }}>
-            <div style={{ fontSize: '24px', fontWeight: '700', color: '#2563eb', marginBottom: '4px' }}>$24,700</div>
-            <div style={{ fontSize: '12px', color: '#1e40af' }}>Revenue Generated</div>
-          </div>
+      <div className="container">
+        <div className="header">
+          <div className="logo">🚀 OpsFlow AI</div>
+          <h1>Complete Operations Automation</h1>
+          <p>Watch how AI handles a service request from customer call to scheduled job in under 5 minutes.</p>
         </div>
-      </div>
 
-      {showWorkflow && (
-        <div className="workflow-overlay" onClick={() => setShowWorkflow(false)}>
-          <div className="workflow-container" onClick={(e) => e.stopPropagation()}>
-            <div className="workflow-left">
-              <div className="workflow-left-title">📱 Customer Call</div>
-              <div className="workflow-chat" ref={workflowChatRef}>
-                {workflowSteps.map((step, i) => (
-                  step.type === 'system' ? <div key={i} className="workflow-msg system">{step.text}</div> : step.type === 'ai' ? <div key={i} className="workflow-msg ai">🤖 {step.text}</div> : step.type === 'cx' ? <div key={i} className="workflow-msg cx">👤 {step.text}</div> : null
-                ))}
-              </div>
-            </div>
-            <div className="workflow-right">
-              {workflowSteps.find(s => s.type === 'complete') && <div className="workflow-complete">✓ {workflowSteps.find(s => s.type === 'complete')?.text}</div>}
-            </div>
-          </div>
-        </div>
-      )}
-
-      <div className="main">
-        {/* LEFT - Chat */}
-        <div>
-          <div className="chat-panel">
-            <div className="chat-top-bar">
-              <div className="bot-avatar">❄️</div>
-              <div className="bot-info">
-                <strong>Cool Air HVAC Assistant</strong>
-                <span>Powered by AI · Available 24/7</span>
-              </div>
-              <div className="online-pill">
-                <div className="pulse" />
-                Live
-              </div>
-            </div>
-
-            <div className="chat-messages" id="chat-box" ref={scrollRef}>
-              {!started && (
-                <div className="chat-empty">
-                  <div className="big-icon">❄️</div>
-                  <p>Press <strong>Play Demo</strong> below to watch a real customer interaction.</p>
-                </div>
-              )}
-              {messages.map((m, i) => (
-                <div key={i} className={`msg ${m.from}`}>
-                  {m.from === 'bot' && <div className="msg-icon">AI</div>}
-                  <div className="bubble">{m.text}</div>
-                </div>
-              ))}
-              {typing && (
-                <div className="typing-wrap">
-                  <div className="msg-icon">AI</div>
-                  <div className="typing-bubble">
-                    <div className="dot" /><div className="dot" /><div className="dot" />
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div className="play-wrap">
-              <button
-                className="play-btn"
-                onClick={startDemo}
-                disabled={started && !leadVisible}
-              >
-                {!started ? '▶ Play Demo' : !leadVisible ? '⏸ Playing...' : '↺ Replay'}
-              </button>
+        <div className="incoming-request">
+          <div className="request-header">
+            <div className="request-icon">📞</div>
+            <div className="request-info">
+              <h3>Sarah Johnson</h3>
+              <p><strong>Phone:</strong> 480-555-0287</p>
+              <p><strong>Issue:</strong> AC unit not cooling, 104°F outside</p>
+              <p><strong>Location:</strong> Phoenix, AZ</p>
+              <span className="request-status">HIGH PRIORITY</span>
             </div>
           </div>
         </div>
 
-        {/* RIGHT - Lead Card + Analytics + CTA */}
-        <div className="right-col">
-          <div className={`lead-card ${leadVisible ? 'visible' : 'hidden'}`}>
-            <div className="lead-card-header">
-              <span>📋 Lead Captured</span>
-              {leadVisible && <div className="live-badge">LIVE</div>}
-            </div>
-            <div className="lead-rows">
-              <div className="lead-row">
-                <span className="lead-label">Name</span>
-                <span className="lead-value">Sarah Johnson</span>
-              </div>
-              <div className="divider" />
-              <div className="lead-row">
-                <span className="lead-label">Location</span>
-                <span className="lead-value">Phoenix, AZ</span>
-              </div>
-              <div className="divider" />
-              <div className="lead-row">
-                <span className="lead-label">Service Needed</span>
-                <span className="lead-value">AC Repair – No Cool Air</span>
-              </div>
-              <div className="divider" />
-              <div className="lead-row">
-                <span className="lead-label">Urgency</span>
-                <span className="urgent-tag">HIGH PRIORITY</span>
-              </div>
-              <div className="divider" />
-              <div className="lead-row">
-                <span className="lead-label">Appointment</span>
-                <span className="lead-value">Today, 2–5 PM</span>
-              </div>
-              <div className="divider" />
-              <div className="lead-row">
-                <span className="lead-label">Status</span>
-                <span className="lead-value" style={{ color: '#16a34a' }}>Dispatched ✓</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="analytics-card">
-            <div className="analytics-header">
-              <span>Today's Performance</span>
-            </div>
-            <div className="analytics-grid">
-              {analytics.map((a, i) => (
-                <div key={i} className="stat-row">
-                  <div className="stat-icon" style={{ background: a.color + '18' }}>
-                    {i === 0 ? '📥' : i === 1 ? '📞' : '💰'}
-                  </div>
-                  <div>
-                    <div className="stat-value" style={{ color: a.color }}>{a.value}</div>
-                    <div className="stat-label">{a.label}</div>
-                    <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '1px' }}>{a.sub}</div>
-                  </div>
+        <div className="demo-grid">
+          <div className="workflow-panel">
+            <div className="panel-title">Workflow Timeline</div>
+            <div className="timeline">
+              {steps.map((step, i) => (
+                <div
+                  key={i}
+                  className={`timeline-item ${activeStep === i ? 'active' : ''}`}
+                  onClick={() => setActiveStep(i)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <div className="step-number">Step {i + 1}</div>
+                  <div className="step-title">{step.title}</div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="cta-section">
-            <h3>Ready to Automate Your Lead Capture?</h3>
-            <p>This demo shows what's possible. Get a customized AI chatbot built for your HVAC business in 2 weeks.</p>
-            <a href="https://calendly.com/kimmycombs" target="_blank" rel="noopener noreferrer" className="cta-btn">
-              📅 Book a Free Strategy Call →
-            </a>
+          <div className="detail-panel">
+            <div className="panel-title">{steps[activeStep].title}</div>
+            {Object.entries(steps[activeStep].data).map(([key, value]) => (
+              <div key={key} className="detail-item">
+                <div className="detail-label">{key.replace(/([A-Z])/g, ' $1').trim()}</div>
+                <div className="detail-value">{value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="kpi-grid">
+          {kpis.map((kpi, i) => {
+            const colors = ['blue', 'green', 'orange', 'purple', 'pink'];
+            return (
+              <div key={i} className={`kpi-card ${colors[i % colors.length]}`}>
+                <div className="label">{kpi.label}</div>
+                <div className="value">{kpi.value}</div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="data-flow">
+          <div className="panel-title">How It Works</div>
+          <div className="flow-step">
+            <div className="flow-icon">📞</div>
+            <div className="flow-content">
+              <div className="flow-label">Request Capture</div>
+              <div className="flow-text">AI answers incoming call, captures customer name, issue, location, and urgency in natural conversation.</div>
+            </div>
+          </div>
+          <div className="flow-step">
+            <div className="flow-icon">🤖</div>
+            <div className="flow-content">
+              <div className="flow-label">Issue Analysis</div>
+              <div className="flow-text">AI analyzes issue type, determines service category, estimates cost, and identifies required parts.</div>
+            </div>
+          </div>
+          <div className="flow-step">
+            <div className="flow-icon">💾</div>
+            <div className="flow-content">
+              <div className="flow-label">Database Integration</div>
+              <div className="flow-text">System checks inventory availability, technician schedule, and customer history in real-time.</div>
+            </div>
+          </div>
+          <div className="flow-step">
+            <div className="flow-icon">👥</div>
+            <div className="flow-content">
+              <div className="flow-label">Intelligent Routing</div>
+              <div className="flow-text">AI assigns to best available technician based on skills, location, and current load.</div>
+            </div>
+          </div>
+          <div className="flow-step">
+            <div className="flow-icon">📧</div>
+            <div className="flow-content">
+              <div className="flow-label">Automated Notifications</div>
+              <div className="flow-text">Customer receives email confirmation. Technician receives dispatch alert with customer details and route.</div>
+            </div>
+          </div>
+          <div className="flow-step">
+            <div className="flow-icon">📅</div>
+            <div className="flow-content">
+              <div className="flow-label">Calendar & CRM Update</div>
+              <div className="flow-text">Job automatically added to team calendar, CRM updated with all details, and follow-up reminders scheduled.</div>
+            </div>
           </div>
         </div>
       </div>
-
-      <footer>
-        Built by <strong>The AI Business Professionals</strong> · theaibizpros.com
-      </footer>
     </>
   );
 }
