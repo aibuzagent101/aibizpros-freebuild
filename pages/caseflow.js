@@ -21,7 +21,7 @@ const convos = {
     { from: 'cx', text: "Yes, they called me this morning asking for a recorded statement.", time: '2:16 PM' },
     { from: 'ai', text: "Do NOT give them a statement before speaking with our attorney. Have you hired anyone else yet?", time: '2:16 PM' },
     { from: 'cx', text: "No, I was going to call around today.", time: '2:17 PM' },
-    { from: 'ai', text: "Good timing. Clear liability, ER treatment, police report — this is a strong case. Attorney James Rivera will call you within 30 minutes. ⚖️", time: '2:17 PM' },
+    { from: 'ai', text: "Good timing. Clear liability, ER treatment, police report - this is a strong case. Attorney James Rivera will call you within 30 minutes. ⚖️", time: '2:17 PM' },
   ],
   2: [
     { from: 'ai', text: "Hi! CaseFlow intake assistant at Rivera & Associates. What type of accident or injury are you calling about?", time: '2:03 PM' },
@@ -37,11 +37,11 @@ const convos = {
   3: [
     { from: 'ai', text: "Hi! CaseFlow intake assistant. What type of accident are you calling about?", time: '1:55 PM' },
     { from: 'cx', text: "I was hit by an 18-wheeler a week ago. I'm still in the hospital.", time: '1:57 PM' },
-    { from: 'ai', text: "I'm so sorry — we'll make sure you have expert representation. What injuries did you sustain?", time: '1:57 PM' },
+    { from: 'ai', text: "I'm so sorry - we'll make sure you have expert representation. What injuries did you sustain?", time: '1:57 PM' },
     { from: 'cx', text: "Broken leg, two broken ribs, and a concussion. I'll need surgery.", time: '1:58 PM' },
-    { from: 'ai', text: "This is a serious case — trucking accidents often involve significant compensation. Has the trucking company contacted you?", time: '1:58 PM' },
+    { from: 'ai', text: "This is a serious case - trucking accidents often involve significant compensation. Has the trucking company contacted you?", time: '1:58 PM' },
     { from: 'cx', text: "Their insurance company called my wife asking her to sign something.", time: '1:59 PM' },
-    { from: 'ai', text: "Do not sign anything. I'm flagging this as HIGH VALUE — Attorney Rivera will call within 15 minutes. We handle everything while you recover. 🚨", time: '1:59 PM' },
+    { from: 'ai', text: "Do not sign anything. I'm flagging this as HIGH VALUE - Attorney Rivera will call within 15 minutes. We handle everything while you recover. 🚨", time: '1:59 PM' },
   ],
   4: [
     { from: 'ai', text: "Hi! CaseFlow intake assistant. What type of injury or accident are you calling about?", time: '1:37 PM' },
@@ -64,11 +64,11 @@ const convos = {
 };
 
 const quals = {
-  1: { type: 'Rear-End Collision',     injury: 'Back & Neck — ER Treated', police: 'Yes — Report Filed', insurance: 'Calling for Statement', hired: 'No', urgency: 'HIGH', priority: 'HIGH VALUE', status: 'Consult Booked' },
+  1: { type: 'Rear-End Collision',     injury: 'Back & Neck - ER Treated', police: 'Yes - Report Filed', insurance: 'Calling for Statement', hired: 'No', urgency: 'HIGH', priority: 'HIGH VALUE', status: 'Consult Booked' },
   2: { type: 'Slip & Fall',            injury: 'Fractured Ankle', police: 'Incident Report Filed', insurance: 'Not Yet', hired: 'No', urgency: 'STANDARD', priority: 'NEEDS REVIEW', status: 'In Progress' },
-  3: { type: 'Commercial Truck Accident', injury: 'Broken Leg, Ribs, Concussion', police: 'Yes — Filed', insurance: 'Pushing for Settlement', hired: 'No', urgency: 'HIGH', priority: 'HIGH VALUE', status: 'Priority Review' },
+  3: { type: 'Commercial Truck Accident', injury: 'Broken Leg, Ribs, Concussion', police: 'Yes - Filed', insurance: 'Pushing for Settlement', hired: 'No', urgency: 'HIGH', priority: 'HIGH VALUE', status: 'Priority Review' },
   4: { type: 'Workplace Injury',       injury: 'Back Injury (Independent Eval Needed)', police: 'HR Incident Report', insurance: 'Workers Comp', hired: 'No', urgency: 'STANDARD', priority: 'NEEDS REVIEW', status: 'In Progress' },
-  5: { type: 'Motorcycle Accident',    injury: 'Road Rash + Sprained Wrist', police: 'Yes — Filed', insurance: 'Pending', hired: 'No', urgency: 'STANDARD', priority: 'NEEDS REVIEW', status: 'In Progress' },
+  5: { type: 'Motorcycle Accident',    injury: 'Road Rash + Sprained Wrist', police: 'Yes - Filed', insurance: 'Pending', hired: 'No', urgency: 'STANDARD', priority: 'NEEDS REVIEW', status: 'In Progress' },
 };
 
 const pipeline = [
@@ -92,18 +92,18 @@ const tmrConsults = [
 ];
 
 const initNotifs = [
-  { id: 1, dot: '#ef4444', text: 'New lead — James Carter | Car Accident | Chicago, IL',                    time: '4 min ago'  },
-  { id: 2, dot: '#8b5cf6', text: 'HIGH VALUE — Robert Chen | Truck Accident | Est. $80K+',                  time: '8 min ago'  },
-  { id: 3, dot: '#22c55e', text: 'Consultation booked — James Carter confirmed for 2:00 PM today',           time: '10 min ago' },
-  { id: 4, dot: '#ef4444', text: 'URGENT — James Carter: insurance requesting recorded statement',            time: '12 min ago' },
-  { id: 5, dot: '#2563eb', text: 'New lead — Kevin Park | Motorcycle Accident | Chicago, IL',               time: '18 min ago' },
+  { id: 1, dot: '#ef4444', text: 'New lead - James Carter | Car Accident | Chicago, IL',                    time: '4 min ago'  },
+  { id: 2, dot: '#8b5cf6', text: 'HIGH VALUE - Robert Chen | Truck Accident | Est. $80K+',                  time: '8 min ago'  },
+  { id: 3, dot: '#22c55e', text: 'Consultation booked - James Carter confirmed for 2:00 PM today',           time: '10 min ago' },
+  { id: 4, dot: '#ef4444', text: 'URGENT - James Carter: insurance requesting recorded statement',            time: '12 min ago' },
+  { id: 5, dot: '#2563eb', text: 'New lead - Kevin Park | Motorcycle Accident | Chicago, IL',               time: '18 min ago' },
 ];
 
 const newLeadQueue = [
   { id: 6, name: 'Denise Wilson', phone: '312-555-0612', type: 'Pedestrian Hit', date: 'Today', state: 'Illinois', source: 'Google Ad', time: 'Just now', status: 'new', hot: true },
 ];
 const newNotifQueue = [
-  { id: 6, dot: '#ef4444', text: 'New lead — Denise Wilson | Pedestrian Accident | HIGH PRIORITY', time: 'Just now' },
+  { id: 6, dot: '#ef4444', text: 'New lead - Denise Wilson | Pedestrian Accident | HIGH PRIORITY', time: 'Just now' },
 ];
 
 export default function CaseFlow() {
@@ -182,7 +182,7 @@ export default function CaseFlow() {
   return (
     <>
       <Head>
-        <title>CaseFlow AI — Rivera & Associates Law</title>
+        <title>CaseFlow AI - Rivera & Associates Law</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
@@ -314,7 +314,7 @@ export default function CaseFlow() {
           <div className="cs-logo-icon">⚖️</div>
           <div className="cs-logo-text">Case<span>Flow</span> AI</div>
         </div>
-        <div className="cs-client">Rivera & Associates Law — Chicago, IL</div>
+        <div className="cs-client">Rivera & Associates Law - Chicago, IL</div>
         <div className="cs-right">
           <div className="live-badge"><div className="live-dot" /> LIVE</div>
           <div className="user-chip">RA</div>
@@ -322,9 +322,38 @@ export default function CaseFlow() {
       </header>
 
       <div className="cs-body">
-        <div style={{ marginBottom: '20px' }}>
-          <button onClick={() => setShowWorkflow(true)} style={{ background: '#1e3a5f', color: 'white', border: 'none', padding: '12px 24px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s' }} onMouseEnter={(e) => e.target.style.background = '#152a45'} onMouseLeave={(e) => e.target.style.background = '#1e3a5f'}>▶ Start Live Workflow Demo</button>
+        {/* Above Demo CTA */}
+        <div style={{ background: '#f0f4f9', border: '1px solid #c7d9ed', borderRadius: '12px', padding: '20px 24px', marginBottom: '24px', textAlign: 'center' }}>
+          <div style={{ fontSize: '16px', fontWeight: '700', color: '#1e3a5f', marginBottom: '6px' }}>See AI in Action</div>
+          <div style={{ fontSize: '14px', color: '#2d5a8c', marginBottom: '16px' }}>Watch how AI qualifies injury cases, identifies high-value leads, and books consultations automatically-in real time.</div>
+          <button
+            onClick={() => setShowWorkflow(true)}
+            style={{ background: '#1e3a5f', color: 'white', border: 'none', padding: '12px 32px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s' }}
+            onMouseEnter={(e) => e.target.style.background = '#152a45'}
+            onMouseLeave={(e) => e.target.style.background = '#1e3a5f'}
+          >
+            ▶ Start Live Workflow Demo
+          </button>
         </div>
+        {/* Revenue Impact Card */}
+        <div style={{ background: 'linear-gradient(135deg, #f0f4f9 0%, #f5f8fc 100%)', border: '2px solid #1e3a5f', borderRadius: '12px', padding: '24px', marginBottom: '24px', textAlign: 'center' }}>
+          <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e3a5f', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px' }}>💰 Revenue Impact (Daily)</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+            <div style={{ padding: '16px', background: 'white', borderRadius: '8px', border: '1px solid #c7d9ed' }}>
+              <div style={{ fontSize: '24px', fontWeight: '700', color: '#1e3a5f', marginBottom: '4px' }}>6</div>
+              <div style={{ fontSize: '12px', color: '#2d5a8c' }}>Cases Qualified</div>
+            </div>
+            <div style={{ padding: '16px', background: 'white', borderRadius: '8px', border: '1px solid #c7d9ed' }}>
+              <div style={{ fontSize: '24px', fontWeight: '700', color: '#1e3a5f', marginBottom: '4px' }}>4</div>
+              <div style={{ fontSize: '12px', color: '#2d5a8c' }}>High-Value Cases</div>
+            </div>
+            <div style={{ padding: '16px', background: 'white', borderRadius: '8px', border: '1px solid #c7d9ed' }}>
+              <div style={{ fontSize: '24px', fontWeight: '700', color: '#1e3a5f', marginBottom: '4px' }}>$45,000</div>
+              <div style={{ fontSize: '12px', color: '#2d5a8c' }}>Monthly Pipeline Value</div>
+            </div>
+          </div>
+        </div>
+
         {showWorkflow && (
           <div className="workflow-overlay" onClick={() => setShowWorkflow(false)}>
             <div className="workflow-container" onClick={(e) => e.stopPropagation()}>
@@ -455,7 +484,7 @@ export default function CaseFlow() {
           <div className="panel">
             <div className="panel-header">
               <span className="panel-title">Case Pipeline</span>
-              <span style={{ fontSize: 12, color: '#64748b' }}>Live — updates automatically</span>
+              <span style={{ fontSize: 12, color: '#64748b' }}>Live - updates automatically</span>
             </div>
             <div style={{ padding: '14px 16px' }}>
               <div className="pipeline-grid">
@@ -530,6 +559,13 @@ export default function CaseFlow() {
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Below Demo CTA */}
+        <div style={{ background: 'linear-gradient(135deg, #f0f4f9 0%, #f5f8fc 100%)', border: '1px solid #c7d9ed', borderRadius: '12px', padding: '32px 24px', marginTop: '32px', textAlign: 'center' }}>
+          <div style={{ fontSize: '18px', fontWeight: '700', color: '#1e3a5f', marginBottom: '8px' }}>Ready to Scale Your Personal Injury Practice?</div>
+          <div style={{ fontSize: '14px', color: '#2d5a8c', marginBottom: '20px', lineHeight: '1.5' }}>This demo shows what's possible with AI. Get a customized system built for your law firm's intake process and case qualification.</div>
+          <a href="https://calendly.com/kimmycombs" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', background: '#1e3a5f', color: 'white', border: 'none', padding: '14px 36px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', textDecoration: 'none', transition: 'background 0.2s' }} onMouseEnter={(e) => e.target.style.background = '#152a45'} onMouseLeave={(e) => e.target.style.background = '#1e3a5f'}>📅 Book a Free Strategy Call</a>
         </div>
       </div>
     </>

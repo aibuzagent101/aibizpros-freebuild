@@ -17,7 +17,7 @@ const convos = {
     { from: 'cx',  text: "Yeah AC isn't working. It's 105 degrees here", time: '2:16 PM' },
     { from: 'ai',  text: "We're on it! Is this an emergency or can it wait until tomorrow? What's your address?", time: '2:16 PM' },
     { from: 'cx',  text: "Emergency! 4521 Desert Rose Lane Phoenix", time: '2:17 PM' },
-    { from: 'ai',  text: "Got it — HIGH PRIORITY. Next available tech is today at 3 PM or 5 PM. Which works?", time: '2:17 PM' },
+    { from: 'ai',  text: "Got it - HIGH PRIORITY. Next available tech is today at 3 PM or 5 PM. Which works?", time: '2:17 PM' },
     { from: 'cx',  text: "3pm works great", time: '2:18 PM' },
     { from: 'ai',  text: "You're booked for 3 PM today! Your tech will call 30 min before. See you soon ✅", time: '2:18 PM' },
   ],
@@ -26,13 +26,13 @@ const convos = {
     { from: 'cx',  text: "My furnace keeps shutting off. Really worried about tonight", time: '1:55 PM' },
     { from: 'ai',  text: "We'll get that sorted! Is it not starting at all or shutting off mid-cycle? What's your address?", time: '1:55 PM' },
     { from: 'cx',  text: "Shuts off mid-cycle. 892 Camelback Rd Scottsdale", time: '1:57 PM' },
-    { from: 'ai',  text: "Thanks Jennifer — sending this to our heating team now. Are you available this evening?", time: '1:57 PM' },
+    { from: 'ai',  text: "Thanks Jennifer - sending this to our heating team now. Are you available this evening?", time: '1:57 PM' },
   ],
   3: [
     { from: 'ai',  text: "Hi Robert! Sorry we missed your call. Need AC repair, heating, or a free estimate?", time: '1:46 PM' },
     { from: 'cx',  text: "Estimate on a new AC unit for my 1800 sq ft home", time: '1:49 PM' },
     { from: 'ai',  text: "Happy to help! What's your address and when works for a free estimate?", time: '1:49 PM' },
-    { from: 'cx',  text: "Monday morning — 4210 Oak Street Glendale", time: '1:52 PM' },
+    { from: 'cx',  text: "Monday morning - 4210 Oak Street Glendale", time: '1:52 PM' },
     { from: 'ai',  text: "Monday confirmed! Our estimator arrives 9–11 AM. See you then 📋", time: '1:52 PM' },
   ],
   4: [
@@ -40,7 +40,7 @@ const convos = {
     { from: 'cx',  text: "AC completely stopped. Baby at home it's way too hot", time: '1:30 PM' },
     { from: 'ai',  text: "Flagging as EMERGENCY 🚨 What's your address? We'll get someone there today.", time: '1:30 PM' },
     { from: 'cx',  text: "3847 Sunridge Ave Phoenix 85032", time: '1:31 PM' },
-    { from: 'ai',  text: "Help is on the way — tech arriving between 4–6 PM today. Confirmed ✅", time: '1:31 PM' },
+    { from: 'ai',  text: "Help is on the way - tech arriving between 4–6 PM today. Confirmed ✅", time: '1:31 PM' },
   ],
   5: [
     { from: 'ai',  text: "Hi David! Sorry we missed your call. Need AC repair, heating service, or an estimate?", time: '10:09 AM' },
@@ -97,10 +97,10 @@ const tmrBookings = [
 ];
 
 const initNotifs = [
-  { id: 1, dot: '#ef4444', text: 'New missed call — Mike Torres | AC Repair | Phoenix',          time: '2 min ago'  },
-  { id: 2, dot: '#22c55e', text: 'Appointment booked — Mike Torres confirmed for 3 PM today',    time: '4 min ago'  },
-  { id: 3, dot: '#f97316', text: 'Hot lead — Amanda Cruz | Emergency AC | Replied in 18 sec',   time: '8 min ago'  },
-  { id: 4, dot: '#22c55e', text: 'Appointment booked — Robert Kim confirmed for Monday 9 AM',    time: '15 min ago' },
+  { id: 1, dot: '#ef4444', text: 'New missed call - Mike Torres | AC Repair | Phoenix',          time: '2 min ago'  },
+  { id: 2, dot: '#22c55e', text: 'Appointment booked - Mike Torres confirmed for 3 PM today',    time: '4 min ago'  },
+  { id: 3, dot: '#f97316', text: 'Hot lead - Amanda Cruz | Emergency AC | Replied in 18 sec',   time: '8 min ago'  },
+  { id: 4, dot: '#22c55e', text: 'Appointment booked - Robert Kim confirmed for Monday 9 AM',    time: '15 min ago' },
   { id: 5, dot: '#8b5cf6', text: 'AI responded to Jennifer Walsh in 31 seconds',                 time: '22 min ago' },
 ];
 
@@ -110,8 +110,8 @@ const newCallQueue = [
 ];
 
 const newNotifQueue = [
-  { id: 6, dot: '#ef4444', text: 'New missed call — Chris Hoffman | AC Not Cooling | Phoenix', time: 'Just now' },
-  { id: 7, dot: '#f97316', text: 'Hot lead — Maria Gutierrez | Emergency Repair | Mesa',       time: 'Just now' },
+  { id: 6, dot: '#ef4444', text: 'New missed call - Chris Hoffman | AC Not Cooling | Phoenix', time: 'Just now' },
+  { id: 7, dot: '#f97316', text: 'Hot lead - Maria Gutierrez | Emergency Repair | Mesa',       time: 'Just now' },
 ];
 
 // ── COMPONENT ────────────────────────────────────────────────────────────────
@@ -212,7 +212,7 @@ export default function ServiceFlow() {
   return (
     <>
       <Head>
-        <title>ServiceFlow AI — Cool Air HVAC</title>
+        <title>ServiceFlow AI - Cool Air HVAC</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
@@ -534,7 +534,7 @@ export default function ServiceFlow() {
           <div className="sf-logo-icon">🔧</div>
           <div className="sf-logo-text">Service<span>Flow</span> AI</div>
         </div>
-        <div className="sf-client">Cool Air HVAC Co. — Phoenix, AZ</div>
+        <div className="sf-client">Cool Air HVAC Co. - Phoenix, AZ</div>
         <div className="sf-header-right">
           <div className="live-badge"><div className="live-dot" /> LIVE</div>
           <div className="user-chip">CA</div>
@@ -543,15 +543,17 @@ export default function ServiceFlow() {
 
       <div className="sf-body">
 
-        {/* START DEMO BUTTON */}
-        <div style={{ marginBottom: '20px' }}>
+        {/* Above Demo CTA */}
+        <div style={{ background: '#fff7ed', border: '1px solid #fed7aa', borderRadius: '12px', padding: '20px 24px', marginBottom: '24px', textAlign: 'center' }}>
+          <div style={{ fontSize: '16px', fontWeight: '700', color: '#f97316', marginBottom: '6px' }}>See AI in Action</div>
+          <div style={{ fontSize: '14px', color: '#d97706', marginBottom: '16px' }}>Watch how AI captures missed calls, qualifies leads, and books appointments automatically-in real time.</div>
           <button
             onClick={() => setShowWorkflow(true)}
             style={{
               background: '#f97316',
               color: 'white',
               border: 'none',
-              padding: '12px 24px',
+              padding: '12px 32px',
               borderRadius: '8px',
               fontSize: '14px',
               fontWeight: '600',
@@ -563,6 +565,25 @@ export default function ServiceFlow() {
           >
             ▶ Start Live Workflow Demo
           </button>
+        </div>
+
+        {/* Revenue Impact Card */}
+        <div style={{ background: 'linear-gradient(135deg, #fff7ed 0%, #fffaf0 100%)', border: '2px solid #f97316', borderRadius: '12px', padding: '24px', marginBottom: '24px', textAlign: 'center' }}>
+          <div style={{ fontSize: '14px', fontWeight: '700', color: '#f97316', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px' }}>💰 Revenue Impact (Daily)</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+            <div style={{ padding: '16px', background: 'white', borderRadius: '8px', border: '1px solid #fed7aa' }}>
+              <div style={{ fontSize: '24px', fontWeight: '700', color: '#f97316', marginBottom: '4px' }}>18</div>
+              <div style={{ fontSize: '12px', color: '#d97706' }}>Missed Calls Saved</div>
+            </div>
+            <div style={{ padding: '16px', background: 'white', borderRadius: '8px', border: '1px solid #fed7aa' }}>
+              <div style={{ fontSize: '24px', fontWeight: '700', color: '#f97316', marginBottom: '4px' }}>8</div>
+              <div style={{ fontSize: '12px', color: '#d97706' }}>Appointments Booked</div>
+            </div>
+            <div style={{ padding: '16px', background: 'white', borderRadius: '8px', border: '1px solid #fed7aa' }}>
+              <div style={{ fontSize: '24px', fontWeight: '700', color: '#f97316', marginBottom: '4px' }}>$12,000</div>
+              <div style={{ fontSize: '12px', color: '#d97706' }}>Monthly Revenue Captured</div>
+            </div>
+          </div>
         </div>
 
         {/* WORKFLOW OVERLAY */}
@@ -744,7 +765,7 @@ export default function ServiceFlow() {
           <div className="panel">
             <div className="panel-header">
               <span className="panel-title">Pipeline Board</span>
-              <span style={{ fontSize: 12, color: '#64748b' }}>Live — updates automatically</span>
+              <span style={{ fontSize: 12, color: '#64748b' }}>Live - updates automatically</span>
             </div>
             <div style={{ padding: '14px 16px' }}>
               <div className="pipeline-scroll">
@@ -839,6 +860,13 @@ export default function ServiceFlow() {
             </div>
           </div>
 
+        </div>
+
+        {/* Below Demo CTA */}
+        <div style={{ background: 'linear-gradient(135deg, #fff7ed 0%, #fffaf0 100%)', border: '1px solid #fed7aa', borderRadius: '12px', padding: '32px 24px', marginTop: '32px', textAlign: 'center' }}>
+          <div style={{ fontSize: '18px', fontWeight: '700', color: '#f97316', marginBottom: '8px' }}>Ready to Capture Every Missed Call?</div>
+          <div style={{ fontSize: '14px', color: '#d97706', marginBottom: '20px', lineHeight: '1.5' }}>This demo shows what's possible with AI. Get a customized system built for your HVAC business's specific needs and service area.</div>
+          <a href="https://calendly.com/kimmycombs" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', background: '#f97316', color: 'white', border: 'none', padding: '14px 36px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', textDecoration: 'none', transition: 'background 0.2s' }} onMouseEnter={(e) => e.target.style.background = '#ea580c'} onMouseLeave={(e) => e.target.style.background = '#f97316'}>📅 Book a Free Strategy Call</a>
         </div>
       </div>
     </>

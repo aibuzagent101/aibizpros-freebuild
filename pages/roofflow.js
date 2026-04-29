@@ -13,51 +13,51 @@ const initialLeads = [
 
 const convos = {
   1: [
-    { from: 'ai', text: "Hi Brian! We saw your area was hit by yesterday's storm. SkyLine Roofing here — we're offering FREE storm damage inspections. Interested?", time: '9:16 AM' },
+    { from: 'ai', text: "Hi Brian! We saw your area was hit by yesterday's storm. SkyLine Roofing here - we're offering FREE storm damage inspections. Interested?", time: '9:16 AM' },
     { from: 'cx', text: "Yes definitely! There's hail damage all over my roof and part of a shingle blew off", time: '9:19 AM' },
     { from: 'ai', text: "That's exactly what we handle. Do you have homeowner's insurance? We work with all major carriers for storm claims.", time: '9:19 AM' },
     { from: 'cx', text: "Yes I have State Farm. Do you help file the claim?", time: '9:21 AM' },
-    { from: 'ai', text: "Absolutely — our team guides you through the entire claim process. What's your address so we can schedule your free inspection?", time: '9:21 AM' },
+    { from: 'ai', text: "Absolutely - our team guides you through the entire claim process. What's your address so we can schedule your free inspection?", time: '9:21 AM' },
     { from: 'cx', text: "4812 Stonecrest Dr, Plano TX 75024", time: '9:22 AM' },
     { from: 'ai', text: "You're in our priority zone! Next available inspection is TODAY at 2 PM or tomorrow at 10 AM. Which works?", time: '9:22 AM' },
     { from: 'cx', text: "Today at 2 works great!", time: '9:23 AM' },
     { from: 'ai', text: "Confirmed! Free inspection TODAY at 2 PM. Our inspector will document everything for your State Farm claim. See you soon ✅", time: '9:23 AM' },
   ],
   2: [
-    { from: 'ai', text: "Hi Michelle! SkyLine Roofing here — your neighborhood was in the storm path. We're offering FREE damage inspections. Can we help?", time: '9:09 AM' },
+    { from: 'ai', text: "Hi Michelle! SkyLine Roofing here - your neighborhood was in the storm path. We're offering FREE damage inspections. Can we help?", time: '9:09 AM' },
     { from: 'cx', text: "Yes please. I can see 3-4 shingles are missing from my back roof", time: '9:12 AM' },
     { from: 'ai', text: "That's very common after this storm. Do you have homeowner's insurance? Missing shingles are typically covered.", time: '9:13 AM' },
     { from: 'cx', text: "I have Allstate. Is it worth filing a claim?", time: '9:15 AM' },
-    { from: 'ai', text: "In most cases yes — storm damage is usually fully covered minus your deductible. What's your address?", time: '9:15 AM' },
+    { from: 'ai', text: "In most cases yes - storm damage is usually fully covered minus your deductible. What's your address?", time: '9:15 AM' },
     { from: 'cx', text: "7231 Ridgecrest Blvd, Frisco TX 75033", time: '9:17 AM' },
-    { from: 'ai', text: "Perfect — we're already inspecting in Frisco today. Sending this to our scheduling team now. Are you available this afternoon?", time: '9:17 AM' },
+    { from: 'ai', text: "Perfect - we're already inspecting in Frisco today. Sending this to our scheduling team now. Are you available this afternoon?", time: '9:17 AM' },
   ],
   3: [
-    { from: 'ai', text: "Hi Gary! SkyLine Roofing here — the storm hit McKinney hard. We're doing FREE inspections in your area today.", time: '9:02 AM' },
-    { from: 'cx', text: "I need more than an inspection. My roof has major damage — there's a tarp on part of it already", time: '9:06 AM' },
-    { from: 'ai', text: "Emergency tarping is smart — we can make that permanent ASAP. Full replacement or major repair is something we specialize in. What's your address?", time: '9:06 AM' },
+    { from: 'ai', text: "Hi Gary! SkyLine Roofing here - the storm hit McKinney hard. We're doing FREE inspections in your area today.", time: '9:02 AM' },
+    { from: 'cx', text: "I need more than an inspection. My roof has major damage - there's a tarp on part of it already", time: '9:06 AM' },
+    { from: 'ai', text: "Emergency tarping is smart - we can make that permanent ASAP. Full replacement or major repair is something we specialize in. What's your address?", time: '9:06 AM' },
     { from: 'cx', text: "1508 Creekside Way McKinney TX 75070", time: '9:08 AM' },
     { from: 'ai', text: "Flagging as PRIORITY 🚨 We can have an estimator there today. Do you have homeowner's insurance?", time: '9:08 AM' },
     { from: 'cx', text: "No insurance, just need a price", time: '9:10 AM' },
-    { from: 'ai', text: "Got it — cash/card pricing available. Inspection TODAY at 4 PM, free written estimate included. Confirmed ✅", time: '9:10 AM' },
+    { from: 'ai', text: "Got it - cash/card pricing available. Inspection TODAY at 4 PM, free written estimate included. Confirmed ✅", time: '9:10 AM' },
   ],
   4: [
-    { from: 'ai', text: "Hi Rachel! SkyLine Roofing — free storm inspections in Allen today. Can we schedule yours?", time: '8:45 AM' },
-    { from: 'cx', text: "Yes — we got hit pretty bad. Lots of shingle damage from the hail", time: '8:48 AM' },
+    { from: 'ai', text: "Hi Rachel! SkyLine Roofing - free storm inspections in Allen today. Can we schedule yours?", time: '8:45 AM' },
+    { from: 'cx', text: "Yes - we got hit pretty bad. Lots of shingle damage from the hail", time: '8:48 AM' },
     { from: 'ai', text: "Hail damage is our specialty. Do you have homeowner's insurance? We handle all the paperwork.", time: '8:48 AM' },
     { from: 'cx', text: "Yes, Farmers Insurance. My neighbor used you guys last year and said you were great", time: '8:50 AM' },
     { from: 'ai', text: "That's wonderful to hear! What's your address? We'll get you on the schedule today.", time: '8:50 AM' },
     { from: 'cx', text: "3394 Lakewood Ln Allen TX 75002", time: '8:51 AM' },
-    { from: 'ai', text: "Booked! Tomorrow at 10 AM — our inspector works directly with Farmers. You're in great hands 👍", time: '8:51 AM' },
+    { from: 'ai', text: "Booked! Tomorrow at 10 AM - our inspector works directly with Farmers. You're in great hands 👍", time: '8:51 AM' },
   ],
   5: [
-    { from: 'ai', text: "Hi James! SkyLine Roofing — free storm inspections today in Richardson. Interested?", time: '8:18 AM' },
+    { from: 'ai', text: "Hi James! SkyLine Roofing - free storm inspections today in Richardson. Interested?", time: '8:18 AM' },
     { from: 'cx', text: "I have a leak in my garage and noticed some dark spots on a couple shingles", time: '8:21 AM' },
     { from: 'ai', text: "Leaks + dark spots after a storm usually means cracked or missing shingles. We can fix that same week. Address?", time: '8:21 AM' },
     { from: 'cx', text: "6127 Campbell Rd Richardson TX 75080", time: '8:23 AM' },
     { from: 'ai', text: "Do you have homeowner's insurance or looking for an out-of-pocket estimate?", time: '8:23 AM' },
     { from: 'cx', text: "No insurance. Looking for a price on the repair", time: '8:24 AM' },
-    { from: 'ai', text: "Free estimate tomorrow at 11 AM — our estimator will check the leak source and quote the repair. Confirmed ✅", time: '8:24 AM' },
+    { from: 'ai', text: "Free estimate tomorrow at 11 AM - our estimator will check the leak source and quote the repair. Confirmed ✅", time: '8:24 AM' },
   ],
 };
 
@@ -106,11 +106,11 @@ const tmrInspections = [
 ];
 
 const initNotifs = [
-  { id: 1, dot: '#ef4444', text: 'New storm lead — Brian Calloway | Hail + Wind | Plano',               time: '4 min ago'  },
-  { id: 2, dot: '#22c55e', text: 'Inspection booked — Brian Calloway confirmed for 2 PM today',          time: '6 min ago'  },
-  { id: 3, dot: '#e8a020', text: 'Insurance lead — Rachel Simmons | Farmers | Allen — HIGH VALUE',       time: '9 min ago'  },
-  { id: 4, dot: '#8b5cf6', text: 'Estimate requested — Gary Hutchinson | Full Roof | McKinney',          time: '18 min ago' },
-  { id: 5, dot: '#22c55e', text: 'Inspection booked — Rachel Simmons confirmed for tomorrow 10 AM',      time: '35 min ago' },
+  { id: 1, dot: '#ef4444', text: 'New storm lead - Brian Calloway | Hail + Wind | Plano',               time: '4 min ago'  },
+  { id: 2, dot: '#22c55e', text: 'Inspection booked - Brian Calloway confirmed for 2 PM today',          time: '6 min ago'  },
+  { id: 3, dot: '#e8a020', text: 'Insurance lead - Rachel Simmons | Farmers | Allen - HIGH VALUE',       time: '9 min ago'  },
+  { id: 4, dot: '#8b5cf6', text: 'Estimate requested - Gary Hutchinson | Full Roof | McKinney',          time: '18 min ago' },
+  { id: 5, dot: '#22c55e', text: 'Inspection booked - Rachel Simmons confirmed for tomorrow 10 AM',      time: '35 min ago' },
 ];
 
 const newLeadQueue = [
@@ -119,8 +119,8 @@ const newLeadQueue = [
 ];
 
 const newNotifQueue = [
-  { id: 6, dot: '#ef4444', text: 'New storm lead — Sandra Pierce | Hail Damage | Plano — Insurance Lead',  time: 'Just now' },
-  { id: 7, dot: '#e8a020', text: 'New storm lead — Victor Nguyen | Wind + Shingles | Frisco',              time: 'Just now' },
+  { id: 6, dot: '#ef4444', text: 'New storm lead - Sandra Pierce | Hail Damage | Plano - Insurance Lead',  time: 'Just now' },
+  { id: 7, dot: '#e8a020', text: 'New storm lead - Victor Nguyen | Wind + Shingles | Frisco',              time: 'Just now' },
 ];
 
 // ── COMPONENT ────────────────────────────────────────────────────────────────
@@ -220,7 +220,7 @@ export default function RoofFlow() {
   return (
     <>
       <Head>
-        <title>RoofFlow AI — SkyLine Roofing</title>
+        <title>RoofFlow AI - SkyLine Roofing</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
@@ -481,7 +481,7 @@ export default function RoofFlow() {
           <div className="rf-logo-icon">🏠</div>
           <div className="rf-logo-text">Roof<span>Flow</span> AI</div>
         </div>
-        <div className="rf-client">SkyLine Roofing — Dallas, TX</div>
+        <div className="rf-client">SkyLine Roofing - Dallas, TX</div>
         <div className="rf-header-right">
           <div className="live-badge"><div className="live-dot" /> LIVE</div>
           <div className="user-chip">SR</div>
@@ -489,9 +489,40 @@ export default function RoofFlow() {
       </header>
 
       <div className="rf-body">
-        <div style={{ marginBottom: '20px' }}>
-          <button onClick={() => setShowWorkflow(true)} style={{ background: '#e8a020', color: 'white', border: 'none', padding: '12px 24px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s' }} onMouseEnter={(e) => e.target.style.background = '#d89010'} onMouseLeave={(e) => e.target.style.background = '#e8a020'}>▶ Start Live Workflow Demo</button>
+        {/* Above Demo CTA */}
+        <div style={{ background: '#fef3e2', border: '1px solid #f5d5a8', borderRadius: '12px', padding: '20px 24px', marginBottom: '24px', textAlign: 'center' }}>
+          <div style={{ fontSize: '16px', fontWeight: '700', color: '#e8a020', marginBottom: '6px' }}>See AI in Action</div>
+          <div style={{ fontSize: '14px', color: '#c67c1e', marginBottom: '16px' }}>Watch how AI captures storm leads, qualifies insurance claims, and books inspections automatically-in real time.</div>
+          <button
+            onClick={() => setShowWorkflow(true)}
+            style={{ background: '#e8a020', color: 'white', border: 'none', padding: '12px 32px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s' }}
+            onMouseEnter={(e) => e.target.style.background = '#d89010'}
+            onMouseLeave={(e) => e.target.style.background = '#e8a020'}
+          >
+            ▶ Start Live Workflow Demo
+          </button>
         </div>
+
+        {/* Revenue Impact Card */}
+        <div style={{ background: 'linear-gradient(135deg, #fef3e2 0%, #fef8f0 100%)', border: '2px solid #e8a020', borderRadius: '12px', padding: '24px', marginBottom: '24px', textAlign: 'center' }}>
+          <div style={{ fontSize: '14px', fontWeight: '700', color: '#e8a020', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px' }}>💰 Revenue Impact (Daily)</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+            <div style={{ padding: '16px', background: 'white', borderRadius: '8px', border: '1px solid #f5d5a8' }}>
+              <div style={{ fontSize: '24px', fontWeight: '700', color: '#e8a020', marginBottom: '4px' }}>14</div>
+              <div style={{ fontSize: '12px', color: '#c67c1e' }}>Storm Leads Captured</div>
+            </div>
+            <div style={{ padding: '16px', background: 'white', borderRadius: '8px', border: '1px solid #f5d5a8' }}>
+              <div style={{ fontSize: '24px', fontWeight: '700', color: '#e8a020', marginBottom: '4px' }}>12</div>
+              <div style={{ fontSize: '12px', color: '#c67c1e' }}>Insurance Leads</div>
+            </div>
+            <div style={{ padding: '16px', background: 'white', borderRadius: '8px', border: '1px solid #f5d5a8' }}>
+              <div style={{ fontSize: '24px', fontWeight: '700', color: '#e8a020', marginBottom: '4px' }}>$36,000</div>
+              <div style={{ fontSize: '12px', color: '#c67c1e' }}>Monthly Inspection Value</div>
+            </div>
+          </div>
+        </div>
+
+
         {showWorkflow && (
           <div className="workflow-overlay" onClick={() => setShowWorkflow(false)}>
             <div className="workflow-container" onClick={(e) => e.stopPropagation()}>
@@ -646,7 +677,7 @@ export default function RoofFlow() {
           <div className="panel">
             <div className="panel-header">
               <span className="panel-title">Pipeline Board</span>
-              <span style={{ fontSize: 12, color: '#64748b' }}>Live — updates automatically</span>
+              <span style={{ fontSize: 12, color: '#64748b' }}>Live - updates automatically</span>
             </div>
             <div style={{ padding: '14px 16px' }}>
               <div className="pipeline-scroll">
@@ -741,6 +772,13 @@ export default function RoofFlow() {
             </div>
           </div>
 
+        </div>
+
+        {/* Below Demo CTA */}
+        <div style={{ background: 'linear-gradient(135deg, #fef3e2 0%, #fef8f0 100%)', border: '1px solid #f5d5a8', borderRadius: '12px', padding: '32px 24px', marginTop: '32px', textAlign: 'center' }}>
+          <div style={{ fontSize: '18px', fontWeight: '700', color: '#e8a020', marginBottom: '8px' }}>Ready to Scale Your Roofing Business?</div>
+          <div style={{ fontSize: '14px', color: '#c67c1e', marginBottom: '20px', lineHeight: '1.5' }}>This demo shows what's possible with AI. Get a customized system built for your roofing company's lead capture and qualification process.</div>
+          <a href="https://calendly.com/kimmycombs" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', background: '#e8a020', color: 'white', border: 'none', padding: '14px 36px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', textDecoration: 'none', transition: 'background 0.2s' }} onMouseEnter={(e) => e.target.style.background = '#d89010'} onMouseLeave={(e) => e.target.style.background = '#e8a020'}>📅 Book a Free Strategy Call</a>
         </div>
       </div>
     </>

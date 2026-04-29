@@ -17,18 +17,18 @@ const convos = {
     { from: 'cx', text: "She's 78 and lives in Indianapolis.", time: '10:45 AM' },
     { from: 'ai', text: "Does she need help with bathing and dressing only, or also meal prep, medication reminders, or companionship?", time: '10:45 AM' },
     { from: 'cx', text: "All of those actually. She also gets confused sometimes which worries us.", time: '10:46 AM' },
-    { from: 'ai', text: "Understood — personal care plus cognitive support. Approximately how many hours per week are you thinking?", time: '10:46 AM' },
+    { from: 'ai', text: "Understood - personal care plus cognitive support. Approximately how many hours per week are you thinking?", time: '10:46 AM' },
     { from: 'cx', text: "Maybe 20–25 hours per week to start.", time: '10:47 AM' },
-    { from: 'ai', text: "How will services be funded — private pay, Medicaid, VA benefits, or long-term care insurance?", time: '10:47 AM' },
+    { from: 'ai', text: "How will services be funded - private pay, Medicaid, VA benefits, or long-term care insurance?", time: '10:47 AM' },
     { from: 'cx', text: "We're not sure yet. She might qualify for Medicaid.", time: '10:48 AM' },
-    { from: 'ai', text: "No problem — we can help you navigate that. What's the best phone and email to reach you?", time: '10:48 AM' },
+    { from: 'ai', text: "No problem - we can help you navigate that. What's the best phone and email to reach you?", time: '10:48 AM' },
     { from: 'cx', text: "317-555-0148 and linda.harris@gmail.com", time: '10:49 AM' },
     { from: 'ai', text: "Thank you Linda! This looks like a strong fit. A care coordinator will call within the hour to schedule your free in-home assessment. 💚", time: '10:49 AM' },
   ],
   2: [
     { from: 'ai', text: "Hi! I'm the CareConnect intake assistant. How can we help your family today?", time: '10:34 AM' },
-    { from: 'cx', text: "My grandmother needs help. She's 84 and lives alone — we're in Ohio and can't be there every day.", time: '10:36 AM' },
-    { from: 'ai', text: "I understand — that's a stressful situation. What city is she in and what kind of help does she need most?", time: '10:36 AM' },
+    { from: 'cx', text: "My grandmother needs help. She's 84 and lives alone - we're in Ohio and can't be there every day.", time: '10:36 AM' },
+    { from: 'ai', text: "I understand - that's a stressful situation. What city is she in and what kind of help does she need most?", time: '10:36 AM' },
     { from: 'cx', text: "She's in Carmel. Needs companionship mainly, and help with meals and getting around the house.", time: '10:38 AM' },
     { from: 'ai', text: "Carmel is in our coverage area. How many days per week are you thinking, and how will services be paid for?", time: '10:38 AM' },
     { from: 'cx', text: "Probably 4–5 days. She has a long-term care insurance policy.", time: '10:39 AM' },
@@ -36,19 +36,19 @@ const convos = {
   ],
   3: [
     { from: 'ai', text: "Hi! I'm the CareConnect intake assistant. How can we help today?", time: '10:27 AM' },
-    { from: 'cx', text: "I'm calling for my dad — he's a veteran. He needs care after a fall and I was told you work with VA benefits.", time: '10:28 AM' },
+    { from: 'cx', text: "I'm calling for my dad - he's a veteran. He needs care after a fall and I was told you work with VA benefits.", time: '10:28 AM' },
     { from: 'ai', text: "Yes, we're VA-approved! How old is your father and what city is he in?", time: '10:28 AM' },
     { from: 'cx', text: "He's 71 and in Fishers. He fell last week and needs help right away.", time: '10:29 AM' },
-    { from: 'ai', text: "Flagging this as URGENT — we prioritize post-fall placements. What services does he need? Personal care, mobility help, or medication reminders?", time: '10:29 AM' },
-    { from: 'cx', text: "All of it — he can barely walk right now and lives alone.", time: '10:30 AM' },
+    { from: 'ai', text: "Flagging this as URGENT - we prioritize post-fall placements. What services does he need? Personal care, mobility help, or medication reminders?", time: '10:29 AM' },
+    { from: 'cx', text: "All of it - he can barely walk right now and lives alone.", time: '10:30 AM' },
     { from: 'ai', text: "Understood. We'll fast-track his VA authorization and schedule an urgent assessment within 24 hours. What's your number? 🇺🇸", time: '10:30 AM' },
   ],
   4: [
     { from: 'ai', text: "Hi! CareConnect intake assistant. How can we help your family today?", time: '10:11 AM' },
     { from: 'cx', text: "Our mother is 89 and her social worker recommended you. She was just discharged from rehab.", time: '10:13 AM' },
     { from: 'ai', text: "Post-discharge placements are our specialty. What city is she in and what level of care is she coming home to?", time: '10:13 AM' },
-    { from: 'cx', text: "Noblesville. She needs full assistance — bathing, dressing, transfers, and 24-hour supervision.", time: '10:14 AM' },
-    { from: 'ai', text: "That sounds like a full care plan. How soon does she need to be home and what's the payment situation — Medicaid or private pay?", time: '10:14 AM' },
+    { from: 'cx', text: "Noblesville. She needs full assistance - bathing, dressing, transfers, and 24-hour supervision.", time: '10:14 AM' },
+    { from: 'ai', text: "That sounds like a full care plan. How soon does she need to be home and what's the payment situation - Medicaid or private pay?", time: '10:14 AM' },
     { from: 'cx', text: "She goes home Friday. She has Medicaid.", time: '10:15 AM' },
     { from: 'ai', text: "We'll move fast. I'm scheduling a priority assessment for Wednesday. Your social worker will get our care plan by Thursday. 📋", time: '10:15 AM' },
   ],
@@ -62,11 +62,11 @@ const convos = {
 };
 
 const quals = {
-  1: { contact: 'Linda Harris — 317-555-0148', recipient: 'Dorothy, 78 — Indianapolis, IN', services: 'Personal Care + Cognitive Support', hours: '20–25 hrs/week', payor: 'Medicaid (Pending)', area: 'IN COVERAGE ✓', fit: 'HIGH MATCH', urgency: 'STANDARD' },
-  2: { contact: 'Marcus Webb — 614-555-0267',  recipient: 'Ruth, 84 — Carmel, IN',          services: 'Companion + ADLs + Meals',         hours: '4–5 days/week',  payor: 'LTC Insurance',   area: 'IN COVERAGE ✓', fit: 'HIGH MATCH', urgency: 'STANDARD' },
-  3: { contact: 'Patricia Osei — 317-555-0391', recipient: 'James, 71 — Fishers, IN',       services: 'Full Personal Care + Mobility',    hours: 'Full-time TBD',  payor: 'VA Benefits',     area: 'IN COVERAGE ✓', fit: 'HIGH MATCH', urgency: 'URGENT'   },
-  4: { contact: 'Tom & Janet Riley — 765-555-0478', recipient: 'Ellen, 89 — Noblesville, IN', services: 'Full Care + 24hr Supervision',  hours: 'Full-time',      payor: 'Medicaid',        area: 'IN COVERAGE ✓', fit: 'HIGH MATCH', urgency: 'URGENT'   },
-  5: { contact: 'Sandra Kim — 317-555-0523',   recipient: 'George, 76 — Greenwood, IN',     services: 'Companion + Meals + Housekeeping', hours: '2–3 days/week',  payor: 'Private Pay',     area: 'IN COVERAGE ✓', fit: 'GOOD FIT',   urgency: 'STANDARD' },
+  1: { contact: 'Linda Harris - 317-555-0148', recipient: 'Dorothy, 78 - Indianapolis, IN', services: 'Personal Care + Cognitive Support', hours: '20–25 hrs/week', payor: 'Medicaid (Pending)', area: 'IN COVERAGE ✓', fit: 'HIGH MATCH', urgency: 'STANDARD' },
+  2: { contact: 'Marcus Webb - 614-555-0267',  recipient: 'Ruth, 84 - Carmel, IN',          services: 'Companion + ADLs + Meals',         hours: '4–5 days/week',  payor: 'LTC Insurance',   area: 'IN COVERAGE ✓', fit: 'HIGH MATCH', urgency: 'STANDARD' },
+  3: { contact: 'Patricia Osei - 317-555-0391', recipient: 'James, 71 - Fishers, IN',       services: 'Full Personal Care + Mobility',    hours: 'Full-time TBD',  payor: 'VA Benefits',     area: 'IN COVERAGE ✓', fit: 'HIGH MATCH', urgency: 'URGENT'   },
+  4: { contact: 'Tom & Janet Riley - 765-555-0478', recipient: 'Ellen, 89 - Noblesville, IN', services: 'Full Care + 24hr Supervision',  hours: 'Full-time',      payor: 'Medicaid',        area: 'IN COVERAGE ✓', fit: 'HIGH MATCH', urgency: 'URGENT'   },
+  5: { contact: 'Sandra Kim - 317-555-0523',   recipient: 'George, 76 - Greenwood, IN',     services: 'Companion + Meals + Housekeeping', hours: '2–3 days/week',  payor: 'Private Pay',     area: 'IN COVERAGE ✓', fit: 'GOOD FIT',   urgency: 'STANDARD' },
 };
 
 const pipeline = [
@@ -90,18 +90,18 @@ const tmrAssessments = [
 ];
 
 const initNotifs = [
-  { id: 1, dot: '#ef4444', text: 'New inquiry — Linda Harris | Personal Care | Indianapolis, IN',             time: '3 min ago'  },
-  { id: 2, dot: '#22c55e', text: 'Assessment booked — Dorothy H. confirmed for 2:00 PM today',               time: '5 min ago'  },
-  { id: 3, dot: '#f97316', text: 'URGENT care request — Patricia Osei | Veteran, post-fall | Fishers, IN',   time: '9 min ago'  },
-  { id: 4, dot: '#22c55e', text: 'Assessment booked — Ruth W. confirmed for 4:30 PM today',                  time: '14 min ago' },
-  { id: 5, dot: '#0891b2', text: 'New private pay lead — Sandra Kim | Greenwood, IN',                        time: '22 min ago' },
+  { id: 1, dot: '#ef4444', text: 'New inquiry - Linda Harris | Personal Care | Indianapolis, IN',             time: '3 min ago'  },
+  { id: 2, dot: '#22c55e', text: 'Assessment booked - Dorothy H. confirmed for 2:00 PM today',               time: '5 min ago'  },
+  { id: 3, dot: '#f97316', text: 'URGENT care request - Patricia Osei | Veteran, post-fall | Fishers, IN',   time: '9 min ago'  },
+  { id: 4, dot: '#22c55e', text: 'Assessment booked - Ruth W. confirmed for 4:30 PM today',                  time: '14 min ago' },
+  { id: 5, dot: '#0891b2', text: 'New private pay lead - Sandra Kim | Greenwood, IN',                        time: '22 min ago' },
 ];
 
 const newLeadQueue = [
   { id: 6, family: 'Rachel Monroe', phone: '317-555-0601', recipient: 'Helen, 82', city: 'Plainfield, IN', source: 'Referral', time: 'Just now', status: 'new', urgent: false },
 ];
 const newNotifQueue = [
-  { id: 6, dot: '#ef4444', text: 'New inquiry — Rachel Monroe | Helen, 82 | Plainfield, IN', time: 'Just now' },
+  { id: 6, dot: '#ef4444', text: 'New inquiry - Rachel Monroe | Helen, 82 | Plainfield, IN', time: 'Just now' },
 ];
 
 export default function CareFlow() {
@@ -147,7 +147,7 @@ export default function CareFlow() {
     const steps = [
       { delay: 500, side: 'left', type: 'system', text: 'Incoming inquiry from Linda Harris' },
       { delay: 2500, side: 'left', type: 'ai', text: 'Hi! I\'m the CareConnect intake assistant. How can we help?' },
-      { delay: 4500, side: 'left', type: 'cx', text: 'My mother needs home care — she\'s 78' },
+      { delay: 4500, side: 'left', type: 'cx', text: 'My mother needs home care - she\'s 78' },
       { delay: 6500, side: 'left', type: 'ai', text: 'What services does she need?' },
       { delay: 8500, side: 'left', type: 'cx', text: 'Bathing, dressing, and someone patient for her confusion' },
       { delay: 10500, side: 'left', type: 'ai', text: 'Great fit for our services. Booking a free assessment now ✓' },
@@ -179,7 +179,7 @@ export default function CareFlow() {
   return (
     <>
       <Head>
-        <title>CareFlow AI — Comfort at Home Care</title>
+        <title>CareFlow AI - Comfort at Home Care</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
@@ -313,7 +313,7 @@ export default function CareFlow() {
           <div className="cf-logo-icon">🏠</div>
           <div className="cf-logo-text">Care<span>Flow</span> AI</div>
         </div>
-        <div className="cf-client">Comfort at Home Care — Indianapolis, IN</div>
+        <div className="cf-client">Comfort at Home Care - Indianapolis, IN</div>
         <div className="cf-right">
           <div className="live-badge"><div className="live-dot" /> LIVE</div>
           <div className="user-chip">CH</div>
@@ -321,9 +321,38 @@ export default function CareFlow() {
       </header>
 
       <div className="cf-body">
-        <div style={{ marginBottom: '20px' }}>
-          <button onClick={() => setShowWorkflow(true)} style={{ background: '#0d7a5f', color: 'white', border: 'none', padding: '12px 24px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s' }} onMouseEnter={(e) => e.target.style.background = '#0a5a4a'} onMouseLeave={(e) => e.target.style.background = '#0d7a5f'}>▶ Start Live Workflow Demo</button>
+        {/* Above Demo CTA */}
+        <div style={{ background: '#f0fdf8', border: '1px solid #d1fae5', borderRadius: '12px', padding: '20px 24px', marginBottom: '24px', textAlign: 'center' }}>
+          <div style={{ fontSize: '16px', fontWeight: '700', color: '#0d7a5f', marginBottom: '6px' }}>See AI in Action</div>
+          <div style={{ fontSize: '14px', color: '#047857', marginBottom: '16px' }}>Watch how AI captures family inquiries, qualifies leads, and books assessments automatically-in real time.</div>
+          <button
+            onClick={() => setShowWorkflow(true)}
+            style={{ background: '#0d7a5f', color: 'white', border: 'none', padding: '12px 32px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s' }}
+            onMouseEnter={(e) => e.target.style.background = '#0a5a4a'}
+            onMouseLeave={(e) => e.target.style.background = '#0d7a5f'}
+          >
+            ▶ Start Live Workflow Demo
+          </button>
         </div>
+        {/* Revenue Impact Card */}
+        <div style={{ background: 'linear-gradient(135deg, #ecfdf5 0%, #f0fdf8 100%)', border: '2px solid #0d7a5f', borderRadius: '12px', padding: '24px', marginBottom: '24px', textAlign: 'center' }}>
+          <div style={{ fontSize: '14px', fontWeight: '700', color: '#0d7a5f', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px' }}>💰 Revenue Impact (Daily)</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+            <div style={{ padding: '16px', background: 'white', borderRadius: '8px', border: '1px solid #d1fae5' }}>
+              <div style={{ fontSize: '24px', fontWeight: '700', color: '#0d7a5f', marginBottom: '4px' }}>12</div>
+              <div style={{ fontSize: '12px', color: '#047857' }}>Leads Captured</div>
+            </div>
+            <div style={{ padding: '16px', background: 'white', borderRadius: '8px', border: '1px solid #d1fae5' }}>
+              <div style={{ fontSize: '24px', fontWeight: '700', color: '#0d7a5f', marginBottom: '4px' }}>5</div>
+              <div style={{ fontSize: '12px', color: '#047857' }}>Assessments Booked</div>
+            </div>
+            <div style={{ padding: '16px', background: 'white', borderRadius: '8px', border: '1px solid #d1fae5' }}>
+              <div style={{ fontSize: '24px', fontWeight: '700', color: '#0d7a5f', marginBottom: '4px' }}>$8,400</div>
+              <div style={{ fontSize: '12px', color: '#047857' }}>Monthly Opportunity</div>
+            </div>
+          </div>
+        </div>
+
         {showWorkflow && (
           <div className="workflow-overlay" onClick={() => setShowWorkflow(false)}>
             <div className="workflow-container" onClick={(e) => e.stopPropagation()}>
@@ -460,7 +489,7 @@ export default function CareFlow() {
           <div className="panel">
             <div className="panel-header">
               <span className="panel-title">Care Pipeline</span>
-              <span style={{ fontSize: 12, color: '#64748b' }}>Live — updates automatically</span>
+              <span style={{ fontSize: 12, color: '#64748b' }}>Live - updates automatically</span>
             </div>
             <div style={{ padding: '14px 16px' }}>
               <div className="pipeline-grid">
@@ -536,6 +565,13 @@ export default function CareFlow() {
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Below Demo CTA */}
+        <div style={{ background: 'linear-gradient(135deg, #f0fdf8 0%, #ecfdf5 100%)', border: '1px solid #d1fae5', borderRadius: '12px', padding: '32px 24px', marginTop: '32px', textAlign: 'center' }}>
+          <div style={{ fontSize: '18px', fontWeight: '700', color: '#0d7a5f', marginBottom: '8px' }}>Ready to Automate Your Intake Process?</div>
+          <div style={{ fontSize: '14px', color: '#047857', marginBottom: '20px', lineHeight: '1.5' }}>This demo shows what's possible with AI. Get a customized system built for your agency's unique workflows and requirements.</div>
+          <a href="https://calendly.com/kimmycombs" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', background: '#0d7a5f', color: 'white', border: 'none', padding: '14px 36px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', textDecoration: 'none', transition: 'background 0.2s' }} onMouseEnter={(e) => e.target.style.background = '#0a5a4a'} onMouseLeave={(e) => e.target.style.background = '#0d7a5f'}>📅 Book a Free Strategy Call</a>
         </div>
       </div>
     </>

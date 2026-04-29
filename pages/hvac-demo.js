@@ -8,15 +8,15 @@ const conversation = [
   { from: 'user', text: "Sarah Johnson" },
   { from: 'bot',  text: "Hi Sarah! What city are you located in?" },
   { from: 'user', text: "Phoenix, AZ" },
-  { from: 'bot',  text: "Got it. Can you describe the issue? For example — not cooling, making noise, or not turning on at all?" },
+  { from: 'bot',  text: "Got it. Can you describe the issue? For example - not cooling, making noise, or not turning on at all?" },
   { from: 'user', text: "It's running but blowing hot air. It's 104 degrees outside." },
-  { from: 'bot',  text: "Understood — that sounds like a refrigerant or compressor issue. How urgent is this for you?" },
+  { from: 'bot',  text: "Understood - that sounds like a refrigerant or compressor issue. How urgent is this for you?" },
   { from: 'user', text: "Pretty urgent, I have two kids at home." },
   { from: 'bot',  text: "Marking this as high priority. Our next available slot is today between 2–5 PM. Does that work?" },
   { from: 'user', text: "Yes, that works perfectly!" },
   { from: 'bot',  text: "Great! I've sent your appointment request to our dispatch team. A technician will call you within 20 minutes to confirm. You'll also get a text with their name and photo. Is there anything else you need?" },
   { from: 'user', text: "No that's everything, thank you!" },
-  { from: 'bot',  text: "You're welcome Sarah! Stay cool — help is on the way. 🏠❄️" },
+  { from: 'bot',  text: "You're welcome Sarah! Stay cool - help is on the way. 🏠❄️" },
 ];
 
 const analytics = [
@@ -116,7 +116,7 @@ export default function HvacDemo() {
   return (
     <>
       <Head>
-        <title>HVAC AI Chatbot Demo — AI Business Professionals</title>
+        <title>HVAC AI Chatbot Demo - AI Business Professionals</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
@@ -427,12 +427,41 @@ export default function HvacDemo() {
         <div className="demo-badge">Interactive Demo</div>
         <h1>AI Chatbot Demo for HVAC Businesses</h1>
         <p>
-          This bot answers questions 24/7, captures lead details, and books appointments — so you never miss a call again.
+          This bot answers questions 24/7, captures lead details, and books appointments - so you never miss a call again.
         </p>
       </div>
 
-      <div style={{ marginBottom: '20px', textAlign: 'center', paddingTop: '20px' }}>
-        <button onClick={() => setShowWorkflow(true)} style={{ background: '#2563eb', color: 'white', border: 'none', padding: '12px 24px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s' }} onMouseEnter={(e) => e.target.style.background = '#1d4ed8'} onMouseLeave={(e) => e.target.style.background = '#2563eb'}>▶ Start Live Workflow Demo</button>
+      {/* Above Demo CTA */}
+      <div style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '12px', padding: '20px 24px', marginBottom: '24px', textAlign: 'center', marginTop: '20px' }}>
+        <div style={{ fontSize: '16px', fontWeight: '700', color: '#2563eb', marginBottom: '6px' }}>See AI in Action</div>
+        <div style={{ fontSize: '14px', color: '#1e40af', marginBottom: '16px' }}>Watch the bot answer customer questions, qualify leads, and book appointments-all in real time.</div>
+        <button
+          onClick={() => setShowWorkflow(true)}
+          style={{ background: '#2563eb', color: 'white', border: 'none', padding: '12px 32px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s' }}
+          onMouseEnter={(e) => e.target.style.background = '#1d4ed8'}
+          onMouseLeave={(e) => e.target.style.background = '#2563eb'}
+        >
+          ▶ Start Live Workflow Demo
+        </button>
+      </div>
+
+      {/* Revenue Impact Card */}
+      <div style={{ background: 'linear-gradient(135deg, #eff6ff 0%, #f3f8ff 100%)', border: '2px solid #2563eb', borderRadius: '12px', padding: '24px', marginBottom: '24px', textAlign: 'center', marginTop: '24px' }}>
+        <div style={{ fontSize: '14px', fontWeight: '700', color: '#2563eb', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px' }}>💰 Revenue Impact (Monthly)</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+          <div style={{ padding: '16px', background: 'white', borderRadius: '8px', border: '1px solid #bfdbfe' }}>
+            <div style={{ fontSize: '24px', fontWeight: '700', color: '#2563eb', marginBottom: '4px' }}>180+</div>
+            <div style={{ fontSize: '12px', color: '#1e40af' }}>Inbound Leads</div>
+          </div>
+          <div style={{ padding: '16px', background: 'white', borderRadius: '8px', border: '1px solid #bfdbfe' }}>
+            <div style={{ fontSize: '24px', fontWeight: '700', color: '#2563eb', marginBottom: '4px' }}>65</div>
+            <div style={{ fontSize: '12px', color: '#1e40af' }}>Bookings Captured</div>
+          </div>
+          <div style={{ padding: '16px', background: 'white', borderRadius: '8px', border: '1px solid #bfdbfe' }}>
+            <div style={{ fontSize: '24px', fontWeight: '700', color: '#2563eb', marginBottom: '4px' }}>$24,700</div>
+            <div style={{ fontSize: '12px', color: '#1e40af' }}>Revenue Generated</div>
+          </div>
+        </div>
       </div>
 
       {showWorkflow && (
@@ -454,7 +483,7 @@ export default function HvacDemo() {
       )}
 
       <div className="main">
-        {/* LEFT — Chat */}
+        {/* LEFT - Chat */}
         <div>
           <div className="chat-panel">
             <div className="chat-top-bar">
@@ -504,7 +533,7 @@ export default function HvacDemo() {
           </div>
         </div>
 
-        {/* RIGHT — Lead Card + Analytics + CTA */}
+        {/* RIGHT - Lead Card + Analytics + CTA */}
         <div className="right-col">
           <div className={`lead-card ${leadVisible ? 'visible' : 'hidden'}`}>
             <div className="lead-card-header">
@@ -565,10 +594,10 @@ export default function HvacDemo() {
           </div>
 
           <div className="cta-section">
-            <h3>Want This for Your Business?</h3>
-            <p>We build and deploy custom AI chatbots like this in under 2 weeks.</p>
-            <a href="https://forms.gle/fjWE9GfZfx3wPGRj8" target="_blank" rel="noopener noreferrer" className="cta-btn">
-              Book an AI Demo →
+            <h3>Ready to Automate Your Lead Capture?</h3>
+            <p>This demo shows what's possible. Get a customized AI chatbot built for your HVAC business in 2 weeks.</p>
+            <a href="https://calendly.com/kimmycombs" target="_blank" rel="noopener noreferrer" className="cta-btn">
+              📅 Book a Free Strategy Call →
             </a>
           </div>
         </div>
